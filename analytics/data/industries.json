@@ -1,0 +1,97 @@
+{
+  "tsic-a": {
+    "zh": "农林牧渔",
+    "en": "Agriculture, Forestry & Fishing",
+    "th": "เกษตรกรรม การป่าไม้ และการประมง"
+  },
+  "tsic-b": {
+    "zh": "采矿业",
+    "en": "Mining & Quarrying",
+    "th": "การทำเหมืองแร่และเหมืองหิน"
+  },
+  "tsic-c": {
+    "zh": "制造业",
+    "en": "Manufacturing",
+    "th": "การผลิต"
+  },
+  "tsic-d": {
+    "zh": "电力燃气供应",
+    "en": "Electricity & Gas Supply",
+    "th": "ไฟฟ้า ก๊าซ ไอน้ำ และระบบปรับอากาศ"
+  },
+  "tsic-e": {
+    "zh": "供水及废弃物管理",
+    "en": "Water Supply & Waste Management",
+    "th": "การจัดหาน้ำ การจัดการน้ำเสียและของเสีย"
+  },
+  "tsic-f": {
+    "zh": "建筑业",
+    "en": "Construction",
+    "th": "การก่อสร้าง"
+  },
+  "tsic-g": {
+    "zh": "批发与零售",
+    "en": "Wholesale & Retail Trade",
+    "th": "การขายส่งและการขายปลีก การซ่อมยานยนต์และจักรยานยนต์"
+  },
+  "tsic-h": {
+    "zh": "运输仓储",
+    "en": "Transportation & Storage",
+    "th": "การขนส่งและสถานที่เก็บสินค้า"
+  },
+  "tsic-i": {
+    "zh": "住宿与餐饮",
+    "en": "Accommodation & Food Service",
+    "th": "ที่พักแรมและบริการด้านอาหาร"
+  },
+  "tsic-j": {
+    "zh": "信息与通信",
+    "en": "Information & Communication",
+    "th": "ข้อมูลข่าวสารและการสื่อสาร"
+  },
+  "tsic-k": {
+    "zh": "金融与保险",
+    "en": "Finance & Insurance",
+    "th": "กิจกรรมทางการเงินและการประกันภัย"
+  },
+  "tsic-l": {
+    "zh": "房地产",
+    "en": "Real Estate",
+    "th": "กิจกรรมด้านอสังหาริมทรัพย์"
+  },
+  "tsic-m": {
+    "zh": "专业科技服务",
+    "en": "Professional, Scientific & Technical",
+    "th": "กิจกรรมวิชาชีพ วิทยาศาสตร์ และกิจกรรมทางวิชาการ"
+  },
+  "tsic-n": {
+    "zh": "行政与支持服务",
+    "en": "Administrative & Support Service",
+    "th": "กิจกรรมการบริหารและบริการสนับสนุน"
+  },
+  "tsic-p": {
+    "zh": "教育",
+    "en": "Education",
+    "th": "การศึกษา"
+  },
+  "tsic-q": {
+    "zh": "卫生与社会工作",
+    "en": "Health & Social Work",
+    "th": "กิจกรรมด้านสุขภาพและงานสังคมสงเคราะห์"
+  },
+  "tsic-r": {
+    "zh": "文化娱乐",
+    "en": "Arts, Entertainment & Recreation",
+    "th": "ศิลปะ ความบันเทิงและนันทนาการ"
+  },
+  "tsic-s": {
+    "zh": "其他服务业",
+    "en": "Other Service Activities",
+    "th": "กิจกรรมการบริการด้านอื่น ๆ"
+  },
+  "tsic-t": {
+    "zh": "家庭雇佣活动",
+    "en": "Household Employment Activities",
+    "th": "กิจกรรมการจ้างงานในครัวเรือน"
+  }
+}

@@ -1,0 +1,46 @@
+# 打包上线时排除清单,给 tar -X 用: tar -czf pkg.tar.gz -X ops/deploy/package-exclude.txt dbd-thai/
+#
+# 排除原则:
+# 1. Docker 专属文件——生产走 systemd + 裸 node/二进制,不用 docker,这些文件带过去没用。
+# 2. 本地历史备份/压缩包——占体积且不该被当"源码"覆盖生产(尤其那 2 份 woocms.bak.*)。
+# 3. 各种 .bak/.src 历史遗留文件——编辑器/脚本改动时手工留的备份,不是当前生效代码。
+# 4. node_modules/.venv/__pycache__——运行时依赖,服务器上用 package-lock.json/requirements.txt
+#    重装(npm ci / pip install),不能带旧的过去(平台可能不同:本机 arm64 mac vs 服务器 x86_64 linux)。
+# 5. 含真实密钥的 .env——本地这些是 docker 专用值(0.0.0.0 绑定、host.docker.internal 等),
+#    生产必须用 .env.dist/.env.example 模板重新配置真实生产密钥,不能把本地 .env 直接搬过去。
+# 6. ai/.cache——642MB 的 Puppeteer/Chrome 下载缓存,生产用系统包装 chromium,用不上。
+# 7. sync/i18n_seed——293MB 一次性历史种子数据,推测已灌过库;如需要重新跑种子导入,
+#    请单独用 rsync 传这个目录,不列入常规部署包(常规部署不需要,大多数上线不用管这条)。
+# 8. .claude/——Claude Code 会话配置,与运行时无关。
+
+dbd-thai/docker-compose.yml
+dbd-thai/*/Dockerfile
+dbd-thai/*/.dockerignore
+dbd-thai/admin/woocms.bak.*
+dbd-thai/admin/woocms-v1.0.43-linux-amd64.tar.gz
+dbd-thai/admin/web.bak.*.tar.gz
+dbd-thai/*.bak
+dbd-thai/*.bak.*
+dbd-thai/*/*.bak
+dbd-thai/*/*.bak.*
+dbd-thai/*/*/*.bak
+dbd-thai/*/*/*.bak.*
+dbd-thai/*/*/*/*.bak
+dbd-thai/*/*/*/*.bak.*
+dbd-thai/*/*/*/*/*.bak
+dbd-thai/*/*/*/*/*.bak.*
+*.src
+node_modules
+.cache
+.venv-import
+__pycache__
+.DS_Store
+dbd-thai/.claude
+dbd-thai/admin/.env
+dbd-thai/ai/.env
+dbd-thai/sync/.env
+dbd-thai/sync/.env.localdb
+dbd-thai/directors/.env
+dbd-thai/resolver/.env
+dbd-thai/analytics/.env
+dbd-thai/sync/i18n_seed

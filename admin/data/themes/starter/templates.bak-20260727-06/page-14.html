@@ -1,0 +1,25 @@
+<div class="starter-theme biz-auth-standalone" data-auth-page="forgot">
+  <main class="auth-standalone">
+    <div class="auth-card">
+      <a class="auth-brand" href="/" aria-label="{{ t "BizThai home" }}">
+        <span class="auth-brand__mark" aria-hidden="true">B</span>
+        <span class="auth-brand__text">BizThai</span>
+      </a>
+
+      <h1 class="auth-card__title"><wc-t>Reset your password</wc-t></h1>
+      <p class="auth-card__sub"><wc-t>Enter the email for your account and we'll send a password reset link.</wc-t></p>
+
+      <div class="auth-alert" data-auth-alert hidden></div>
+
+      <form class="auth-form" data-auth-form novalidate>
+        <label class="auth-field">
+          <span class="auth-field__label"><wc-t>Email</wc-t></span>
+          <input type="email" name="email" autocomplete="email" required placeholder="{{ t "you@example.com" }}">
+        </label>
+        <button type="submit" class="auth-submit" data-auth-submit><wc-t>Send reset link</wc-t></button>
+      </form>
+
+      <p class="auth-foot"><a class="auth-link" href="/login"><wc-t>Back to sign in</wc-t></a></p>
+    </div>
+  </main>
+</div>

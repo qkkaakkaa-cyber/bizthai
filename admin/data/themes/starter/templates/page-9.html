@@ -1,0 +1,69 @@
+<div class="starter-theme biz-report-page biz-analytics biz-ranking-summary" data-biz-analytics="summary">
+  <wc-slot name="header"></wc-slot>
+  <main class="starter-main">
+    <section class="biz-report-hero" aria-labelledby="ranking-summary-title">
+      <div>
+        <p class="biz-report-kicker"><wc-t>Regional Summary</wc-t></p>
+        <h1 id="ranking-summary-title"><wc-t>Regional Rankings Summary</wc-t></h1>
+        <p class="biz-report-lead"><wc-t>Browse Thailand's companies region by region — pick a province, drill into its districts, and open any district for its full company report.</wc-t></p>
+        <form class="biz-report-search" action="/search" method="get" role="search">
+          <label><span class="screen-reader-text"><wc-t>Search regional rankings</wc-t></span><input name="q" type="search" placeholder="{{ t "Province, industry, company or registration number" }}" autocomplete="off" /></label>
+          <button type="submit"><wc-t>Search</wc-t></button>
+        </form>
+        <div class="biz-report-toolbar">
+          <a href="/regional-rankings"><wc-t>Regional Ranking</wc-t></a>
+          <a href="/business-regional-investment-map"><wc-t>Regional Map</wc-t></a>
+          <a href="/business-industry-overview"><wc-t>Industries</wc-t></a>
+        </div>
+        <p class="biz-an-refreshed" data-biz-refreshed></p>
+      </div>
+      <aside class="biz-report-hero__aside">
+        <div class="biz-report-stat"><strong><wc-data source="taxonomy:province" field="_count"></wc-data></strong><span><wc-t>Province and district terms</wc-t></span></div>
+        <div class="biz-report-stat"><strong><wc-data source="cpt:thaicompany" field="_count"></wc-data></strong><span><wc-t>Company records</wc-t></span></div>
+      </aside>
+    </section>
+
+    <div data-region-browser></div>
+
+    <div data-region-summary>
+    <div class="biz-an-status" data-biz-status>Loading analytics…</div>
+
+    <section class="biz-an-metrics-wrap">
+      <div class="biz-an-metrics" data-biz-fill="metrics" data-tiles="total,capital,avg,foreign"></div>
+    </section>
+
+    <section class="biz-report-section">
+      <div class="biz-report-section__head"><div>
+        <h2><wc-t>National registry snapshot</wc-t></h2>
+        <p><wc-t>Headline totals for the whole company registry, with the leading province and foreign-capital share.</wc-t></p>
+      </div></div>
+      <div data-biz-fill="summarySpotlight"></div>
+    </section>
+
+    <section class="biz-report-section">
+      <div class="biz-report-section__head"><div>
+        <h2><wc-t>Province ranking by registered capital</wc-t></h2>
+        <p><wc-t>Top provinces by total registered capital and company count.</wc-t></p>
+      </div></div>
+      <div class="biz-report-panel biz-newchart-panel"><div data-biz-fill="provinceChart"></div></div>
+    </section>
+
+    <section class="biz-report-section">
+      <div class="biz-report-section__head"><div>
+        <h2><wc-t>Industry sections by company count</wc-t></h2>
+        <p><wc-t>TSIC top-level sections across the company index.</wc-t></p>
+      </div></div>
+      <div class="biz-report-panel biz-newchart-panel"><div data-biz-fill="industryChart"></div></div>
+    </section>
+
+    <section class="biz-report-section">
+      <div class="biz-report-section__head"><div>
+        <h2><wc-t>Registration status</wc-t></h2>
+        <p><wc-t>Operating vs other states.</wc-t></p>
+      </div></div>
+      <div class="biz-report-panel"><div class="biz-an-pad" data-biz-fill="statuses"></div></div>
+    </section>
+    </div>
+  </main>
+  <wc-slot name="footer"></wc-slot>
+</div>

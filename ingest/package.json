@@ -1,0 +1,17 @@
+{
+  "name": "dbd-ingest",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "BizThai/DBD 增量同步接收端(内部写入口 sidecar,直写 woocms.cms_content_entries.meta_json)",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "pg": "^8.13.0"
+  }
+}

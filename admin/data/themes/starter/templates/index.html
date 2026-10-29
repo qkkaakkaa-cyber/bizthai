@@ -1,0 +1,342 @@
+<div class="starter-theme starter-front">
+  <wc-slot name="header"></wc-slot>
+  <link rel="stylesheet" href="/theme-assets/starter/home.min.css?v=a6846a413e">
+
+  <main class="starter-main">
+    <section class="starter-quick-tools" aria-label="{{ t "Homepage shortcuts" }}">
+      <a class="starter-quick-tool starter-quick-tool--dir" href="/companies">
+        <span class="starter-quick-tool__title"><wc-t>Company Directory</wc-t></span>
+        <span class="starter-quick-tool__desc"><wc-t>Browse every registered company</wc-t></span>
+      </a>
+      <a class="starter-quick-tool starter-quick-tool--rank" href="/regional-rankings">
+        <span class="starter-quick-tool__title"><wc-t>Company Rankings</wc-t></span>
+        <span class="starter-quick-tool__desc"><wc-t>Top firms by region and revenue</wc-t></span>
+      </a>
+      <a class="starter-quick-tool starter-quick-tool--foreign" href="/business-foreign-capital">
+        <span class="starter-quick-tool__title"><wc-t>Foreign Investment</wc-t></span>
+        <span class="starter-quick-tool__desc"><wc-t>Companies backed by foreign capital</wc-t></span>
+      </a>
+      <a class="starter-quick-tool starter-quick-tool--new" href="/business-new-registrations">
+        <span class="starter-quick-tool__title"><wc-t>New Companies</wc-t></span>
+        <span class="starter-quick-tool__desc"><wc-t>Latest business registrations</wc-t></span>
+      </a>
+      <a class="starter-quick-tool starter-quick-tool--industry" href="/business-industry-overview">
+        <span class="starter-quick-tool__title"><wc-t>Industry Analysis</wc-t></span>
+        <span class="starter-quick-tool__desc"><wc-t>Trends and breakdowns by sector</wc-t></span>
+      </a>
+      <a class="starter-quick-tool starter-quick-tool--region" href="/business-regional-investment-map">
+        <span class="starter-quick-tool__title"><wc-t>Regional Analysis</wc-t></span>
+        <span class="starter-quick-tool__desc"><wc-t>Investment mapped across provinces</wc-t></span>
+      </a>
+    </section>
+
+    <section class="starter-promo" aria-labelledby="starter-promo-title">
+      <div class="starter-promo__head">
+        <div class="starter-promo__head-copy">
+          <span class="starter-promo__kicker"><wc-t>Why BizThai</wc-t></span>
+          <h1 id="starter-promo-title"><wc-t>Your hub for Thai company research</wc-t></h1>
+          <p><wc-t>Verified registration records, trilingual access and investment signals — all in one place.</wc-t></p>
+        </div>
+      </div>
+      <div class="starter-promo__grid">
+        <article class="starter-promo__card starter-promo__card--coverage">
+          <span class="starter-promo__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><ellipse class="promo-fill" cx="12" cy="6" rx="7.5" ry="3"/><path d="M4.5 6v12c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3V6"/><path d="M4.5 12c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3"/></svg>
+          </span>
+          <h3 class="starter-promo__title"><wc-t>Full registration coverage</wc-t></h3>
+          <p class="starter-promo__desc"><wc-t>Verified records for every company registered in Thailand, sourced directly from DBD DataWarehouse+.</wc-t></p>
+        </article>
+        <article class="starter-promo__card starter-promo__card--lang">
+          <span class="starter-promo__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle class="promo-fill" cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.7 2.6 2.7 15.4 0 18"/><path d="M12 3c-2.7 2.6-2.7 15.4 0 18"/></svg>
+          </span>
+          <h3 class="starter-promo__title"><wc-t>Trilingual search</wc-t></h3>
+          <p class="starter-promo__desc"><wc-t>Find and read company names, locations and business activities in Thai, English and Chinese.</wc-t></p>
+        </article>
+        <article class="starter-promo__card starter-promo__card--signals">
+          <span class="starter-promo__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 4v16h16"/><rect class="promo-fill" x="7.5" y="12" width="3" height="5" rx="1"/><rect class="promo-fill" x="13.5" y="9" width="3" height="8" rx="1"/><path d="M7 10.5l3.5-3 3 2L19 5"/></svg>
+          </span>
+          <h3 class="starter-promo__title"><wc-t>Capital & financial signals</wc-t></h3>
+          <p class="starter-promo__desc"><wc-t>Spot foreign-capital, nationality, registered-capital and revenue indicators for faster investment screening.</wc-t></p>
+        </article>
+        <article class="starter-promo__card starter-promo__card--owners">
+          <span class="starter-promo__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.5"/><circle class="promo-fill" cx="5" cy="18.5" r="2.5"/><circle class="promo-fill" cx="19" cy="18.5" r="2.5"/><path d="M10.6 6.7 6.4 16.3"/><path d="M13.4 6.7l4.2 9.6"/><path d="M7.5 18.5h9"/></svg>
+          </span>
+          <h3 class="starter-promo__title"><wc-t>Director & ownership links</wc-t></h3>
+          <p class="starter-promo__desc"><wc-t>Trace shared directors and ownership ties across companies for partner and due-diligence checks.</wc-t></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="xhub xihub" aria-labelledby="xihub-title" data-xihub>
+      <div class="xhub__inner">
+        <div class="xhub__head">
+          <div class="xhub__copy">
+            <span class="xhub__kicker" data-xihub-kicker>Industry Classification</span>
+            <h2 class="xhub__title" id="xihub-title" data-xihub-title>Explore Companies by Industry</h2>
+            <p class="xhub__desc" data-xihub-desc>Browse all registered Thai businesses across major TSIC industry categories, sourced from official DBD DataWarehouse+ records.</p>
+          </div>
+          <a class="xhub__viewall" href="/t/industry" data-xihub-viewall>
+            <span>View all industries</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+        <div class="xihub-grid" data-xihub-grid>
+          <span class="xihub-card xihub-card--skel" aria-hidden="true"></span>
+          <span class="xihub-card xihub-card--skel" aria-hidden="true"></span>
+          <span class="xihub-card xihub-card--skel" aria-hidden="true"></span>
+          <span class="xihub-card xihub-card--skel" aria-hidden="true"></span>
+          <span class="xihub-card xihub-card--skel" aria-hidden="true"></span>
+          <span class="xihub-card xihub-card--skel" aria-hidden="true"></span>
+          <span class="xihub-card xihub-card--skel" aria-hidden="true"></span>
+          <span class="xihub-card xihub-card--skel" aria-hidden="true"></span>
+          <span class="xihub-card xihub-card--skel" aria-hidden="true"></span>
+          <span class="xihub-card xihub-card--skel" aria-hidden="true"></span>
+          <span class="xihub-card xihub-card--skel" aria-hidden="true"></span>
+          <span class="xihub-card xihub-card--skel" aria-hidden="true"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="xhub xphub" aria-labelledby="xphub-title" data-xphub>
+      <div class="xhub__inner">
+        <div class="xhub__head">
+          <div class="xhub__copy">
+            <span class="xhub__kicker" data-xphub-kicker>Hot Investment Provinces</span>
+            <h2 class="xhub__title" id="xphub-title" data-xphub-title>Thailand's Top Investment Provinces</h2>
+            <p class="xhub__desc" data-xphub-desc>Key provinces driving Thailand's economy — from Bangkok's financial centre to the EEC industrial corridor and beyond.</p>
+          </div>
+          <a class="xhub__viewall" href="/companies" data-xphub-viewall>
+            <span>Browse all provinces</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+        <div class="xphub-grid">
+
+          <a class="xphub-card" href="/companies?province=bangkok" style="--pc:#7901b2">
+            <div class="xphub-card__header">
+              <div class="xphub-card__region" data-en="Central Region" data-th="ภาคกลาง" data-zh="中部地区"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Central Region</div>
+              <div class="xphub-card__name" data-en="Bangkok" data-th="กรุงเทพมหานคร" data-zh="曼谷">Bangkok</div>
+              <div class="xphub-card__alts" data-en="กรุงเทพมหานคร" data-th="Bangkok" data-zh="Bangkok · กรุงเทพมหานคร">กรุงเทพมหานคร</div>
+            </div>
+            <div class="xphub-card__body">
+              <p class="xphub-card__desc" data-en="Thailand's commercial capital with over 700,000 registered businesses, home to the Stock Exchange of Thailand and a thriving startup ecosystem." data-th="เมืองหลวงเชิงพาณิชย์ของไทย มีบริษัทจดทะเบียนกว่า 700,000 แห่ง ที่ตั้งของตลาดหลักทรัพย์และระบบนิเวศสตาร์ทอัพที่เข้มแข็ง" data-zh="泰国商业首都，拥有逾70万家注册企业、泰国证券交易所及蓬勃发展的创业生态系统">Thailand's commercial capital with over 700,000 registered businesses, home to the Stock Exchange of Thailand and a thriving startup ecosystem.</p>
+              <div class="xphub-card__tags">
+                <span class="xphub-card__tag" data-en="Finance" data-th="การเงิน" data-zh="金融">Finance</span>
+                <span class="xphub-card__tag" data-en="Commerce" data-th="การค้า" data-zh="商业">Commerce</span>
+                <span class="xphub-card__tag" data-en="Real Estate" data-th="อสังหาริมทรัพย์" data-zh="房地产">Real Estate</span>
+                <span class="xphub-card__tag" data-en="Technology" data-th="เทคโนโลยี" data-zh="科技">Technology</span>
+              </div>
+            </div>
+            <div class="xphub-card__foot"><span class="xphub-card__explore"><span data-en="Explore companies" data-th="สำรวจบริษัท" data-zh="浏览企业">Explore companies</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+          </a>
+
+          <a class="xphub-card" href="/companies?province=chonburi" style="--pc:#1d6ef5">
+            <div class="xphub-card__header">
+              <div class="xphub-card__region" data-en="Eastern Region" data-th="ภาคตะวันออก" data-zh="东部地区"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Eastern Region</div>
+              <div class="xphub-card__name" data-en="Chonburi" data-th="ชลบุรี" data-zh="春武里">Chonburi</div>
+              <div class="xphub-card__alts" data-en="ชลบุรี" data-th="Chonburi" data-zh="Chonburi · ชลบุรี">ชลบุรี</div>
+            </div>
+            <div class="xphub-card__body">
+              <p class="xphub-card__desc" data-en="Heart of the Eastern Economic Corridor (EEC), hosting major industrial estates and a key hub for automotive, electronics and logistics industries." data-th="หัวใจของเขตพัฒนาพิเศษภาคตะวันออก (EEC) มีนิคมอุตสาหกรรมขนาดใหญ่ เป็นศูนย์กลางอุตสาหกรรมยานยนต์ อิเล็กทรอนิกส์ และโลจิสติกส์" data-zh="东部经济走廊（EEC）核心地带，拥有大型工业园区，是汽车、电子和物流行业的重要枢纽">Heart of the Eastern Economic Corridor (EEC), hosting major industrial estates and a key hub for automotive, electronics and logistics industries.</p>
+              <div class="xphub-card__tags">
+                <span class="xphub-card__tag" data-en="EEC Zone" data-th="เขต EEC" data-zh="EEC区">EEC Zone</span>
+                <span class="xphub-card__tag" data-en="Industrial" data-th="อุตสาหกรรม" data-zh="工业">Industrial</span>
+                <span class="xphub-card__tag" data-en="Automotive" data-th="ยานยนต์" data-zh="汽车">Automotive</span>
+                <span class="xphub-card__tag" data-en="Electronics" data-th="อิเล็กทรอนิกส์" data-zh="电子">Electronics</span>
+              </div>
+            </div>
+            <div class="xphub-card__foot"><span class="xphub-card__explore"><span data-en="Explore companies" data-th="สำรวจบริษัท" data-zh="浏览企业">Explore companies</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+          </a>
+
+          <a class="xphub-card" href="/companies?province=rayong" style="--pc:#0ca678">
+            <div class="xphub-card__header">
+              <div class="xphub-card__region" data-en="Eastern Region" data-th="ภาคตะวันออก" data-zh="东部地区"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Eastern Region</div>
+              <div class="xphub-card__name" data-en="Rayong" data-th="ระยอง" data-zh="罗勇">Rayong</div>
+              <div class="xphub-card__alts" data-en="ระยอง" data-th="Rayong" data-zh="Rayong · ระยอง">ระยอง</div>
+            </div>
+            <div class="xphub-card__body">
+              <p class="xphub-card__desc" data-en="Thailand's petrochemical capital and EEC anchor province, with Map Ta Phut Industrial Estate hosting major chemical, plastics and energy companies." data-th="เมืองหลวงปิโตรเคมีของไทยและจังหวัดสำคัญใน EEC นิคมอุตสาหกรรมมาบตาพุดเป็นที่ตั้งของบริษัทเคมี พลาสติก และพลังงานชั้นนำ" data-zh="泰国石化之都及EEC核心省份，马塔普特工业区汇聚众多化工、塑料和能源企业">Thailand's petrochemical capital and EEC anchor province, with Map Ta Phut Industrial Estate hosting major chemical, plastics and energy companies.</p>
+              <div class="xphub-card__tags">
+                <span class="xphub-card__tag" data-en="EEC Zone" data-th="เขต EEC" data-zh="EEC区">EEC Zone</span>
+                <span class="xphub-card__tag" data-en="Petrochemical" data-th="ปิโตรเคมี" data-zh="石化">Petrochemical</span>
+                <span class="xphub-card__tag" data-en="Manufacturing" data-th="การผลิต" data-zh="制造">Manufacturing</span>
+                <span class="xphub-card__tag" data-en="Energy" data-th="พลังงาน" data-zh="能源">Energy</span>
+              </div>
+            </div>
+            <div class="xphub-card__foot"><span class="xphub-card__explore"><span data-en="Explore companies" data-th="สำรวจบริษัท" data-zh="浏览企业">Explore companies</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+          </a>
+
+          <a class="xphub-card" href="/companies?province=chiang-mai" style="--pc:#f59e0b">
+            <div class="xphub-card__header">
+              <div class="xphub-card__region" data-en="Northern Region" data-th="ภาคเหนือ" data-zh="北部地区"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Northern Region</div>
+              <div class="xphub-card__name" data-en="Chiang Mai" data-th="เชียงใหม่" data-zh="清迈">Chiang Mai</div>
+              <div class="xphub-card__alts" data-en="เชียงใหม่" data-th="Chiang Mai" data-zh="Chiang Mai · เชียงใหม่">เชียงใหม่</div>
+            </div>
+            <div class="xphub-card__body">
+              <p class="xphub-card__desc" data-en="Northern Thailand's premier city for tourism, technology and creative industries — a thriving hub for startups, digital nomads and agricultural value-chains." data-th="เมืองสำคัญทางภาคเหนือด้านการท่องเที่ยว เทคโนโลยี และอุตสาหกรรมสร้างสรรค์ ศูนย์กลางที่เจริญรุ่งเรืองสำหรับสตาร์ทอัพและห่วงโซ่มูลค่าทางการเกษตร" data-zh="泰国北部旅游、科技和创意产业中心城市，初创企业、数字游民和农业价值链蓬勃发展">Northern Thailand's premier city for tourism, technology and creative industries — a thriving hub for startups, digital nomads and agricultural value-chains.</p>
+              <div class="xphub-card__tags">
+                <span class="xphub-card__tag" data-en="Tourism" data-th="การท่องเที่ยว" data-zh="旅游">Tourism</span>
+                <span class="xphub-card__tag" data-en="Technology" data-th="เทคโนโลยี" data-zh="科技">Technology</span>
+                <span class="xphub-card__tag" data-en="Agriculture" data-th="เกษตรกรรม" data-zh="农业">Agriculture</span>
+                <span class="xphub-card__tag" data-en="Creative" data-th="สร้างสรรค์" data-zh="创意">Creative</span>
+              </div>
+            </div>
+            <div class="xphub-card__foot"><span class="xphub-card__explore"><span data-en="Explore companies" data-th="สำรวจบริษัท" data-zh="浏览企业">Explore companies</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+          </a>
+
+          <a class="xphub-card" href="/companies?province=samut-prakan" style="--pc:#0ea5e9">
+            <div class="xphub-card__header">
+              <div class="xphub-card__region" data-en="Central Region" data-th="ภาคกลาง" data-zh="中部地区"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Central Region</div>
+              <div class="xphub-card__name" data-en="Samut Prakan" data-th="สมุทรปราการ" data-zh="北榄坡">Samut Prakan</div>
+              <div class="xphub-card__alts" data-en="สมุทรปราการ" data-th="Samut Prakan" data-zh="Samut Prakan · สมุทรปราการ">สมุทรปราการ</div>
+            </div>
+            <div class="xphub-card__body">
+              <p class="xphub-card__desc" data-en="Bangkok's gateway port province, strategically located near Suvarnabhumi Airport with major export processing zones and Laem Chabang connectivity." data-th="จังหวัดท่าเรือประตูสู่กรุงเทพฯ ตั้งอยู่ใกล้สนามบินสุวรรณภูมิ มีเขตประมวลผลการส่งออกสำคัญและการเชื่อมต่อกับแหลมฉบัง" data-zh="曼谷门户港口省份，战略性地毗邻素万那普机场，拥有主要出口加工区及林查班港连接通道">Bangkok's gateway port province, strategically located near Suvarnabhumi Airport with major export processing zones and Laem Chabang connectivity.</p>
+              <div class="xphub-card__tags">
+                <span class="xphub-card__tag" data-en="Logistics" data-th="โลจิสติกส์" data-zh="物流">Logistics</span>
+                <span class="xphub-card__tag" data-en="Port &amp; Shipping" data-th="ท่าเรือ" data-zh="港口运输">Port &amp; Shipping</span>
+                <span class="xphub-card__tag" data-en="Industrial" data-th="อุตสาหกรรม" data-zh="工业">Industrial</span>
+                <span class="xphub-card__tag" data-en="Exports" data-th="การส่งออก" data-zh="出口">Exports</span>
+              </div>
+            </div>
+            <div class="xphub-card__foot"><span class="xphub-card__explore"><span data-en="Explore companies" data-th="สำรวจบริษัท" data-zh="浏览企业">Explore companies</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+          </a>
+
+          <a class="xphub-card" href="/companies?province=pathum-thani" style="--pc:#8b5cf6">
+            <div class="xphub-card__header">
+              <div class="xphub-card__region" data-en="Central Region" data-th="ภาคกลาง" data-zh="中部地区"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Central Region</div>
+              <div class="xphub-card__name" data-en="Pathum Thani" data-th="ปทุมธานี" data-zh="北标">Pathum Thani</div>
+              <div class="xphub-card__alts" data-en="ปทุมธานี" data-th="Pathum Thani" data-zh="Pathum Thani · ปทุมธานี">ปทุมธานี</div>
+            </div>
+            <div class="xphub-card__body">
+              <p class="xphub-card__desc" data-en="Bangkok's tech and innovation hub, home to Thailand Science Park, leading universities and a growing cluster of R&amp;D centres and technology firms." data-th="ศูนย์กลางเทคโนโลยีและนวัตกรรมของกรุงเทพฯ เป็นที่ตั้งของอุทยานวิทยาศาสตร์ไทย มหาวิทยาลัยชั้นนำ และกลุ่มบริษัทวิจัยและเทคโนโลยีที่กำลังเติบโต" data-zh="曼谷科技创新中心，泰国科学园、顶尖大学及日益壮大的研发中心和科技企业集群所在地">Bangkok's tech and innovation hub, home to Thailand Science Park, leading universities and a growing cluster of R&amp;D centres and technology firms.</p>
+              <div class="xphub-card__tags">
+                <span class="xphub-card__tag" data-en="Technology" data-th="เทคโนโลยี" data-zh="科技">Technology</span>
+                <span class="xphub-card__tag" data-en="Innovation" data-th="นวัตกรรม" data-zh="创新">Innovation</span>
+                <span class="xphub-card__tag" data-en="R&amp;D" data-th="วิจัยและพัฒนา" data-zh="研发">R&amp;D</span>
+                <span class="xphub-card__tag" data-en="Industrial" data-th="อุตสาหกรรม" data-zh="工业">Industrial</span>
+              </div>
+            </div>
+            <div class="xphub-card__foot"><span class="xphub-card__explore"><span data-en="Explore companies" data-th="สำรวจบริษัท" data-zh="浏览企业">Explore companies</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+          </a>
+
+          <a class="xphub-card" href="/companies?province=nonthaburi" style="--pc:#06b6d4">
+            <div class="xphub-card__header">
+              <div class="xphub-card__region" data-en="Central Region" data-th="ภาคกลาง" data-zh="中部地区"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Central Region</div>
+              <div class="xphub-card__name" data-en="Nonthaburi" data-th="นนทบุรี" data-zh="暖武里">Nonthaburi</div>
+              <div class="xphub-card__alts" data-en="นนทบุรี" data-th="Nonthaburi" data-zh="Nonthaburi · นนทบุรี">นนทบุรี</div>
+            </div>
+            <div class="xphub-card__body">
+              <p class="xphub-card__desc" data-en="An urban extension of Bangkok, Nonthaburi is a significant commercial and healthcare hub, home to major hospitals, government agencies and service businesses." data-th="ส่วนต่อขยายเชิงเมืองของกรุงเทพฯ เป็นศูนย์กลางการพาณิชย์และสุขภาพที่สำคัญ มีโรงพยาบาลชั้นนำ หน่วยงานรัฐบาล และธุรกิจบริการ" data-zh="曼谷城市延伸区，重要的商业和医疗中心，汇聚大型医院、政府机构和服务型企业">An urban extension of Bangkok, Nonthaburi is a significant commercial and healthcare hub, home to major hospitals, government agencies and service businesses.</p>
+              <div class="xphub-card__tags">
+                <span class="xphub-card__tag" data-en="Commerce" data-th="การค้า" data-zh="商业">Commerce</span>
+                <span class="xphub-card__tag" data-en="Healthcare" data-th="สุขภาพ" data-zh="医疗">Healthcare</span>
+                <span class="xphub-card__tag" data-en="Real Estate" data-th="อสังหาริมทรัพย์" data-zh="房地产">Real Estate</span>
+                <span class="xphub-card__tag" data-en="Services" data-th="บริการ" data-zh="服务">Services</span>
+              </div>
+            </div>
+            <div class="xphub-card__foot"><span class="xphub-card__explore"><span data-en="Explore companies" data-th="สำรวจบริษัท" data-zh="浏览企业">Explore companies</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+          </a>
+
+          <a class="xphub-card" href="/companies?province=phuket" style="--pc:#f43f5e">
+            <div class="xphub-card__header">
+              <div class="xphub-card__region" data-en="Southern Region" data-th="ภาคใต้" data-zh="南部地区"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Southern Region</div>
+              <div class="xphub-card__name" data-en="Phuket" data-th="ภูเก็ต" data-zh="普吉">Phuket</div>
+              <div class="xphub-card__alts" data-en="ภูเก็ต" data-th="Phuket" data-zh="Phuket · ภูเก็ต">ภูเก็ต</div>
+            </div>
+            <div class="xphub-card__body">
+              <p class="xphub-card__desc" data-en="Thailand's premier island resort province and one of Southeast Asia's top tourism destinations — a magnet for hospitality, real estate and marine industries." data-th="จังหวัดรีสอร์ทเกาะชั้นนำของไทยและจุดหมายปลายทางการท่องเที่ยวยอดนิยมในเอเชียตะวันออกเฉียงใต้ ดึงดูดการลงทุนด้านบริการ อสังหาริมทรัพย์ และอุตสาหกรรมทางทะเล" data-zh="泰国首屈一指的岛屿度假省份，东南亚顶级旅游目的地，吸引酒店业、房地产及海洋产业投资">Thailand's premier island resort province and one of Southeast Asia's top tourism destinations — a magnet for hospitality, real estate and marine industries.</p>
+              <div class="xphub-card__tags">
+                <span class="xphub-card__tag" data-en="Tourism" data-th="การท่องเที่ยว" data-zh="旅游">Tourism</span>
+                <span class="xphub-card__tag" data-en="Hospitality" data-th="การบริการ" data-zh="酒店">Hospitality</span>
+                <span class="xphub-card__tag" data-en="Real Estate" data-th="อสังหาริมทรัพย์" data-zh="房地产">Real Estate</span>
+                <span class="xphub-card__tag" data-en="Marine" data-th="ทางทะเล" data-zh="海洋">Marine</span>
+              </div>
+            </div>
+            <div class="xphub-card__foot"><span class="xphub-card__explore"><span data-en="Explore companies" data-th="สำรวจบริษัท" data-zh="浏览企业">Explore companies</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+          </a>
+
+          <a class="xphub-card" href="/companies?province=nakhon-ratchasima" style="--pc:#10b981">
+            <div class="xphub-card__header">
+              <div class="xphub-card__region" data-en="Northeastern Region" data-th="ภาคอีสาน" data-zh="东北地区"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Northeastern Region</div>
+              <div class="xphub-card__name" data-en="Nakhon Ratchasima" data-th="นครราชสีมา" data-zh="呵叻">Nakhon Ratchasima</div>
+              <div class="xphub-card__alts" data-en="นครราชสีมา" data-th="Korat" data-zh="Korat · นครราชสีมา">นครราชสีมา</div>
+            </div>
+            <div class="xphub-card__body">
+              <p class="xphub-card__desc" data-en="Gateway to Northeast Thailand (Isan), hosting industrial estates, a growing automotive supply chain and a major agricultural and food processing sector." data-th="ประตูสู่ภาคอีสาน มีนิคมอุตสาหกรรม ห่วงโซ่อุปทานยานยนต์ที่กำลังเติบโต และภาคเกษตรกรรมและอุตสาหกรรมอาหารที่สำคัญ" data-zh="泰国东北部（依善）门户，拥有工业园区、日益壮大的汽车供应链及主要农业和食品加工行业">Gateway to Northeast Thailand (Isan), hosting industrial estates, a growing automotive supply chain and a major agricultural and food processing sector.</p>
+              <div class="xphub-card__tags">
+                <span class="xphub-card__tag" data-en="Industrial" data-th="อุตสาหกรรม" data-zh="工业">Industrial</span>
+                <span class="xphub-card__tag" data-en="Agriculture" data-th="เกษตรกรรม" data-zh="农业">Agriculture</span>
+                <span class="xphub-card__tag" data-en="Automotive" data-th="ยานยนต์" data-zh="汽车">Automotive</span>
+                <span class="xphub-card__tag" data-en="Food Processing" data-th="อุตสาหกรรมอาหาร" data-zh="食品加工">Food Processing</span>
+              </div>
+            </div>
+            <div class="xphub-card__foot"><span class="xphub-card__explore"><span data-en="Explore companies" data-th="สำรวจบริษัท" data-zh="浏览企业">Explore companies</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+          </a>
+
+          <a class="xphub-card" href="/companies?province=ayutthaya" style="--pc:#f97316">
+            <div class="xphub-card__header">
+              <div class="xphub-card__region" data-en="Central Region" data-th="ภาคกลาง" data-zh="中部地区"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Central Region</div>
+              <div class="xphub-card__name" data-en="Ayutthaya" data-th="พระนครศรีอยุธยา" data-zh="大城">Ayutthaya</div>
+              <div class="xphub-card__alts" data-en="พระนครศรีอยุธยา" data-th="Ayutthaya" data-zh="Ayutthaya · พระนครศรีอยุธยา">พระนครศรีอยุธยา</div>
+            </div>
+            <div class="xphub-card__body">
+              <p class="xphub-card__desc" data-en="A leading automotive province with world-class industrial estates hosting Toyota, Honda and hundreds of Tier-1 suppliers — plus a UNESCO World Heritage site." data-th="จังหวัดอุตสาหกรรมยานยนต์ชั้นนำ มีนิคมอุตสาหกรรมระดับโลกที่เป็นที่ตั้งของโตโยต้า ฮอนด้า และซัพพลายเออร์ Tier-1 นับร้อยราย รวมถึงมรดกโลก UNESCO" data-zh="泰国领先的汽车工业省份，拥有丰田、本田及数百家一级供应商入驻的世界级工业园区，同时是联合国教科文组织世界遗产地">A leading automotive province with world-class industrial estates hosting Toyota, Honda and hundreds of Tier-1 suppliers — plus a UNESCO World Heritage site.</p>
+              <div class="xphub-card__tags">
+                <span class="xphub-card__tag" data-en="Automotive" data-th="ยานยนต์" data-zh="汽车">Automotive</span>
+                <span class="xphub-card__tag" data-en="Industrial" data-th="อุตสาหกรรม" data-zh="工业">Industrial</span>
+                <span class="xphub-card__tag" data-en="Manufacturing" data-th="การผลิต" data-zh="制造">Manufacturing</span>
+                <span class="xphub-card__tag" data-en="Heritage Tourism" data-th="ท่องเที่ยวมรดก" data-zh="遗产旅游">Heritage Tourism</span>
+              </div>
+            </div>
+            <div class="xphub-card__foot"><span class="xphub-card__explore"><span data-en="Explore companies" data-th="สำรวจบริษัท" data-zh="浏览企业">Explore companies</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+          </a>
+
+          <a class="xphub-card" href="/companies?province=samut-sakhon" style="--pc:#14b8a6">
+            <div class="xphub-card__header">
+              <div class="xphub-card__region" data-en="Central Region" data-th="ภาคกลาง" data-zh="中部地区"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Central Region</div>
+              <div class="xphub-card__name" data-en="Samut Sakhon" data-th="สมุทรสาคร" data-zh="沙没沙空">Samut Sakhon</div>
+              <div class="xphub-card__alts" data-en="สมุทรสาคร" data-th="Samut Sakhon" data-zh="Samut Sakhon · สมุทรสาคร">สมุทรสาคร</div>
+            </div>
+            <div class="xphub-card__body">
+              <p class="xphub-card__desc" data-en="Thailand's seafood processing capital, housing the country's largest fishing port (Mahachai) and a dense cluster of food processing, packaging and cold-chain companies." data-th="เมืองหลวงการแปรรูปอาหารทะเลของไทย เป็นที่ตั้งของท่าเรือประมงที่ใหญ่ที่สุด (มหาชัย) และกลุ่มบริษัทแปรรูปอาหาร บรรจุภัณฑ์ และห่วงโซ่ความเย็น" data-zh="泰国海产品加工之都，拥有全国最大渔港（马哈猜），食品加工、包装和冷链企业高度聚集">Thailand's seafood processing capital, housing the country's largest fishing port (Mahachai) and a dense cluster of food processing, packaging and cold-chain companies.</p>
+              <div class="xphub-card__tags">
+                <span class="xphub-card__tag" data-en="Seafood" data-th="อาหารทะเล" data-zh="海鲜">Seafood</span>
+                <span class="xphub-card__tag" data-en="Food Processing" data-th="อุตสาหกรรมอาหาร" data-zh="食品加工">Food Processing</span>
+                <span class="xphub-card__tag" data-en="Manufacturing" data-th="การผลิต" data-zh="制造">Manufacturing</span>
+                <span class="xphub-card__tag" data-en="Exports" data-th="การส่งออก" data-zh="出口">Exports</span>
+              </div>
+            </div>
+            <div class="xphub-card__foot"><span class="xphub-card__explore"><span data-en="Explore companies" data-th="สำรวจบริษัท" data-zh="浏览企业">Explore companies</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+          </a>
+
+          <a class="xphub-card" href="/companies?province=prachinburi" style="--pc:#84cc16">
+            <div class="xphub-card__header">
+              <div class="xphub-card__region" data-en="Eastern Region" data-th="ภาคตะวันออก" data-zh="东部地区"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Eastern Region</div>
+              <div class="xphub-card__name" data-en="Prachinburi" data-th="ปราจีนบุรี" data-zh="巴真">Prachinburi</div>
+              <div class="xphub-card__alts" data-en="ปราจีนบุรี" data-th="Prachinburi" data-zh="Prachinburi · ปราจีนบุรี">ปราจีนบุรี</div>
+            </div>
+            <div class="xphub-card__body">
+              <p class="xphub-card__desc" data-en="A fast-growing EEC-adjacent province with major industrial estates attracting Japanese manufacturers, logistics operators and electronics companies." data-th="จังหวัดใกล้ EEC ที่กำลังเติบโตอย่างรวดเร็ว มีนิคมอุตสาหกรรมขนาดใหญ่ที่ดึงดูดผู้ผลิตญี่ปุ่น ผู้ประกอบการโลจิสติกส์ และบริษัทอิเล็กทรอนิกส์" data-zh="毗邻EEC的高速增长省份，大型工业园区吸引日本制造商、物流运营商和电子企业入驻">A fast-growing EEC-adjacent province with major industrial estates attracting Japanese manufacturers, logistics operators and electronics companies.</p>
+              <div class="xphub-card__tags">
+                <span class="xphub-card__tag" data-en="EEC Zone" data-th="เขต EEC" data-zh="EEC区">EEC Zone</span>
+                <span class="xphub-card__tag" data-en="Industrial" data-th="อุตสาหกรรม" data-zh="工业">Industrial</span>
+                <span class="xphub-card__tag" data-en="Manufacturing" data-th="การผลิต" data-zh="制造">Manufacturing</span>
+                <span class="xphub-card__tag" data-en="Logistics" data-th="โลจิสติกส์" data-zh="物流">Logistics</span>
+              </div>
+            </div>
+            <div class="xphub-card__foot"><span class="xphub-card__explore"><span data-en="Explore companies" data-th="สำรวจบริษัท" data-zh="浏览企业">Explore companies</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <wc-slot name="footer"></wc-slot>
+
+  <script src="/theme-assets/starter/home.min.js?v=e5c4ceb842" defer></script>
+</div>

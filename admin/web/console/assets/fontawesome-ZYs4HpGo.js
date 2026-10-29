@@ -1,0 +1,1 @@
+function n(){if(typeof document>"u"||document.getElementById("wc-fontawesome"))return;const e=document.createElement("link");e.id="wc-fontawesome",e.rel="stylesheet",e.href="/assets/vendor/fontawesome/css/all.min.css",document.head.appendChild(e)}export{n as e};

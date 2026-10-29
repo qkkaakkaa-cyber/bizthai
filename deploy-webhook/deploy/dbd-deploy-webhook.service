@@ -1,0 +1,22 @@
+# /etc/systemd/system/dbd-deploy-webhook.service
+# GitHub push webhook 接收端:校验签名后 git pull,按改动路径决定是否重启对应服务。
+# 安装:
+#   sudo cp deploy/dbd-deploy-webhook.service /etc/systemd/system/
+#   sudo systemctl daemon-reload && sudo systemctl enable --now dbd-deploy-webhook
+[Unit]
+Description=BizThai/DBD GitHub push webhook 接收端 (校验签名后 git pull,按需重启对应服务)
+After=network.target dbdadmin-woocms-v2.service
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/www/wwwroot/bizthai/dbd-thai/deploy-webhook
+ExecStart=/usr/local/bin/node src/server.js
+Restart=always
+RestartSec=3
+StandardOutput=append:/www/wwwroot/bizthai/dbd-thai/logs/dbddeploy.app.log
+StandardError=append:/www/wwwroot/bizthai/dbd-thai/logs/dbddeploy.app-error.log
+
+[Install]
+WantedBy=multi-user.target

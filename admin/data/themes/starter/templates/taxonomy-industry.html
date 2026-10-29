@@ -1,0 +1,29 @@
+<div class="starter-theme biz-report-page biz-industry-archive starter-archive" data-industry-archive data-taxonomy="industry">
+  <wc-slot name="header"></wc-slot>
+
+  <section class="industry-hero" data-industry-hero>
+    <div class="industry-hero__inner">
+      <nav class="industry-hero__crumb" aria-label="{{ t "Breadcrumb" }}">
+        <a href="/"><wc-t>Home</wc-t></a>
+        <span aria-hidden="true">›</span>
+        <a href="/business-industry-overview"><wc-t>Industries</wc-t></a>
+        <span aria-hidden="true">›</span>
+        <span><wc-out path="title"></wc-out></span>
+      </nav>
+      <h1 class="industry-hero__title"><wc-out path="title"></wc-out></h1>
+      <p class="industry-hero__stats">
+        <span class="industry-hero__stat" data-industry-count-line hidden><strong data-industry-count>—</strong> <wc-t>registered companies</wc-t></span>
+        <span class="industry-hero__stat" data-industry-lead-fallback><wc-t>Browse Thai companies registered in this industry sector, sourced from DBD DataWarehouse+.</wc-t></span>
+      </p>
+      <div class="industry-hero__nav" data-industry-nav hidden></div>
+    </div>
+  </section>
+
+  <main class="starter-main">
+    <div class="biz-industry-list" data-industry-list>
+      <p class="biz-report-empty" data-industry-status><wc-t>Loading companies…</wc-t></p>
+    </div>
+    <nav class="biz-arch-pager" data-industry-pager hidden aria-label="{{ t "Pagination" }}"></nav>
+  </main>
+  <wc-slot name="footer"></wc-slot>
+</div>

@@ -1,0 +1,30 @@
+# 一体化打包(代码+密钥.env+数据库导出)排除清单。
+# 与 package-exclude.txt 的区别:这份**不排除** .env 真实密钥文件(按用户要求整体打包)。
+# 仍然排除:docker专属文件、历史备份/压缩包、.bak/.src历史遗留、node_modules/venv/pycache/
+# ai的Puppeteer缓存、一次性i18n种子数据、.claude会话配置。
+
+dbd-thai/docker-compose.yml
+dbd-thai/*/Dockerfile
+dbd-thai/*/.dockerignore
+dbd-thai/admin/woocms.bak.*
+dbd-thai/admin/woocms-v1.0.43-linux-amd64.tar.gz
+dbd-thai/admin/web.bak.*.tar.gz
+dbd-thai/*.bak
+dbd-thai/*.bak.*
+dbd-thai/*/*.bak
+dbd-thai/*/*.bak.*
+dbd-thai/*/*/*.bak
+dbd-thai/*/*/*.bak.*
+dbd-thai/*/*/*/*.bak
+dbd-thai/*/*/*/*.bak.*
+dbd-thai/*/*/*/*/*.bak
+dbd-thai/*/*/*/*/*.bak.*
+*.src
+node_modules
+.cache
+.venv-import
+__pycache__
+.DS_Store
+dbd-thai/.claude
+dbd-thai/sync/.env.localdb
+dbd-thai/sync/i18n_seed

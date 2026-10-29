@@ -1,0 +1,18 @@
+{
+  "name": "dbd-resolver",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "DBD Thai 公司详情 纯英文名 URL 解析服务(/<英文名slug>.html → 内部 /company/{jpNo} 反代;内存映射 slug→jpNo,只读 WooCMS)",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "pg": "^8.13.0"
+  }
+}

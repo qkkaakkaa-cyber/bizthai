@@ -1,0 +1,49 @@
+-- 修复中文地址栏位自带的府/县/邮编重复文字(addresszh + i18n.zh.address)
+-- ================================================================
+-- 背景:sync/mapping.py 的 _address_zh() 曾把 tumbondesczh/ampurdesczh/provincezh/zipcode
+-- 拼接在门牌路名段后面,生成一条"自带府县"的完整中文地址。但公司详情页展示地址时
+-- (resolver renderCompanySSR 的 fullAddr、profile 卡片、FAQ 模块;theme.js 的
+-- renderHero/renderProfile 客户端渲染同理)一律会把 province/district/subdistrict
+-- 另外单独拼成 region、再接在地址后面一次——addresszh 自己已经含有这些文字,导致
+-- 中文页地址栏位府/县/府/邮编都变成重复两次(一次无分隔符粘在英文街道后面,一次带
+-- "·"分隔符)。对比 addresse/address(英文/泰文)没有这个问题,因为它们从未被拼过区域文字。
+--
+-- 已同步修复 sync/mapping.py 的 _address_zh(),之后新入库/重新回填三语的公司不会
+-- 再产生这个问题;这个脚本只处理已经写入 addresszh 的存量数据。
+--
+-- 清洗方式:重新按 _street_segment() 同款逻辑算出"干净"值(英文地址含数字用英文,否则用泰文),
+-- 直接覆盖 addresszh + i18n.zh.address,不尝试用正则从旧值里"抠掉"府县文字
+-- (旧值里府县文字有的粘无分隔符、有的行区域字段本身有重名子串,正则剥离不可靠;
+-- 反正干净值本就该等于 addresse/address,重新算比剥离更简单也更不容易出错)。
+--
+-- 执行方式:按主键 id 分批(参照 backfill_status_zh.sql 同款模式),每批独立提交,
+-- 避免长事务/全表扫拖累同实例其他容器。WHERE 末尾的 IS DISTINCT FROM 保证只重写
+-- 真正需要改的行,不需要改的行(没被污染过、或本来就没府县可拼)跳过,减少 TOAST 重写量。
+-- 单批模板(:lo/:hi 为主键范围):
+--
+--   WITH tgt AS (
+--     SELECT id,
+--            CASE WHEN meta_json->>'addresse' ~ '[0-9]'
+--                 THEN meta_json->>'addresse'
+--                 ELSE COALESCE(NULLIF(meta_json->>'address', ''), meta_json->>'addresse', '')
+--            END AS clean_addr
+--     FROM woocms.cms_content_entries
+--     WHERE id BETWEEN :lo AND :hi
+--       AND meta_json->>'addresszh' IS NOT NULL AND meta_json->>'addresszh' <> ''
+--   )
+--   UPDATE woocms.cms_content_entries e
+--   SET meta_json = jsonb_set(
+--         jsonb_set(e.meta_json, '{addresszh}', to_jsonb(t.clean_addr), true),
+--         '{i18n,zh,address}', to_jsonb(t.clean_addr), true)
+--   FROM tgt t
+--   WHERE e.id = t.id
+--     AND e.meta_json->>'addresszh' IS DISTINCT FROM t.clean_addr;
+--
+-- 踩坑:COALESCE 链末尾必须兜底空字符串 ''。街道段(address/addresse)双双为空的公司
+-- (如纯"曼谷"这种只剩府名污染进来的行)会让 COALESCE 结果是 SQL NULL 而非空串;
+-- to_jsonb(NULL::text) 是 SQL NULL 不是 jsonb 'null',传给 jsonb_set 会让整个函数
+-- 返回 NULL,进而把 meta_json 整列置空,触发 NOT NULL 约束报错(已实测踩到,当次
+-- UPDATE 单语句原子性回滚,未产生脏数据,但必须加这个兜底才能过全表)。
+--
+-- 回填后:ANALYZE woocms.cms_content_entries;(死元组多时再 VACUUM (ANALYZE))
+-- 不需要重启 resolver/woocms——这是纯数据修复,渲染逻辑本身没有改动,下次请求即生效。

@@ -1,0 +1,48 @@
+-- 回填公司经营状态的中文翻译(statuszh + i18n.zh.status)
+-- ================================================================
+-- 背景:三语翻译管线漏翻了 status 字段,导致 meta_json 里
+--   - statuszh              = 空(列表页 page-*.html 模板 data-zh 读它 → 中文位回退英文)
+--   - i18n.zh.status        = 泰文原文(详情页 fStatus / analytics 边车读它 → 中文位显示泰文)
+-- 全库采样约 58% 的 i18n.zh.status == i18n.th.status(泰文)。
+--
+-- 经营状态是 DBD 有限枚举(jpstatcode 决定,共 11 种),故按状态码固定映射回填中文。
+-- 只改 zh 槽:i18n.th.status(泰文)/ i18n.en.status(英文)本就正确,不动。
+-- jsonb_set 对没有 i18n.zh 中间路径的行会安全跳过 i18n.zh.status(仅设 statuszh),
+-- 这类行 analytics 边车的 COALESCE 会自然回退到 statuszh(中文),无需分情况。
+--
+-- 状态码 → 中文映射(采样自 thaicompany 全库 jpstatcode / jpstatdesce):
+--   1 Operating              正常经营
+--   2 Absolute Receivership  绝对财产接管
+--   3 Transformation         已改制
+--   4 Dissolution            已解散
+--   5 Liquidation Completion 清算完结
+--   6 Amalgamation           已合并
+--   8 Defunct                已除名
+--   9 Bankrupt               破产
+--   A Rehabilitation         企业重整
+--   B Restored to Register   恢复登记
+--   D Cease to exist         终止存续
+--
+-- 执行方式:按主键 id 分批(见 ops 同名 shell 驱动),每批独立提交,避免长事务
+-- 全表扫拖累同实例其他容器(踩过坑:UPDATE...FROM VALUES 用 slug 反查会全表扫)。
+-- 单批模板(:lo/:hi 为主键范围):
+--
+--   WITH tgt AS (
+--     SELECT id, CASE meta_json->>'jpstatcode'
+--       WHEN '1' THEN '正常经营' WHEN '2' THEN '绝对财产接管' WHEN '3' THEN '已改制'
+--       WHEN '4' THEN '已解散'   WHEN '5' THEN '清算完结'     WHEN '6' THEN '已合并'
+--       WHEN '8' THEN '已除名'   WHEN '9' THEN '破产'         WHEN 'A' THEN '企业重整'
+--       WHEN 'B' THEN '恢复登记' WHEN 'D' THEN '终止存续' END AS zh
+--     FROM woocms.cms_content_entries
+--     WHERE id BETWEEN :lo AND :hi
+--       AND meta_json->>'jpstatcode' IN ('1','2','3','4','5','6','8','9','A','B','D')
+--   )
+--   UPDATE woocms.cms_content_entries e
+--   SET meta_json = jsonb_set(
+--         jsonb_set(e.meta_json, '{statuszh}', to_jsonb(t.zh), true),
+--         '{i18n,zh,status}', to_jsonb(t.zh), true)
+--   FROM tgt t WHERE e.id = t.id;
+--
+-- 回填后:ANALYZE woocms.cms_content_entries;(死元组多时再 VACUUM (ANALYZE))
+-- 前端兜底:admin/data/themes/starter/assets/theme.js 的 fStatus() 已内置同一套
+-- jpstatcode 映射,即便数据未回填详情页也正确,两者口径一致。

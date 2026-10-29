@@ -1,0 +1,13 @@
+# /etc/systemd/system/dbdadmin-director-index.timer
+# 每小时重建一次董事反查倒排索引(数据由外部进程持续入库,1 小时新鲜度足够;全量重建 ~100s)。
+[Unit]
+Description=每小时触发董事反查倒排索引重建
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=1h
+AccuracySec=2min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

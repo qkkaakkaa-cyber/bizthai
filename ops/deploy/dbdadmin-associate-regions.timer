@@ -1,0 +1,13 @@
+# /etc/systemd/system/dbdadmin-associate-regions.timer
+# 每日在 sync(03:30)之后跑一次,新公司当天就能进对应区域/行业分类。
+[Unit]
+Description=每日触发区域+业务分类关联
+
+[Timer]
+OnCalendar=*-*-* 04:30:00
+RandomizedDelaySec=5min
+AccuracySec=5min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

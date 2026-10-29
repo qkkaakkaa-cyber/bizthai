@@ -1,0 +1,60 @@
+<div class="starter-theme biz-report-page biz-analytics biz-foreign biz-worldmap-page" data-biz-analytics="foreign">
+  <wc-slot name="header"></wc-slot>
+  <main class="starter-main">
+    <section class="biz-report-hero" aria-labelledby="foreign-capital-title">
+      <div>
+        <p class="biz-report-kicker"><wc-t>Capital Signals</wc-t></p>
+        <h1 id="foreign-capital-title"><wc-t>Foreign Capital Company Research</wc-t></h1>
+        <p class="biz-report-lead"><wc-t>See how much of Thailand's business capital is foreign-owned, then browse the companies behind every investor nation on an interactive world map.</wc-t></p>
+        <form class="biz-report-search" action="/search" method="get" role="search">
+          <label><span class="screen-reader-text"><wc-t>Search foreign capital companies</wc-t></span><input name="q" type="search" placeholder="{{ t "Nationality, company name, registration number or license keyword" }}" autocomplete="off" /></label>
+          <button type="submit"><wc-t>Search</wc-t></button>
+        </form>
+        <div class="biz-report-toolbar">
+          <a href="/business-owner-shareholder-leads"><wc-t>Owner Research</wc-t></a>
+          <a href="/business-industry-overview"><wc-t>Industry Ranking</wc-t></a>
+          <a href="/companies"><wc-t>All Companies</wc-t></a>
+        </div>
+        <p class="biz-an-refreshed" data-biz-refreshed></p>
+      </div>
+      <aside class="biz-report-hero__aside">
+        <div class="biz-report-stat"><strong><wc-data source="taxonomy:capital" field="_count"></wc-data></strong><span><wc-t>Capital-origin taxonomy terms</wc-t></span></div>
+        <div class="biz-report-stat"><strong><wc-data source="cpt:thaicompany" field="_count"></wc-data></strong><span><wc-t>Company records available for screening</wc-t></span></div>
+      </aside>
+    </section>
+
+    <div class="biz-an-status" data-biz-status>Loading analytics…</div>
+
+    <section class="biz-an-metrics-wrap">
+      <div class="biz-an-metrics" data-biz-fill="metrics" data-tiles="foreignTotal,foreign,thaiTotal,total"></div>
+    </section>
+
+    <section class="biz-report-section">
+      <div class="biz-report-section__head"><div>
+        <h2><wc-t>Foreign versus Thai ownership</wc-t></h2>
+        <p><wc-t>How registered companies split between Thai and foreign capital, and the leading investor origins behind them.</wc-t></p>
+      </div></div>
+      <div data-biz-fill="foreignSpotlight"></div>
+    </section>
+
+    <section class="biz-report-section biz-worldmap-sec" aria-labelledby="worldmap-title">
+      <div class="biz-report-section__head"><div>
+        <h2 id="worldmap-title"><wc-t>Browse foreign-invested companies by country</wc-t></h2>
+        <p><wc-t>Every country with capital invested in Thai companies, shaded by how many companies it is linked to. Pick any nation on the map — or in the list — to open its companies.</wc-t></p>
+      </div></div>
+      <div class="biz-worldmap">
+        <div class="biz-worldmap__figure">
+          <div class="biz-worldmap__canvas" data-worldmap data-worldmap-src="/theme-assets/starter/world.svg" aria-hidden="true"></div>
+          <div class="biz-worldmap__tip" data-worldmap-tip hidden></div>
+          <div class="biz-worldmap__legend" aria-hidden="true">
+            <span class="biz-worldmap__legend-cap"><wc-t>Fewer</wc-t></span>
+            <span class="biz-worldmap__legend-scale"></span>
+            <span class="biz-worldmap__legend-cap"><wc-t>More companies</wc-t></span>
+          </div>
+        </div>
+        <div class="biz-worldmap__board" data-worldmap-board data-biz-fill="countryBoard"></div>
+      </div>
+    </section>
+  </main>
+  <wc-slot name="footer"></wc-slot>
+</div>

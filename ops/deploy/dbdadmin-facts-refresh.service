@@ -1,0 +1,30 @@
+# /etc/systemd/system/dbdadmin-facts-refresh.service
+# 安装:sudo cp ops/deploy/dbdadmin-facts-refresh.service /etc/systemd/system/ && sudo systemctl daemon-reload
+# 配套 .timer 见同目录,需一并安装 + enable --now dbdadmin-facts-refresh.timer
+#
+# 体检发现:thaicompany_facts 物化视图(analytics 全部全局聚合的底表)只有手动刷新脚本
+# ops/refresh_facts.sh,仓库里从未有对应的 timer/cron——上线后若不补,新同步进来的公司
+# 永远不会被 analytics 纳入统计,直到有人手动跑一次。REFRESH CONCURRENTLY 不阻塞读
+# (需唯一索引 idx_tcf_entry,已在 thaicompany_facts_ddl.sql 建好)。
+#
+# 2026-07-04:v1→v2 切换后修正路径与依赖服务名(旧版指向 /data/projects 与不带 -v2 的服务,
+# 且线上 timer 从未 enable,导致视图从未按计划刷新);DBD_DB_ENV 显式指向 v2 .env。
+[Unit]
+Description=刷新 thaicompany_facts 物化视图(analytics 全局聚合底表)
+After=postgresql.service dbdadmin-woocms-v2.service
+Wants=postgresql.service
+
+[Service]
+Type=oneshot
+User=www-data
+Group=www-data
+WorkingDirectory=/www/wwwroot/bizthai/dbd-thai
+Environment=DBD_DB_ENV=/www/wwwroot/bizthai/dbd-thai/admin/.env
+ExecStart=/www/wwwroot/bizthai/dbd-thai/ops/refresh_facts.sh
+Nice=15
+IOSchedulingClass=idle
+# 当前 194 万行全量 CONCURRENTLY refresh 已超过 2 小时；给足一次完整刷新窗口。
+TimeoutStartSec=21600
+
+[Install]
+WantedBy=multi-user.target

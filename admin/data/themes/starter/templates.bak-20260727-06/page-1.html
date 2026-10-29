@@ -1,0 +1,112 @@
+<div class="starter-theme biz-report-page biz-hub">
+  <wc-slot name="header"></wc-slot>
+  <main class="starter-main">
+    <section class="biz-report-hero" aria-labelledby="biz-hub-title">
+      <div>
+        <p class="biz-report-kicker"><wc-t>Business Intelligence</wc-t></p>
+        <h1 id="biz-hub-title"><wc-t>Thai Business Reports</wc-t></h1>
+        <p class="biz-report-lead"><wc-t>A suite of research reports built on full-database aggregates of Thai company registrations from DBD DataWarehouse+. Choose a report below to explore companies, capital, industries and regions.</wc-t></p>
+        <div class="biz-report-toolbar">
+          <a href="/companies"><wc-t>All Companies</wc-t></a>
+          <a href="/regional-rankings"><wc-t>Regional Rankings</wc-t></a>
+          <a href="/search"><wc-t>Search</wc-t></a>
+        </div>
+      </div>
+      <aside class="biz-report-hero__aside">
+        <div class="biz-report-stat"><strong><wc-data source="cpt:thaicompany" field="_count"></wc-data></strong><span><wc-t>Company records indexed</wc-t></span></div>
+        <div class="biz-report-stat"><strong><wc-data source="taxonomy:province" field="_count"></wc-data></strong><span><wc-t>Province and district terms</wc-t></span></div>
+      </aside>
+    </section>
+
+    <section class="biz-hub-group biz-hub-group--first" aria-labelledby="biz-hub-grp-company">
+      <h3 class="biz-hub-group__title" id="biz-hub-grp-company"><wc-t>Company research</wc-t></h3>
+      <div class="biz-hub-grid">
+        <a class="biz-hub-card biz-hub-card--lookup" href="/companies">
+          <span class="biz-hub-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"></circle><path d="M16 16l4 4"></path></svg>
+          </span>
+          <span class="biz-hub-card__title"><wc-t>Company Lookup</wc-t></span>
+          <span class="biz-hub-card__desc"><wc-t>Search the live company index, then review registration number, province, business objective and capital for any matching record.</wc-t></span>
+          <span class="biz-hub-card__cta"><wc-t>Open report</wc-t><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+        </a>
+        <a class="biz-hub-card biz-hub-card--new" href="/business-new-registrations">
+          <span class="biz-hub-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"></path><path d="M14 3v4h4"></path><path class="biz-hub-fill" d="M9 13h6M9 17h4"></path></svg>
+          </span>
+          <span class="biz-hub-card__title"><wc-t>New Registrations</wc-t></span>
+          <span class="biz-hub-card__desc"><wc-t>Track the newest published company records with registration dates, provinces and business objectives.</wc-t></span>
+          <span class="biz-hub-card__cta"><wc-t>Open report</wc-t><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+        </a>
+        <a class="biz-hub-card biz-hub-card--owners" href="/business-owner-shareholder-leads">
+          <span class="biz-hub-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.5"></circle><circle class="biz-hub-fill" cx="5" cy="18.5" r="2.5"></circle><circle class="biz-hub-fill" cx="19" cy="18.5" r="2.5"></circle><path d="M10.6 6.7 6.4 16.3"></path><path d="M13.4 6.7l4.2 9.6"></path><path d="M7.5 18.5h9"></path></svg>
+          </span>
+          <span class="biz-hub-card__title"><wc-t>Owner & Shareholder Leads</wc-t></span>
+          <span class="biz-hub-card__desc"><wc-t>Use registration number, company type, capital and province as entry points for owner and shareholder follow-up.</wc-t></span>
+          <span class="biz-hub-card__cta"><wc-t>Open report</wc-t><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+        </a>
+      </div>
+    </section>
+
+    <section class="biz-hub-group" aria-labelledby="biz-hub-grp-capital">
+      <h3 class="biz-hub-group__title" id="biz-hub-grp-capital"><wc-t>Capital & industry</wc-t></h3>
+      <div class="biz-hub-grid">
+        <a class="biz-hub-card biz-hub-card--foreign" href="/business-foreign-capital">
+          <span class="biz-hub-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle class="biz-hub-fill" cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3c2.7 2.6 2.7 15.4 0 18"></path><path d="M12 3c-2.7 2.6-2.7 15.4 0 18"></path></svg>
+          </span>
+          <span class="biz-hub-card__title"><wc-t>Foreign Capital</wc-t></span>
+          <span class="biz-hub-card__desc"><wc-t>Review foreign-capital signals: shareholder and director nationality, plus Thai versus foreign capital-origin share.</wc-t></span>
+          <span class="biz-hub-card__cta"><wc-t>Open report</wc-t><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+        </a>
+        <a class="biz-hub-card biz-hub-card--industry" href="/business-industry-overview">
+          <span class="biz-hub-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 4v16h16"></path><rect class="biz-hub-fill" x="7.5" y="12" width="3" height="5" rx="1"></rect><rect class="biz-hub-fill" x="13.5" y="9" width="3" height="8" rx="1"></rect><path d="M7 10.5l3.5-3 3 2L19 5"></path></svg>
+          </span>
+          <span class="biz-hub-card__title"><wc-t>Industry Investment Overview</wc-t></span>
+          <span class="biz-hub-card__desc"><wc-t>Compare industry sections by company count and share across standardized TSIC top-level categories.</wc-t></span>
+          <span class="biz-hub-card__cta"><wc-t>Open report</wc-t><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+        </a>
+        <a class="biz-hub-card biz-hub-card--leaderboards" href="/business-leaderboards">
+          <span class="biz-hub-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 16l6-6 4 4 6-8"></path><path d="M20 6h-5"></path><path d="M20 6v5"></path><path class="biz-hub-fill" d="M4 20h16"></path></svg>
+          </span>
+          <span class="biz-hub-card__title"><wc-t>Revenue & Profit Leaderboards</wc-t></span>
+          <span class="biz-hub-card__desc"><wc-t>Rank companies by revenue or profit — nationwide, by industry, by province, or by company size — computed transparently from filed financial statements.</wc-t></span>
+          <span class="biz-hub-card__cta"><wc-t>Open report</wc-t><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+        </a>
+      </div>
+    </section>
+
+    <section class="biz-hub-group" aria-labelledby="biz-hub-grp-regional">
+      <h3 class="biz-hub-group__title" id="biz-hub-grp-regional"><wc-t>Regional intelligence</wc-t></h3>
+      <div class="biz-hub-grid">
+        <a class="biz-hub-card biz-hub-card--rank" href="/regional-rankings">
+          <span class="biz-hub-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="4" y="13" width="4" height="7" rx="1"></rect><rect class="biz-hub-fill" x="10" y="9" width="4" height="11" rx="1"></rect><rect x="16" y="5" width="4" height="15" rx="1"></rect></svg>
+          </span>
+          <span class="biz-hub-card__title"><wc-t>Regional Ranking</wc-t></span>
+          <span class="biz-hub-card__desc"><wc-t>Rank provinces by registered company count and total registered capital using full-database aggregates.</wc-t></span>
+          <span class="biz-hub-card__cta"><wc-t>Open report</wc-t><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+        </a>
+        <a class="biz-hub-card biz-hub-card--map" href="/business-regional-investment-map">
+          <span class="biz-hub-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"></path><circle class="biz-hub-fill" cx="12" cy="10" r="2.5"></circle></svg>
+          </span>
+          <span class="biz-hub-card__title"><wc-t>Regional Investment Map</wc-t></span>
+          <span class="biz-hub-card__desc"><wc-t>Plan market entry with province terms, company samples and business objectives mapped across Thailand.</wc-t></span>
+          <span class="biz-hub-card__cta"><wc-t>Open report</wc-t><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+        </a>
+        <a class="biz-hub-card biz-hub-card--summary" href="/business-regional-rankings-summary">
+          <span class="biz-hub-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect class="biz-hub-fill" x="4" y="4" width="16" height="16" rx="2"></rect><path d="M8 9h8M8 13h8M8 17h5"></path></svg>
+          </span>
+          <span class="biz-hub-card__title"><wc-t>Regional Rankings Summary</wc-t></span>
+          <span class="biz-hub-card__desc"><wc-t>A compact summary of province concentration, business objectives and capital totals in one view.</wc-t></span>
+          <span class="biz-hub-card__cta"><wc-t>Open report</wc-t><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+        </a>
+      </div>
+    </section>
+  </main>
+  <wc-slot name="footer"></wc-slot>
+</div>

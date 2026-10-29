@@ -1,0 +1,19 @@
+<div class="starter-theme">
+  <wc-slot name="header"></wc-slot>
+  <main class="starter-main">
+    <section class="starter-hero compact">
+      <h1><wc-out path="title"></wc-out></h1>
+      <p><wc-out path="meta_desc"></wc-out></p>
+    </section>
+    <section class="starter-grid">
+      <wc-data source="posts" limit="12" sort="published_at_desc">
+        <article class="starter-card">
+          <a href="{{ .url }}">{{ .title }}</a>
+          <p>{{ .summary }}</p>
+        </article>
+        <wc-empty><p class="starter-empty"><wc-t>No articles yet.</wc-t></p></wc-empty>
+      </wc-data>
+    </section>
+  </main>
+  <wc-slot name="footer"></wc-slot>
+</div>

@@ -1,0 +1,62 @@
+<div class="starter-theme biz-report-page biz-analytics biz-new-reg" data-biz-analytics="new">
+  <wc-slot name="header"></wc-slot>
+  <main class="starter-main">
+    <section class="biz-report-hero" aria-labelledby="new-registrations-title">
+      <div>
+        <p class="biz-report-kicker"><wc-t>Fresh Records</wc-t></p>
+        <h1 id="new-registrations-title"><wc-t>Recent Thai Company Registrations</wc-t></h1>
+        <p class="biz-report-lead"><wc-t>See Thailand's newest registered companies the moment they are filed — explore fresh registrations by date, province and industry, and watch how new-business activity is trending nationwide.</wc-t></p>
+        <form class="biz-report-search" action="/search" method="get" role="search">
+          <label><span class="screen-reader-text"><wc-t>Search new registrations</wc-t></span><input name="q" type="search" placeholder="{{ t "Company name, registration number or province" }}" autocomplete="off" /></label>
+          <button type="submit"><wc-t>Search</wc-t></button>
+        </form>
+        <div class="biz-report-toolbar">
+          <a href="/companies"><wc-t>All Companies</wc-t></a>
+          <a href="/business-industry-overview"><wc-t>Industry Overview</wc-t></a>
+          <a href="/regional-rankings"><wc-t>Regional Ranking</wc-t></a>
+        </div>
+        <p class="biz-an-refreshed" data-biz-refreshed></p>
+      </div>
+      <aside class="biz-report-hero__aside">
+        <div class="biz-report-stat"><strong><wc-data source="cpt:thaicompany" field="_count"></wc-data></strong><span><wc-t>Published company records</wc-t></span></div>
+        <div class="biz-report-stat"><strong><wc-data source="taxonomy:industry" field="_count"></wc-data></strong><span><wc-t>Industry terms for classification</wc-t></span></div>
+      </aside>
+    </section>
+
+    <section class="biz-fl-filter">
+      <p class="biz-fl-filter__label"><wc-t>Browse companies by registration year</wc-t></p>
+      <div data-biz-fill="yearChips"></div>
+    </section>
+
+    <div class="biz-an-status" data-biz-status>Loading analytics…</div>
+
+    <section class="biz-an-metrics-wrap">
+      <div class="biz-an-metrics" data-biz-fill="metrics" data-tiles="total,capital,avg,foreign"></div>
+    </section>
+
+    <section class="biz-report-section">
+      <div class="biz-report-section__head"><div>
+        <h2><wc-t>This year at a glance</wc-t></h2>
+        <p><wc-t>New companies registered so far this year, plus how the latest full year compares with the one before.</wc-t></p>
+      </div></div>
+      <div data-biz-fill="newSpotlight"></div>
+    </section>
+
+    <section class="biz-report-section">
+      <div class="biz-report-section__head"><div>
+        <h2><wc-t>New registrations over the years</wc-t></h2>
+        <p><wc-t>Yearly new-company registrations across Thailand. Switch the time range or measure below to compare each year.</wc-t></p>
+      </div></div>
+      <div class="biz-report-panel biz-newchart-panel"><div data-biz-fill="newChart"></div></div>
+    </section>
+
+    <section class="biz-report-section">
+      <div class="biz-report-section__head"><div>
+        <h2><wc-t>Recently registered companies</wc-t></h2>
+        <p><wc-t>The newest company records published from official filings.</wc-t></p>
+      </div></div>
+      <div class="biz-report-panel"><div class="biz-industry-list biz-report-company-list" data-biz-fill="latestCards"></div></div>
+    </section>
+  </main>
+  <wc-slot name="footer"></wc-slot>
+</div>

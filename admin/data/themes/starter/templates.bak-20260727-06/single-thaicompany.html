@@ -1,0 +1,54 @@
+<div class="starter-theme biz-company-detail" data-company-detail>
+  <wc-slot name="header"></wc-slot>
+  <main class="starter-main">
+    <section class="biz-detail-hero" aria-labelledby="company-detail-title">
+      <nav class="biz-detail-breadcrumb" aria-label="{{ t "Breadcrumb" }}" data-detail-breadcrumb>
+        <a href="/" data-crumb="home"><wc-t>Home</wc-t></a>
+        <span aria-hidden="true">/</span>
+        <a href="/companies" data-crumb="directory"><wc-t>Company Directory</wc-t></a>
+        <span aria-hidden="true" data-crumb-sep="industry" hidden>/</span>
+        <a href="#" data-crumb="industry" hidden></a>
+        <span aria-hidden="true" data-crumb-sep="province" hidden>/</span>
+        <a href="#" data-crumb="province" hidden></a>
+        <span aria-hidden="true">/</span>
+        <span data-crumb="current"><wc-out path="title"></wc-out></span>
+      </nav>
+      <div class="biz-detail-hero__main">
+        <div class="biz-detail-titlerow">
+          <h1 id="company-detail-title" data-detail-name-en><wc-out path="title"></wc-out></h1>
+          <div class="biz-detail-badges" data-detail-badges></div>
+          <div class="biz-detail-views" data-detail-views hidden></div>
+          <div class="biz-detail-updated" data-detail-updated hidden></div>
+        </div>
+        <div class="biz-detail-altrow">
+          <p class="biz-detail-hero__alt" data-detail-name-alt hidden></p>
+          <div class="biz-detail-source" data-detail-source></div>
+        </div>
+        <p class="biz-detail-hero__lead" data-detail-lead><wc-out path="meta_desc"></wc-out></p>
+        <div class="biz-detail-factsrow">
+          <ul class="biz-detail-hero__facts" data-detail-facts></ul>
+          <div class="biz-detail-cta" data-detail-cta></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="biz-detail-tabbar" data-detail-tabbar hidden>
+      <div class="biz-detail-tabs" role="tablist" data-detail-tabs></div>
+    </div>
+
+    <section class="biz-detail-panels" data-detail-panels>
+      <div class="biz-detail-status" data-detail-status><wc-t>Loading company record…</wc-t></div>
+      <div class="biz-detail-panel" data-panel="business" role="tabpanel" hidden></div>
+      <div class="biz-detail-panel" data-panel="profile" role="tabpanel" hidden></div>
+      <div class="biz-detail-panel" data-panel="finance" role="tabpanel" hidden></div>
+      <div class="biz-detail-panel" data-panel="directors" role="tabpanel" hidden></div>
+      <div class="biz-detail-panel" data-panel="changes" role="tabpanel" hidden></div>
+      <div class="biz-detail-panel" data-panel="network" role="tabpanel" hidden></div>
+      <div class="biz-detail-panel" data-panel="contact" role="tabpanel" hidden></div>
+    </section>
+
+    <section class="biz-detail-faq" data-detail-faq></section>
+    <section class="biz-detail-peers" data-detail-peers></section>
+  </main>
+  <wc-slot name="footer"></wc-slot>
+</div>

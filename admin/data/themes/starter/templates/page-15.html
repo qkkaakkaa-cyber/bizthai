@@ -1,0 +1,30 @@
+<div class="starter-theme biz-auth-standalone" data-auth-page="reset">
+  <main class="auth-standalone">
+    <div class="auth-card">
+      <a class="auth-brand" href="/" aria-label="{{ t "BizThai home" }}">
+        <span class="auth-brand__mark" aria-hidden="true">B</span>
+        <span class="auth-brand__text">BizThai</span>
+      </a>
+
+      <h1 class="auth-card__title"><wc-t>Set a new password</wc-t></h1>
+      <p class="auth-card__sub"><wc-t>Choose a new password for your account.</wc-t></p>
+
+      <div class="auth-alert" data-auth-alert hidden></div>
+
+      <form class="auth-form" data-auth-form novalidate>
+        <label class="auth-field">
+          <span class="auth-field__label"><wc-t>New password</wc-t></span>
+          <input type="password" name="password" autocomplete="new-password" required minlength="8">
+          <span class="auth-field__hint"><wc-t>At least 8 characters.</wc-t></span>
+        </label>
+        <label class="auth-field">
+          <span class="auth-field__label"><wc-t>Confirm password</wc-t></span>
+          <input type="password" name="password_confirm" autocomplete="new-password" required minlength="8">
+        </label>
+        <button type="submit" class="auth-submit" data-auth-submit><wc-t>Update password</wc-t></button>
+      </form>
+
+      <p class="auth-foot"><a class="auth-link" href="/login"><wc-t>Back to sign in</wc-t></a></p>
+    </div>
+  </main>
+</div>

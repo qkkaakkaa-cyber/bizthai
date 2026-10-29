@@ -1,0 +1,2 @@
+# 本机系统 python3 已自带 requests(2.31)。如需隔离环境再 pip install。
+requests>=2.31

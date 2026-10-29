@@ -1,0 +1,23 @@
+# /etc/systemd/system/dbdingest-v2.service
+# BizThai/DBD 增量同步接收端(v2)。与 dbdadmin-woocms-v2 等同代,工作目录用 v2 路径。
+# 安装:
+#   sudo cp deploy/dbdingest-v2.service /etc/systemd/system/
+#   sudo systemctl daemon-reload && sudo systemctl enable --now dbdingest-v2
+[Unit]
+Description=BizThai/DBD 增量同步接收端 (ingest sidecar, 直写 cms_content_entries.meta_json)
+After=network.target postgresql.service dbdadmin-woocms-v2.service
+Wants=postgresql.service
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/www/wwwroot/bizthai/dbd-thai/ingest
+ExecStart=/usr/local/bin/node src/server.js
+Restart=always
+RestartSec=3
+StandardOutput=append:/www/wwwroot/bizthai/dbd-thai/logs/dbdingest.app.log
+StandardError=append:/www/wwwroot/bizthai/dbd-thai/logs/dbdingest.app-error.log
+
+[Install]
+WantedBy=multi-user.target

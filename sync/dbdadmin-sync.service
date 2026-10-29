@@ -1,0 +1,19 @@
+[Unit]
+Description=DBD Thai 企业数据同步(泰国 API -> WooCMS 入库)
+After=network-online.target dbdadmin-woocms.service postgresql.service
+Wants=network-online.target
+Requires=dbdadmin-woocms.service
+
+[Service]
+Type=oneshot
+User=www-data
+Group=www-data
+WorkingDirectory=/www/wwwroot/bizthai/dbd-thai/sync
+EnvironmentFile=/www/wwwroot/bizthai/dbd-thai/sync/.env
+ExecStart=/usr/bin/python3 /www/wwwroot/bizthai/dbd-thai/sync/sync.py
+# 初始全量(~1 万家详情)耗时较长,不限制启动超时
+TimeoutStartSec=0
+Nice=10
+
+[Install]
+WantedBy=multi-user.target

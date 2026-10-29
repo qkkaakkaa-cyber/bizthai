@@ -1,0 +1,12 @@
+[Unit]
+Description=每日定时运行 DBD Thai 三语补翻(在数据同步之后)
+
+[Timer]
+# 每日 04:30(在 dbdadmin-sync 03:30 之后),开机错过则补跑,随机抖动最多 10 分钟
+OnCalendar=*-*-* 04:30:00
+Persistent=true
+RandomizedDelaySec=600
+Unit=dbdadmin-translate.service
+
+[Install]
+WantedBy=timers.target

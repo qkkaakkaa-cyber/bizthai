@@ -1,0 +1,70 @@
+<div class="starter-theme biz-report-page biz-analytics biz-owners" data-biz-analytics="owners">
+  <wc-slot name="header"></wc-slot>
+  <main class="starter-main">
+    <section class="biz-report-hero" aria-labelledby="owner-leads-title">
+      <div>
+        <p class="biz-report-kicker"><wc-t>Ownership Research</wc-t></p>
+        <h1 id="owner-leads-title"><wc-t>Owner And Shareholder Research Leads</wc-t></h1>
+        <p class="biz-report-lead"><wc-t>See who is behind Thailand's companies — track foreign-versus-Thai ownership, the leading investor nationalities, and the country's highest-capital businesses, with a direct path into each company's director network.</wc-t></p>
+        <form class="biz-report-search biz-owner-search" action="/business-owner-shareholder-leads" method="get" role="search" data-owner-search>
+          <label><span class="screen-reader-text"><wc-t>Search shareholders and owners</wc-t></span><input name="q" type="search" data-owner-q placeholder="{{ t "Shareholder or owner name (EN/TH)" }}" autocomplete="off" /></label>
+          <button type="submit"><wc-t>Search</wc-t></button>
+        </form>
+        <p class="biz-owner-search__hint"><wc-t>Find a shareholder or owner by name (English or Thai, partial match), then see every company linked to them.</wc-t></p>
+        <div class="biz-report-toolbar">
+          <a href="/companies"><wc-t>Company Lookup</wc-t></a>
+          <a href="/business-foreign-capital"><wc-t>Foreign Capital</wc-t></a>
+          <a href="/companies"><wc-t>All Companies</wc-t></a>
+        </div>
+        <p class="biz-an-refreshed" data-biz-refreshed></p>
+      </div>
+      <aside class="biz-report-hero__aside">
+        <div class="biz-report-stat"><strong><wc-data source="cpt:thaicompany" field="_count"></wc-data></strong><span><wc-t>Company records for ownership workflows</wc-t></span></div>
+        <div class="biz-report-stat"><strong><wc-data source="taxonomy:companytype" field="_count"></wc-data></strong><span><wc-t>Company type terms</wc-t></span></div>
+      </aside>
+    </section>
+
+    <div data-owner-results></div>
+
+    <div class="biz-owner-analytics" data-owner-analytics>
+    <div class="biz-an-status" data-biz-status>Loading analytics…</div>
+
+    <section class="biz-an-metrics-wrap">
+      <div class="biz-an-metrics" data-biz-fill="metrics" data-tiles="total,foreign,foreignTotal,thaiTotal"></div>
+    </section>
+
+    <section class="biz-report-section">
+      <div class="biz-report-section__head"><div>
+        <h2><wc-t>Who owns Thailand's companies</wc-t></h2>
+        <p><wc-t>Foreign-versus-Thai ownership and the leading investor nationalities behind registered companies, inferred from capital and director signals.</wc-t></p>
+      </div></div>
+      <div data-biz-fill="ownerSpotlight"></div>
+    </section>
+
+    <section class="biz-report-section">
+      <div class="biz-report-section__head"><div>
+        <h2><wc-t>Foreign ownership by nationality</wc-t></h2>
+        <p><wc-t>Which countries are most often linked to Thai company ownership, by number of companies.</wc-t></p>
+      </div></div>
+      <div class="biz-report-panel biz-newchart-panel"><div data-biz-fill="nationalityChart"></div></div>
+    </section>
+
+    <section class="biz-report-section">
+      <div class="biz-report-section__head"><div>
+        <h2><wc-t>High-capital company leads</wc-t></h2>
+        <p><wc-t>The largest businesses by registered capital — strong starting points for owner and shareholder research.</wc-t></p>
+      </div></div>
+      <div class="biz-report-panel"><div class="biz-industry-list biz-report-company-list" data-biz-fill="leadCards"></div></div>
+    </section>
+
+    <section class="biz-report-section">
+      <div class="biz-report-section__head"><div>
+        <h2><wc-t>Recently registered companies</wc-t></h2>
+        <p><wc-t>The newest company records published from official filings.</wc-t></p>
+      </div></div>
+      <div class="biz-report-panel"><div class="biz-industry-list biz-report-company-list" data-biz-fill="latestCards"></div></div>
+    </section>
+    </div>
+  </main>
+  <wc-slot name="footer"></wc-slot>
+</div>

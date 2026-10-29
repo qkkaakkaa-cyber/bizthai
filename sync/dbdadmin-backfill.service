@@ -1,0 +1,23 @@
+# DBD Thai 首灌(backfill)常驻服务:并发节流持续导入所有未入库公司。
+# 与每日增量 dbdadmin-sync.timer 互斥 —— 首灌期间停用 timer,补齐后停本服务并启用 timer。
+[Unit]
+Description=DBD Thai 企业数据首灌(持续并发导入,泰国 API -> WooCMS)
+After=network-online.target dbdadmin-woocms.service postgresql.service
+Wants=network-online.target
+Requires=dbdadmin-woocms.service
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/www/wwwroot/bizthai/dbd-thai/sync
+EnvironmentFile=/www/wwwroot/bizthai/dbd-thai/sync/.env
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/usr/bin/python3 -u /www/wwwroot/bizthai/dbd-thai/sync/sync.py --backfill
+# 崩溃/网络抖动自动拉起;断点续传靠 state.json,重启代价仅冷启动重建 id_map。
+Restart=always
+RestartSec=15
+Nice=10
+
+[Install]
+WantedBy=multi-user.target

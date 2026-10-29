@@ -1,0 +1,73 @@
+<div class="starter-theme biz-report-page biz-analytics" data-biz-analytics="regional">
+  <wc-slot name="header"></wc-slot>
+  <main class="starter-main">
+    <section class="biz-report-hero" aria-labelledby="regional-ranking-title">
+      <div>
+        <p class="biz-report-kicker"><wc-t>Regional Intelligence</wc-t></p>
+        <h1 id="regional-ranking-title"><wc-t>Thai Regional Company Ranking</wc-t></h1>
+        <p class="biz-report-lead"><wc-t>Compare Thai company concentration by province using full-database aggregates, with company counts, share of records and registered capital totals.</wc-t></p>
+        <form class="biz-report-search" action="/search" method="get" role="search">
+          <label><span class="screen-reader-text"><wc-t>Search regional company data</wc-t></span><input name="q" type="search" placeholder="{{ t "Province, district, company or business objective" }}" autocomplete="off" /></label>
+          <button type="submit"><wc-t>Search</wc-t></button>
+        </form>
+        <div class="biz-report-toolbar">
+          <a href="/business-regional-investment-map"><wc-t>Regional Map</wc-t></a>
+          <a href="/business-regional-rankings-summary"><wc-t>Ranking Summary</wc-t></a>
+          <a href="/companies"><wc-t>Company Directory</wc-t></a>
+        </div>
+        <p class="biz-an-refreshed" data-biz-refreshed></p>
+      </div>
+      <aside class="biz-report-hero__aside">
+        <div class="biz-report-stat"><strong><wc-data source="taxonomy:province" field="_count"></wc-data></strong><span><wc-t>Regional taxonomy terms</wc-t></span></div>
+        <div class="biz-report-stat"><strong><wc-data source="cpt:thaicompany" field="_count"></wc-data></strong><span><wc-t>Company records connected to research paths</wc-t></span></div>
+      </aside>
+    </section>
+
+    <div class="biz-report-filterbar">
+      <label class="biz-report-filter"><span><wc-t>Sort by</wc-t></span>
+        <select data-biz-filter="sort">
+          <option value="capital_desc"><wc-t>Registered capital</wc-t></option>
+          <option value="count_desc"><wc-t>Company count</wc-t></option>
+        </select>
+      </label>
+      <label class="biz-report-filter"><span><wc-t>Show</wc-t></span>
+        <select data-biz-filter="limit">
+          <option value="20"><wc-t>Top 20</wc-t></option>
+          <option value="50"><wc-t>Top 50</wc-t></option>
+          <option value="77"><wc-t>All provinces</wc-t></option>
+        </select>
+      </label>
+    </div>
+
+    <div class="biz-an-status" data-biz-status>Loading analytics…</div>
+
+    <section class="biz-an-metrics-wrap">
+      <div class="biz-an-metrics" data-biz-fill="metrics" data-tiles="total,capital,avg,foreign"></div>
+    </section>
+
+    <section class="biz-report-section">
+      <div class="biz-report-section__head"><div>
+        <h2><wc-t>Province ranking by registered capital</wc-t></h2>
+        <p><wc-t>Top provinces by total registered capital and company count.</wc-t></p>
+      </div></div>
+      <div class="biz-report-panel"><div class="biz-report-table-wrap" data-biz-fill="provinces"></div></div>
+    </section>
+
+    <section class="biz-report-layout">
+      <aside class="biz-report-panel">
+        <div class="biz-report-panel__head"><h2><wc-t>Province entry points</wc-t></h2><p><wc-t>Server-rendered province and district terms.</wc-t></p></div>
+        <div class="biz-report-term-list">
+          <wc-data source="taxonomy:province" limit="24" offset="0" sort="sort_order_asc">
+            <a class="biz-report-term" href="/t/province/{{ .slug }}"><span>{{ .name }}</span><i aria-hidden="true">›</i></a>
+            <wc-empty><p class="biz-report-empty"><wc-t>No province terms are available.</wc-t></p></wc-empty>
+          </wc-data>
+        </div>
+      </aside>
+      <div class="biz-report-panel">
+        <div class="biz-report-panel__head"><h2><wc-t>Industry sections by company count</wc-t></h2><p><wc-t>TSIC top-level sections across the company index.</wc-t></p></div>
+        <div class="biz-report-table-wrap" data-biz-fill="industries"></div>
+      </div>
+    </section>
+  </main>
+  <wc-slot name="footer"></wc-slot>
+</div>

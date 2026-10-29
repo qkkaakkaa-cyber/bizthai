@@ -1,0 +1,13 @@
+# /etc/systemd/system/dbdadmin-facts-refresh.timer
+# 每日在 sync(03:30)之后跑一次,让当天新同步/更新的公司数据进入商业分析统计。
+[Unit]
+Description=每日触发 thaicompany_facts 物化视图刷新
+
+[Timer]
+OnCalendar=*-*-* 05:00:00
+RandomizedDelaySec=5min
+AccuracySec=5min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

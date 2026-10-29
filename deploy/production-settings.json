@@ -1,0 +1,26 @@
+{
+  "components": {
+    "web": 9183,
+    "resolver": 9186,
+    "analytics": 9184,
+    "directors": 9185,
+    "sanitizer": 9189
+  },
+  "cloudflare_rule": "BizThai anonymous public pages 10 minutes",
+  "cache_seconds": 600,
+  "excluded_routes": [
+    "/admin",
+    "/api/",
+    "/account",
+    "/login",
+    "/logout",
+    "/register",
+    "/forgot-password",
+    "/reset-password",
+    "/verify-email"
+  ],
+  "excluded_cookies": [
+    "woocms_session=",
+    "wc_session="
+  ]
+}

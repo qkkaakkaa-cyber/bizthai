@@ -1,0 +1,16 @@
+# /etc/systemd/system/dbdadmin-director-index.service
+# 董事反查倒排索引 全量重建(build-new + 原子 swap,~100s,读取不停机)。
+# 安装见 deploy 同目录 .timer。
+[Unit]
+Description=dbdadmin 董事反查倒排索引重建(committees -> cmt_no 倒排表)
+After=postgresql.service dbdadmin-woocms.service
+Wants=postgresql.service
+
+[Service]
+Type=oneshot
+User=www-data
+Group=www-data
+ExecStart=/data/projects/dbd-thai/ops/build_director_index.sh
+Nice=15
+IOSchedulingClass=idle
+TimeoutStartSec=600

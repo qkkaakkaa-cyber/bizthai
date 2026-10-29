@@ -1,0 +1,37 @@
+<div class="starter-theme ai-page" data-ai-chat>
+  <wc-slot name="header"></wc-slot>
+
+  <link rel="stylesheet" href="/theme-assets/starter/ai-chat.min.css?v=c1cc2c79d5">
+
+  <main class="ai-main">
+    <div class="ai-intro" data-ai-intro>
+      <span class="ai-intro__badge"><span aria-hidden="true">✦</span> <wc-t>AI Intelligence</wc-t></span>
+      <h1><wc-t>AI Company Due Diligence</wc-t></h1>
+      <p><wc-t>Enter a Thai company name or registration number. BizThai AI will resolve the company and return a direct enterprise analysis: risk, credit score, industry position, directors, related companies and cooperation recommendation.</wc-t></p>
+    </div>
+
+    <div class="ai-chips" data-ai-chips>
+      <button type="button" class="ai-chip" data-ai-suggest><wc-t>Siam Commercial Bank Public Company Limited</wc-t></button>
+      <button type="button" class="ai-chip" data-ai-suggest><wc-t>Charoen Pokphand Foods Public Company Limited</wc-t></button>
+      <button type="button" class="ai-chip" data-ai-suggest><wc-t>Analyse a logistics company in Chonburi</wc-t></button>
+      <button type="button" class="ai-chip" data-ai-suggest><wc-t>Find competitors for a food exporter</wc-t></button>
+    </div>
+
+    <div class="ai-transcript" data-ai-transcript role="log" aria-live="polite"></div>
+
+    <div class="ai-composer">
+      <div class="ai-composer__box">
+        <textarea data-ai-input rows="1" placeholder="{{ t "Enter a company name or registration number…" }}" aria-label="{{ t "Message the assistant" }}"></textarea>
+        <button type="button" class="ai-send" data-ai-send aria-label="{{ t "Send" }}">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+        </button>
+      </div>
+      <p class="ai-quota" data-ai-quota hidden></p>
+      <p class="ai-disclaimer"><wc-t>AI can make mistakes. Verify important details against the official company record. Data: DBD DataWarehouse+.</wc-t></p>
+    </div>
+  </main>
+
+  <wc-slot name="footer"></wc-slot>
+
+  <script src="/theme-assets/starter/ai-chat.min.js?v=092188ff46" defer></script>
+</div>

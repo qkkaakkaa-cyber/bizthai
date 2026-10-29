@@ -1,0 +1,20 @@
+[Unit]
+Description=DBD Thai 三语补翻(扫种子中文缺口→后台 DeepSeek 翻译→落库+回填存量)
+After=network-online.target dbdadmin-woocms.service postgresql.service dbdadmin-sync.service
+Wants=network-online.target
+Requires=dbdadmin-woocms.service
+
+[Service]
+Type=oneshot
+User=www-data
+Group=www-data
+WorkingDirectory=/www/wwwroot/bizthai/dbd-thai/sync
+EnvironmentFile=/www/wwwroot/bizthai/dbd-thai/sync/.env
+Environment=DBD_DB_ENV=/www/wwwroot/bizthai/dbd-thai/admin/.env
+ExecStart=/usr/bin/python3 /www/wwwroot/bizthai/dbd-thai/sync/i18n_cron.py
+# 网关熔断会触发退避重试,首次大批可能很久;不限制启动超时
+TimeoutStartSec=0
+Nice=10
+
+[Install]
+WantedBy=multi-user.target

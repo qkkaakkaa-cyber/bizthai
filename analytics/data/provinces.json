@@ -1,0 +1,464 @@
+[
+  {
+    "slug": "prov0517d8d9fc",
+    "th": "อำนาจเจริญ",
+    "en": "Amnat Charoen",
+    "zh": "安纳乍能"
+  },
+  {
+    "slug": "prov195266d87b",
+    "th": "อ่างทอง",
+    "en": "Ang Thong",
+    "zh": "红统"
+  },
+  {
+    "slug": "provf9f6448bf9",
+    "th": "กรุงเทพมหานคร",
+    "en": "Bangkok",
+    "zh": "曼谷"
+  },
+  {
+    "slug": "prov69124c5b3a",
+    "th": "บึงกาฬ",
+    "en": "Bueng Kan",
+    "zh": "汶干"
+  },
+  {
+    "slug": "provf8788a2493",
+    "th": "บุรีรัมย์",
+    "en": "Buriram",
+    "zh": "武里南"
+  },
+  {
+    "slug": "provb851058bc8",
+    "th": "ฉะเชิงเทรา",
+    "en": "Chachoengsao",
+    "zh": "北柳"
+  },
+  {
+    "slug": "provc41e5236c1",
+    "th": "ชัยนาท",
+    "en": "Chai Nat",
+    "zh": "猜纳"
+  },
+  {
+    "slug": "prov3711006c81",
+    "th": "ชัยภูมิ",
+    "en": "Chaiyaphum",
+    "zh": "猜也奔"
+  },
+  {
+    "slug": "provfae19908eb",
+    "th": "จันทบุรี",
+    "en": "Chanthaburi",
+    "zh": "尖竹汶"
+  },
+  {
+    "slug": "prov938e63ce50",
+    "th": "เชียงใหม่",
+    "en": "Chiang Mai",
+    "zh": "清迈"
+  },
+  {
+    "slug": "prov089a23e052",
+    "th": "เชียงราย",
+    "en": "Chiang Rai",
+    "zh": "清莱"
+  },
+  {
+    "slug": "provb87bb14243",
+    "th": "ชลบุรี",
+    "en": "Chonburi",
+    "zh": "春武里"
+  },
+  {
+    "slug": "prov3c3e05feac",
+    "th": "ชุมพร",
+    "en": "Chumphon",
+    "zh": "春蓬"
+  },
+  {
+    "slug": "prov169ab44eed",
+    "th": "กาฬสินธุ์",
+    "en": "Kalasin",
+    "zh": "加拉信"
+  },
+  {
+    "slug": "prov6dbc2c6819",
+    "th": "กำแพงเพชร",
+    "en": "Kamphaeng Phet",
+    "zh": "甘烹碧"
+  },
+  {
+    "slug": "prov833d43138c",
+    "th": "กาญจนบุรี",
+    "en": "Kanchanaburi",
+    "zh": "北碧"
+  },
+  {
+    "slug": "prov65290436ae",
+    "th": "ขอนแก่น",
+    "en": "Khon Kaen",
+    "zh": "孔敬"
+  },
+  {
+    "slug": "prov4e287bf0d6",
+    "th": "กระบี่",
+    "en": "Krabi",
+    "zh": "甲米"
+  },
+  {
+    "slug": "provd478ad47d4",
+    "th": "ลำปาง",
+    "en": "Lampang",
+    "zh": "南邦"
+  },
+  {
+    "slug": "prov88ba64f297",
+    "th": "ลำพูน",
+    "en": "Lamphun",
+    "zh": "南奔"
+  },
+  {
+    "slug": "prov06873e0a56",
+    "th": "เลย",
+    "en": "Loei",
+    "zh": "黎府"
+  },
+  {
+    "slug": "prov45d7969e90",
+    "th": "ลพบุรี",
+    "en": "Lopburi",
+    "zh": "华富里"
+  },
+  {
+    "slug": "prov2614720cd8",
+    "th": "แม่ฮ่องสอน",
+    "en": "Mae Hong Son",
+    "zh": "夜丰颂"
+  },
+  {
+    "slug": "provc4112a6125",
+    "th": "มหาสารคาม",
+    "en": "Maha Sarakham",
+    "zh": "玛哈沙拉堪"
+  },
+  {
+    "slug": "prov9688a3b9bb",
+    "th": "มุกดาหาร",
+    "en": "Mukdahan",
+    "zh": "莫达汉"
+  },
+  {
+    "slug": "prov15d05e15c6",
+    "th": "นครนายก",
+    "en": "Nakhon Nayok",
+    "zh": "那空那育"
+  },
+  {
+    "slug": "prov0563220ad2",
+    "th": "นครปฐม",
+    "en": "Nakhon Pathom",
+    "zh": "佛统"
+  },
+  {
+    "slug": "prov82903c7ffd",
+    "th": "นครพนม",
+    "en": "Nakhon Phanom",
+    "zh": "那空帕农"
+  },
+  {
+    "slug": "prov7cd0c08ad9",
+    "th": "นครราชสีมา",
+    "en": "Nakhon Ratchasima",
+    "zh": "呵叻"
+  },
+  {
+    "slug": "prov8820814434",
+    "th": "นครสวรรค์",
+    "en": "Nakhon Sawan",
+    "zh": "那空沙旺"
+  },
+  {
+    "slug": "prov62beb67938",
+    "th": "นครศรีธรรมราช",
+    "en": "Nakhon Si Thammarat",
+    "zh": "洛坤"
+  },
+  {
+    "slug": "prov0b5979c53d",
+    "th": "น่าน",
+    "en": "Nan",
+    "zh": "楠府"
+  },
+  {
+    "slug": "provee7b91d72e",
+    "th": "นราธิวาส",
+    "en": "Narathiwat",
+    "zh": "陶公"
+  },
+  {
+    "slug": "provac81677f49",
+    "th": "หนองบัวลำภู",
+    "en": "Nong Bua Lamphu",
+    "zh": "农磨兰普"
+  },
+  {
+    "slug": "provd2cd3c8884",
+    "th": "หนองคาย",
+    "en": "Nong Khai",
+    "zh": "廊开"
+  },
+  {
+    "slug": "prov47594a90e1",
+    "th": "นนทบุรี",
+    "en": "Nonthaburi",
+    "zh": "暖武里"
+  },
+  {
+    "slug": "prov85dd91fc2d",
+    "th": "ปทุมธานี",
+    "en": "Pathum Thani",
+    "zh": "巴吞他尼"
+  },
+  {
+    "slug": "prov0a35cedcea",
+    "th": "ปัตตานี",
+    "en": "Pattani",
+    "zh": "北大年"
+  },
+  {
+    "slug": "prova25bf4de3e",
+    "th": "พังงา",
+    "en": "Phang Nga",
+    "zh": "攀牙"
+  },
+  {
+    "slug": "provdfcb9c2cb1",
+    "th": "พัทลุง",
+    "en": "Phatthalung",
+    "zh": "博他仑"
+  },
+  {
+    "slug": "prove78110d707",
+    "th": "พะเยา",
+    "en": "Phayao",
+    "zh": "帕尧"
+  },
+  {
+    "slug": "prov299e7b9ad1",
+    "th": "เพชรบูรณ์",
+    "en": "Phetchabun",
+    "zh": "碧差汶"
+  },
+  {
+    "slug": "prov4c3f07615c",
+    "th": "เพชรบุรี",
+    "en": "Phetchaburi",
+    "zh": "佛丕"
+  },
+  {
+    "slug": "prov7951213eaa",
+    "th": "พิจิตร",
+    "en": "Phichit",
+    "zh": "披集"
+  },
+  {
+    "slug": "prov0b9a874519",
+    "th": "พิษณุโลก",
+    "en": "Phitsanulok",
+    "zh": "彭世洛"
+  },
+  {
+    "slug": "provcc1d3f07cf",
+    "th": "พระนครศรีอยุธยา",
+    "en": "Phra Nakhon Si Ayutthaya",
+    "zh": "大城"
+  },
+  {
+    "slug": "provd2114a7888",
+    "th": "แพร่",
+    "en": "Phrae",
+    "zh": "帕府"
+  },
+  {
+    "slug": "prov8d2440a16f",
+    "th": "ภูเก็ต",
+    "en": "Phuket",
+    "zh": "普吉"
+  },
+  {
+    "slug": "prov25efe2fbd5",
+    "th": "ปราจีนบุรี",
+    "en": "Prachinburi",
+    "zh": "巴真"
+  },
+  {
+    "slug": "prov47c7699faf",
+    "th": "ประจวบคีรีขันธ์",
+    "en": "Prachuap Khiri Khan",
+    "zh": "班武里"
+  },
+  {
+    "slug": "prove5418fd64f",
+    "th": "ระนอง",
+    "en": "Ranong",
+    "zh": "拉廊"
+  },
+  {
+    "slug": "prov5971e7121e",
+    "th": "ราชบุรี",
+    "en": "Ratchaburi",
+    "zh": "叻丕"
+  },
+  {
+    "slug": "provdd56d1d575",
+    "th": "ระยอง",
+    "en": "Rayong",
+    "zh": "罗勇"
+  },
+  {
+    "slug": "prov479ffe6264",
+    "th": "ร้อยเอ็ด",
+    "en": "Roi Et",
+    "zh": "黎逸"
+  },
+  {
+    "slug": "prov068f71070a",
+    "th": "สระแก้ว",
+    "en": "Sa Kaeo",
+    "zh": "沙缴"
+  },
+  {
+    "slug": "provd8a5dfb57f",
+    "th": "สกลนคร",
+    "en": "Sakon Nakhon",
+    "zh": "色军"
+  },
+  {
+    "slug": "prov48827ea6d4",
+    "th": "สมุทรปราการ",
+    "en": "Samut Prakan",
+    "zh": "北榄"
+  },
+  {
+    "slug": "provf34477bea7",
+    "th": "สมุทรสาคร",
+    "en": "Samut Sakhon",
+    "zh": "龙仔厝"
+  },
+  {
+    "slug": "prov457304ae9b",
+    "th": "สมุทรสงคราม",
+    "en": "Samut Songkhram",
+    "zh": "夜功"
+  },
+  {
+    "slug": "prov8a23b46492",
+    "th": "สระบุรี",
+    "en": "Saraburi",
+    "zh": "北标"
+  },
+  {
+    "slug": "prov6abd9bf370",
+    "th": "สตูล",
+    "en": "Satun",
+    "zh": "沙敦"
+  },
+  {
+    "slug": "provf6b54242f8",
+    "th": "สิงห์บุรี",
+    "en": "Sing Buri",
+    "zh": "信武里"
+  },
+  {
+    "slug": "proveb6fa9e41e",
+    "th": "ศรีสะเกษ",
+    "en": "Sisaket",
+    "zh": "四色菊"
+  },
+  {
+    "slug": "prov4f114b68fa",
+    "th": "สงขลา",
+    "en": "Songkhla",
+    "zh": "宋卡"
+  },
+  {
+    "slug": "prov5313ac3c04",
+    "th": "สุโขทัย",
+    "en": "Sukhothai",
+    "zh": "素可泰"
+  },
+  {
+    "slug": "provdd90c673e2",
+    "th": "สุพรรณบุรี",
+    "en": "Suphan Buri",
+    "zh": "素攀"
+  },
+  {
+    "slug": "prov18f04a2f42",
+    "th": "สุราษฎร์ธานี",
+    "en": "Surat Thani",
+    "zh": "素叻他尼"
+  },
+  {
+    "slug": "prov1930211d5b",
+    "th": "สุรินทร์",
+    "en": "Surin",
+    "zh": "素林"
+  },
+  {
+    "slug": "provbcc01ff563",
+    "th": "ตาก",
+    "en": "Tak",
+    "zh": "来兴"
+  },
+  {
+    "slug": "provca85b5002b",
+    "th": "ตรัง",
+    "en": "Trang",
+    "zh": "董里"
+  },
+  {
+    "slug": "prova27b9e2215",
+    "th": "ตราด",
+    "en": "Trat",
+    "zh": "桐艾"
+  },
+  {
+    "slug": "provf50cf87b49",
+    "th": "อุบลราชธานี",
+    "en": "Ubon Ratchathani",
+    "zh": "乌汶"
+  },
+  {
+    "slug": "prov0f80dba88d",
+    "th": "อุดรธานี",
+    "en": "Udon Thani",
+    "zh": "乌隆"
+  },
+  {
+    "slug": "prov0a47b718e4",
+    "th": "อุทัยธานี",
+    "en": "Uthai Thani",
+    "zh": "乌泰他尼"
+  },
+  {
+    "slug": "prov39a74183f5",
+    "th": "อุตรดิตถ์",
+    "en": "Uttaradit",
+    "zh": "程逸"
+  },
+  {
+    "slug": "prov2ac0799c5f",
+    "th": "ยะลา",
+    "en": "Yala",
+    "zh": "也拉"
+  },
+  {
+    "slug": "prov703d4b5737",
+    "th": "ยโสธร",
+    "en": "Yasothon",
+    "zh": "益梭通"
+  }
+]

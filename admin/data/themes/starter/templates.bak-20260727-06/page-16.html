@@ -1,0 +1,127 @@
+<div class="starter-theme biz-report-page biz-account-page" data-auth-page="account">
+  <wc-slot name="header"></wc-slot>
+  <main class="starter-main">
+    <section class="account-hero">
+      <p class="account-hero__kicker"><wc-t>Member center</wc-t></p>
+      <h1 class="account-hero__title" data-account-greeting><wc-t>Your account</wc-t></h1>
+    </section>
+
+    <div class="account-loading" data-account-loading><wc-t>Loading your account…</wc-t></div>
+
+    <div class="account-body account-shell" data-account-body hidden>
+      <!-- 左侧:身份卡 + 菜单 + 退出 -->
+      <aside class="account-nav" aria-label="{{ t "Member sections" }}">
+        <div class="account-nav__user">
+          <span class="account-nav__avatar" data-account-avatar aria-hidden="true"></span>
+          <span class="account-nav__id">
+            <span class="account-nav__name" data-account-name></span>
+            <span class="account-nav__email" data-account-email></span>
+          </span>
+        </div>
+        <nav class="account-nav__menu" role="tablist">
+          <button type="button" class="account-navitem is-active" data-account-tab="saved" role="tab">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 4h12v16l-6-4-6 4z"></path></svg>
+            <span><wc-t>Saved companies</wc-t></span>
+          </button>
+          <button type="button" class="account-navitem" data-account-tab="claims" role="tab">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 20V8l8-5 8 5v12"></path><path d="M3.5 20h17"></path><path d="M9.5 20v-5h5v5"></path></svg>
+            <span><wc-t>Claimed companies</wc-t></span>
+          </button>
+          <button type="button" class="account-navitem" data-account-tab="profile" role="tab">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4.2 3.6-6.5 8-6.5s8 2.3 8 6.5"></path></svg>
+            <span><wc-t>Profile</wc-t></span>
+          </button>
+          <button type="button" class="account-navitem" data-account-tab="settings" role="tab">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="3.2"></circle><path d="M12 3.5v2.6M12 17.9v2.6M4.6 12H2M22 12h-2.6M6.3 6.3 4.7 4.7M19.3 19.3l-1.6-1.6M6.3 17.7l-1.6 1.6M19.3 4.7l-1.6 1.6"></path></svg>
+            <span><wc-t>Settings</wc-t></span>
+          </button>
+        </nav>
+        <button type="button" class="account-nav__signout" data-account-logout>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"></path><polyline points="10 8 14 12 10 16"></polyline><line x1="14" y1="12" x2="4" y2="12"></line></svg>
+          <span><wc-t>Sign out</wc-t></span>
+        </button>
+      </aside>
+
+      <!-- 右侧:内容区 -->
+      <div class="account-content">
+        <!-- 收藏公司 -->
+        <section class="account-panel" data-account-panel="saved">
+          <div class="account-panel__head">
+            <h2 class="account-panel__title"><wc-t>Saved companies</wc-t></h2>
+            <p class="account-panel__sub" data-account-saved-count></p>
+          </div>
+          <div class="account-status" data-account-saved-status><wc-t>Loading saved companies…</wc-t></div>
+          <div class="biz-entlist" data-account-saved-list hidden></div>
+          <div class="account-empty" data-account-saved-empty hidden>
+            <p><wc-t>You haven't saved any companies yet.</wc-t></p>
+            <a class="auth-link" href="/companies"><wc-t>Browse companies</wc-t></a>
+          </div>
+        </section>
+
+        <!-- 认领公司 -->
+        <section class="account-panel" data-account-panel="claims" hidden>
+          <div class="account-panel__head">
+            <h2 class="account-panel__title"><wc-t>Claimed companies</wc-t></h2>
+            <p class="account-panel__sub"><wc-t>Companies you have claimed or requested to claim.</wc-t></p>
+          </div>
+          <div class="account-status" data-account-claims-status><wc-t>Loading claims…</wc-t></div>
+          <div class="account-claimlist" data-account-claims-list hidden></div>
+          <div class="account-empty" data-account-claims-empty hidden>
+            <p><wc-t>You haven't claimed any companies yet.</wc-t></p>
+            <a class="auth-link" href="/companies"><wc-t>Find your company</wc-t></a>
+          </div>
+        </section>
+
+        <!-- 资料 -->
+        <section class="account-panel" data-account-panel="profile" hidden>
+          <div class="account-panel__head">
+            <h2 class="account-panel__title"><wc-t>Profile</wc-t></h2>
+            <p class="account-panel__sub"><wc-t>Update how your name and contact details appear.</wc-t></p>
+          </div>
+          <div class="auth-alert" data-account-profile-alert hidden></div>
+          <form class="auth-form account-form" data-account-profile-form novalidate>
+            <label class="auth-field">
+              <span class="auth-field__label"><wc-t>Display name</wc-t></span>
+              <input type="text" name="display_name" autocomplete="name" maxlength="80">
+            </label>
+            <label class="auth-field">
+              <span class="auth-field__label"><wc-t>Email</wc-t></span>
+              <input type="email" name="email" autocomplete="email" disabled>
+              <span class="auth-field__hint"><wc-t>Email is used to sign in and cannot be changed here.</wc-t></span>
+            </label>
+            <label class="auth-field">
+              <span class="auth-field__label"><wc-t>Phone</wc-t> <span class="auth-field__opt"><wc-t>(optional)</wc-t></span></span>
+              <input type="tel" name="phone" autocomplete="tel" maxlength="40">
+            </label>
+            <button type="submit" class="auth-submit auth-submit--inline" data-auth-submit><wc-t>Save changes</wc-t></button>
+          </form>
+        </section>
+
+        <!-- 设置 -->
+        <section class="account-panel" data-account-panel="settings" hidden>
+          <div class="account-panel__head">
+            <h2 class="account-panel__title"><wc-t>Settings</wc-t></h2>
+            <p class="account-panel__sub"><wc-t>Change your password or sign out.</wc-t></p>
+          </div>
+          <div class="auth-alert" data-account-password-alert hidden></div>
+          <form class="auth-form account-form" data-account-password-form novalidate>
+            <label class="auth-field">
+              <span class="auth-field__label"><wc-t>Current password</wc-t></span>
+              <input type="password" name="old_password" autocomplete="current-password" required>
+            </label>
+            <label class="auth-field">
+              <span class="auth-field__label"><wc-t>New password</wc-t></span>
+              <input type="password" name="new_password" autocomplete="new-password" required minlength="8">
+              <span class="auth-field__hint"><wc-t>At least 8 characters.</wc-t></span>
+            </label>
+            <button type="submit" class="auth-submit auth-submit--inline" data-auth-submit><wc-t>Update password</wc-t></button>
+          </form>
+          <div class="account-signout">
+            <button type="button" class="account-signout__btn" data-account-logout><wc-t>Sign out</wc-t></button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+  <wc-slot name="footer"></wc-slot>
+</div>

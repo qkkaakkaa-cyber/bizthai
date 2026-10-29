@@ -1,0 +1,12 @@
+[Unit]
+Description=每 10 分钟运行 DBD Thai 异步翻译 worker
+
+[Timer]
+OnBootSec=5min
+OnUnitInactiveSec=10min
+AccuracySec=1min
+RandomizedDelaySec=60
+Unit=dbdadmin-translate-worker.service
+
+[Install]
+WantedBy=timers.target

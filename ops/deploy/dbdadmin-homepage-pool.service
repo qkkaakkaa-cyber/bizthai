@@ -1,0 +1,23 @@
+# /etc/systemd/system/dbdadmin-homepage-pool.service
+# 安装:sudo cp ops/deploy/dbdadmin-homepage-pool.service /etc/systemd/system/ && sudo systemctl daemon-reload
+# 配套 .timer 见同目录,需一并安装 + enable --now dbdadmin-homepage-pool.timer
+#
+# 体检发现:ops/refresh-homepage-pool.py 头部注释写"Weekly cron",但仓库里从未有对应的
+# systemd 单元——上线后若不补,首页(page-25.html)的行业/府浏览池会长期停留在生成时的快照。
+[Unit]
+Description=刷新首页(page-25.html)行业/府浏览静态池
+After=postgresql.service dbdadmin-woocms.service
+Wants=postgresql.service
+
+[Service]
+Type=oneshot
+User=www-data
+Group=www-data
+WorkingDirectory=/data/projects/dbd-thai/ops
+ExecStart=/usr/bin/python3 /data/projects/dbd-thai/ops/refresh-homepage-pool.py
+Nice=15
+IOSchedulingClass=idle
+TimeoutStartSec=1800
+
+[Install]
+WantedBy=multi-user.target

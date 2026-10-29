@@ -1,0 +1,22 @@
+[Unit]
+Description=BizThai sanitizer read service
+After=network.target bizthai-web.service
+StartLimitIntervalSec=60
+StartLimitBurst=3
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/www/wwwroot/bizthai/dbd-thai/sanitizer
+EnvironmentFile=/www/wwwroot/bizthai/dbd-thai/sanitizer/.env
+Environment=NODE_OPTIONS=--max-old-space-size=384 DISABLE_WARMUP=1
+Environment="PGOPTIONS=-c statement_timeout=5000 -c idle_in_transaction_session_timeout=10000"
+ExecStart=/usr/bin/node src/server.js
+Restart=on-failure
+RestartSec=5
+CPUQuota=75%
+MemoryMax=512M
+TasksMax=48
+NoNewPrivileges=true
+[Install]
+WantedBy=multi-user.target

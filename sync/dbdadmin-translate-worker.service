@@ -1,0 +1,17 @@
+[Unit]
+Description=DBD Thai 异步翻译 worker(消费缺译队列,不阻塞导入)
+After=network-online.target postgresql.service dbdadmin-woocms.service
+Wants=network-online.target
+Requires=dbdadmin-woocms.service
+
+[Service]
+Type=oneshot
+User=www-data
+Group=www-data
+WorkingDirectory=/www/wwwroot/bizthai/dbd-thai/sync
+EnvironmentFile=/www/wwwroot/bizthai/dbd-thai/sync/.env
+Environment=DBD_DB_ENV=/www/wwwroot/bizthai/dbd-thai/admin/.env
+ExecStart=/usr/bin/python3 /www/wwwroot/bizthai/dbd-thai/sync/i18n_worker.py
+TimeoutStartSec=0
+Nice=15
+IOSchedulingClass=idle

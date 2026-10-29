@@ -1,0 +1,48 @@
+<div class="starter-theme biz-report-page biz-analytics biz-industry-overview" data-biz-analytics="industry">
+  <wc-slot name="header"></wc-slot>
+  <main class="starter-main">
+    <section class="biz-report-hero" aria-labelledby="industry-overview-title">
+      <div>
+        <p class="biz-report-kicker"><wc-t>Industry Intelligence</wc-t></p>
+        <h1 id="industry-overview-title"><wc-t>Thai Industry Investment Overview</wc-t></h1>
+        <p class="biz-report-lead"><wc-t>See which industries drive Thailand's economy — compare sectors by the number of registered companies and spot where business activity concentrates.</wc-t></p>
+        <form class="biz-report-search" action="/search" method="get" role="search">
+          <label><span class="screen-reader-text"><wc-t>Search industries</wc-t></span><input name="q" type="search" placeholder="{{ t "Industry, objective, company name or registration number" }}" autocomplete="off" /></label>
+          <button type="submit"><wc-t>Search</wc-t></button>
+        </form>
+        <div class="biz-report-toolbar">
+          <a href="/business-foreign-capital"><wc-t>Foreign Capital</wc-t></a>
+          <a href="/regional-rankings"><wc-t>Regional Ranking</wc-t></a>
+          <a href="/companies"><wc-t>All Companies</wc-t></a>
+        </div>
+        <p class="biz-an-refreshed" data-biz-refreshed></p>
+      </div>
+      <aside class="biz-report-hero__aside">
+        <div class="biz-report-stat"><strong><wc-data source="taxonomy:industry" field="_count"></wc-data></strong><span><wc-t>Industry taxonomy terms</wc-t></span></div>
+        <div class="biz-report-stat"><strong><wc-data source="cpt:thaicompany" field="_count"></wc-data></strong><span><wc-t>Company records for industry research</wc-t></span></div>
+      </aside>
+    </section>
+
+    <div class="biz-an-status" data-biz-status>Loading analytics…</div>
+
+    <section class="biz-an-metrics-wrap">
+      <div class="biz-an-metrics" data-biz-fill="metrics" data-tiles="total,industries,capital,foreign"></div>
+    </section>
+
+    <section class="biz-report-section">
+      <div class="biz-report-section__head"><div>
+        <h2><wc-t>Industry composition</wc-t></h2>
+        <p><wc-t>How Thailand's registered companies break down across the 19 TSIC industry sections — tap any section to explore its companies.</wc-t></p>
+      </div></div>
+      <div data-biz-fill="industrySpotlight"></div>
+    </section>
+
+    <section class="biz-report-section">
+      <div class="biz-report-panel">
+        <div class="biz-report-panel__head"><h2><wc-t>Registration status</wc-t></h2><p><wc-t>Operating vs other states.</wc-t></p></div>
+        <div class="biz-an-pad" data-biz-fill="statuses"></div>
+      </div>
+    </section>
+  </main>
+  <wc-slot name="footer"></wc-slot>
+</div>

@@ -1,0 +1,51 @@
+<div class="starter-theme biz-report-page biz-analytics biz-rank biz-regional-map" data-biz-analytics="map">
+  <wc-slot name="header"></wc-slot>
+  <main class="starter-main">
+    <section class="biz-report-hero" aria-labelledby="regional-map-title">
+      <div>
+        <p class="biz-report-kicker"><wc-t>Market Entry</wc-t></p>
+        <h1 id="regional-map-title"><wc-t>Thailand Industry Investment Map</wc-t></h1>
+        <p class="biz-report-lead"><wc-t>Pick an industry to see where its capital flows across Thailand — every province shaded by that sector's registered capital, with a direct path into the companies behind it.</wc-t></p>
+        <form class="biz-report-search" action="/search" method="get" role="search">
+          <label><span class="screen-reader-text"><wc-t>Search regional investment data</wc-t></span><input name="q" type="search" placeholder="{{ t "Province, district, company or industry" }}" autocomplete="off" /></label>
+          <button type="submit"><wc-t>Search</wc-t></button>
+        </form>
+        <div class="biz-report-toolbar">
+          <a href="/regional-rankings"><wc-t>Regional Ranking</wc-t></a>
+          <a href="/business-industry-overview"><wc-t>Industries</wc-t></a>
+          <a href="/companies"><wc-t>All Companies</wc-t></a>
+        </div>
+        <p class="biz-an-refreshed" data-biz-refreshed></p>
+      </div>
+      <aside class="biz-report-hero__aside">
+        <div class="biz-report-stat"><strong><wc-data source="taxonomy:province" field="_count"></wc-data></strong><span><wc-t>Province and district terms</wc-t></span></div>
+        <div class="biz-report-stat"><strong><wc-data source="taxonomy:industry" field="_count"></wc-data></strong><span><wc-t>Industry terms for comparison</wc-t></span></div>
+      </aside>
+    </section>
+
+    <section class="biz-fl-filter biz-map-indfilter">
+      <p class="biz-fl-filter__label"><wc-t>Shade the map by industry</wc-t></p>
+      <div data-biz-fill="industryChipsFill"></div>
+    </section>
+
+    <div class="biz-an-status" data-biz-status>Loading analytics…</div>
+
+    <section class="biz-an-metrics-wrap">
+      <div class="biz-an-metrics" data-biz-fill="metrics" data-tiles="total,capital,avg,foreign"></div>
+    </section>
+
+    <section class="biz-rank-board-wrap" aria-labelledby="biz-rank-title">
+      <div class="biz-rank-board-head">
+        <h2 id="biz-rank-title" data-biz-fill="boardTitle"><wc-t>Registered capital across Thailand</wc-t></h2>
+      </div>
+      <div class="biz-rank-map">
+        <div class="biz-rank-map__figure">
+          <div class="biz-rank-map__canvas" data-thmap data-thmap-src="/theme-assets/starter/thailand.svg" aria-hidden="true"></div>
+          <div class="biz-rank-map__tip" data-thmap-tip hidden></div>
+        </div>
+        <div class="biz-rank-map__board" data-biz-fill="provincesBoard"></div>
+      </div>
+    </section>
+  </main>
+  <wc-slot name="footer"></wc-slot>
+</div>

@@ -1,0 +1,19 @@
+# /etc/systemd/system/dbdresolver.service
+# 安装:sudo cp deploy/dbdresolver.service /etc/systemd/system/ && sudo systemctl daemon-reload && sudo systemctl enable --now dbdresolver
+[Unit]
+Description=DBD Thai 公司纯英文名 URL 解析服务 (sidecar over WooCMS cms_content_entries)
+After=network.target postgresql.service dbdadmin-woocms.service
+Wants=postgresql.service
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/data/projects/dbd-thai/resolver
+ExecStart=/usr/bin/node src/server.js
+Restart=always
+RestartSec=3
+StandardOutput=append:/data/projects/dbd-thai/logs/dbdresolver.app.log
+StandardError=append:/data/projects/dbd-thai/logs/dbdresolver.app-error.log
+
+[Install]
+WantedBy=multi-user.target

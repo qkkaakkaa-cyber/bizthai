@@ -1,0 +1,41 @@
+<div class="starter-theme biz-report-page biz-analytics biz-rank" data-biz-analytics="regional">
+  <wc-slot name="header"></wc-slot>
+  <main class="starter-main">
+    <section class="biz-report-hero" aria-labelledby="regional-rankings-title">
+      <div>
+        <p class="biz-report-kicker"><wc-t>Regional Intelligence</wc-t></p>
+        <h1 id="regional-rankings-title"><wc-t>Thai Regional Company Ranking</wc-t></h1>
+        <p class="biz-report-lead"><wc-t>Pinpoint Thailand's busiest business hubs. Compare every province by registered capital and company count, then open any province to explore its companies.</wc-t></p>
+      </div>
+      <aside class="biz-report-hero__aside">
+        <div class="biz-report-stat"><strong><wc-data source="taxonomy:province" field="_count"></wc-data></strong><span><wc-t>Province and district terms</wc-t></span></div>
+        <div class="biz-report-stat"><strong><wc-data source="cpt:thaicompany" field="_count"></wc-data></strong><span><wc-t>Company records indexed</wc-t></span></div>
+      </aside>
+    </section>
+
+    <section class="biz-an-metrics-wrap">
+      <div class="biz-an-metrics" data-biz-fill="metrics" data-tiles="total,capital,avg,foreign"></div>
+    </section>
+
+    <div class="biz-an-status" data-biz-status>Loading analytics…</div>
+
+    <section class="biz-rank-board-wrap" aria-labelledby="biz-rank-title">
+      <div class="biz-rank-board-head">
+        <h2 id="biz-rank-title" data-biz-fill="boardTitle"><wc-t>Registered capital across Thailand</wc-t></h2>
+        <div class="biz-rank-sort" role="group" aria-label="{{ t "Rank by" }}">
+          <span class="biz-rank-sort__label"><wc-t>Rank by</wc-t></span>
+          <a class="biz-rank-sort__pill" data-rank-sort="capital_desc" href="?sort=capital_desc"><wc-t>Registered capital</wc-t></a>
+          <a class="biz-rank-sort__pill" data-rank-sort="count_desc" href="?sort=count_desc"><wc-t>Company count</wc-t></a>
+        </div>
+      </div>
+      <div class="biz-rank-map">
+        <div class="biz-rank-map__figure">
+          <div class="biz-rank-map__canvas" data-thmap data-thmap-src="/theme-assets/starter/thailand.svg" aria-hidden="true"></div>
+          <div class="biz-rank-map__tip" data-thmap-tip hidden></div>
+        </div>
+        <div class="biz-rank-map__board" data-biz-fill="provincesBoard"></div>
+      </div>
+    </section>
+  </main>
+  <wc-slot name="footer"></wc-slot>
+</div>

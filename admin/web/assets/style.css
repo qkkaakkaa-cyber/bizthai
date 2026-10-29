@@ -1,0 +1,80 @@
+/* 
+ * WooCMS Community Portal - Custom Styles
+ */
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1; /* slate-300 */
+    border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: #334155; /* slate-700 */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8; /* slate-400 */
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: #475569; /* slate-600 */
+}
+
+/* Selection Color */
+::selection {
+    background-color: #4f46e5; /* primary-600 */
+    color: white;
+}
+
+/* Image Lazy Loading Blur Effect */
+img.lazyload {
+    filter: blur(10px);
+    transition: filter 0.5s ease-in-out;
+}
+
+img:not(.lazyload) {
+    filter: blur(0);
+}
+
+/* Skeleton Loading Animation */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.skeleton {
+    background: #f1f5f9; /* slate-100 */
+    background-image: linear-gradient(to right, #f1f5f9 0%, #e2e8f0 20%, #f1f5f9 40%, #f1f5f9 100%);
+    background-repeat: no-repeat;
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite linear forwards;
+}
+
+.dark .skeleton {
+    background: #0f172a; /* slate-900 */
+    background-image: linear-gradient(to right, #0f172a 0%, #1e293b 20%, #0f172a 40%, #0f172a 100%);
+}
+
+/* Markdown Content Styles (for docs and forum posts) */
+.prose pre {
+    background-color: #1e1e1e !important; /* Dark theme for code blocks */
+    color: #d4d4d4 !important;
+}
+
+.dark .prose pre {
+    background-color: #282a36 !important; /* Dracula theme for dark mode */
+    color: #f8f8f2 !important;
+}

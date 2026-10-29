@@ -1,0 +1,1175 @@
+// 商业报告子页 SSR:取 WooCMS 页面壳 + 取 analytics 综合数据,把各 data-biz-fill 槽服务端渲染注入。
+// 渲染逻辑/类名与 starter 主题 theme.js 的 FILLERS 完全一致(爬虫可抓);theme.js 见 data-biz-ssr 即跳过客户端 fetch。
+// 数据源:analytics 8084 /business(已改查物化视图 thaicompany_facts,毫秒级)。
+import { CURATED_LISTS } from './curatedLists.js'
+
+// 8 个子功能页(WooCMS page slug,无 .html);筛选走 URL 参数透传给 analytics(每组合都是可抓取的 SSR)。
+export const BIZ_SLUGS = new Set([
+  'business-company-lookup',
+  'business-regional-ranking',
+  'business-foreign-capital',
+  'business-new-registrations',
+  'business-industry-overview',
+  'business-regional-investment-map',
+  'business-owner-shareholder-leads',
+  'business-regional-rankings-summary',
+  'regional-rankings', // 与 business-regional-ranking 合并后的幸存者(header 导航正主),同样 SSR
+  'business-leaderboards', // 企业营收/利润排行榜(自算,见 analytics rankCompaniesByFinancials)
+])
+
+export function resolveBizPage(pathname) {
+  let seg = String(pathname || '').replace(/^\/+|\/+$/g, '')
+  seg = seg.replace(/^(zh|th)\//, '') // URL 路径式语言前缀(与 langFromHost 的子域名式并存,见 server.js)
+  return BIZ_SLUGS.has(seg) ? seg : null
+}
+
+function text(v) { return v == null ? '' : String(v) }
+function esc(v) { return text(v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])) }
+
+// ── 表头/瓦片文案(三语;与 theme.js LABELS 对齐)──
+const L = {
+  province: { en: 'Province', th: 'จังหวัด', zh: '府' },
+  companies: { en: 'Companies', th: 'จำนวนบริษัท', zh: '公司数' },
+  registeredCapital: { en: 'Registered capital', th: 'ทุนจดทะเบียน', zh: '注册资本' },
+  avgCapital: { en: 'Avg capital', th: 'ทุนเฉลี่ย', zh: '平均资本' },
+  nationality: { en: 'Nationality', th: 'สัญชาติ', zh: '国籍' },
+  share: { en: 'Share', th: 'สัดส่วน', zh: '占比' },
+  company: { en: 'Company', th: 'บริษัท', zh: '公司' },
+  business: { en: 'Industry', th: 'อุตสาหกรรม', zh: '行业' },
+  year: { en: 'Year', th: 'ปี', zh: '年份' },
+  newCompanies: { en: 'New companies', th: 'บริษัทใหม่', zh: '新增企业' },
+  regDate: { en: 'Registration date', th: 'วันที่จดทะเบียน', zh: '注册日期' },
+  noData: { en: 'No data available.', th: 'ไม่มีข้อมูล', zh: '暂无数据。' },
+  tileTotal: { en: 'Total companies', th: 'บริษัททั้งหมด', zh: '企业总量' },
+  tileCapital: { en: 'Registered capital', th: 'ทุนจดทะเบียนรวม', zh: '注册资本总额' },
+  tileAvg: { en: 'Average capital', th: 'ทุนเฉลี่ย', zh: '平均注册资本' },
+  tileForeign: { en: 'Foreign share', th: 'สัดส่วนทุนต่างชาติ', zh: '外资占比' },
+  tileForeignTotal: { en: 'Foreign-owned companies', th: 'บริษัททุนต่างชาติ', zh: '外资企业数' },
+  tileThaiTotal: { en: 'Thai-owned companies', th: 'บริษัททุนไทย', zh: '泰资企业数' },
+  tileIndustries: { en: 'Industry sections', th: 'หมวดอุตสาหกรรม', zh: '行业大类数' },
+  // ── 新注册页:重点展示(spotlight)──
+  spotYtd: { en: 'Year to date', th: 'ปีนี้ถึงปัจจุบัน', zh: '本年累计' },
+  spotNote: { en: 'new company registrations recorded so far this year', th: 'บริษัทจดทะเบียนใหม่ที่บันทึกในปีนี้', zh: '今年迄今新注册企业数 · 数据每日更新' },
+  spotLatestFull: { en: 'Latest full year', th: 'ปีล่าสุดที่ครบปี', zh: '最近完整年度' },
+  spotYoY: { en: 'YoY', th: 'เทียบปีก่อน', zh: '同比' },
+  spotMonthly: { en: 'Monthly average', th: 'เฉลี่ยต่อเดือน', zh: '月均新增' },
+  spotPerMonth: { en: 'new companies / month', th: 'บริษัทใหม่ / เดือน', zh: '家 / 月' },
+  spotCapThisYear: { en: 'Registered capital', th: 'ทุนจดทะเบียน', zh: '本年注册资本' },
+  // ── 新注册页:历年图表 ──
+  chartRange10: { en: 'Last 10 years', th: '10 ปีล่าสุด', zh: '近 10 年' },
+  chartRange5: { en: 'Last 5 years', th: '5 ปีล่าสุด', zh: '近 5 年' },
+  chartMetricCount: { en: 'New companies', th: 'บริษัทใหม่', zh: '新增企业数' },
+  chartMetricCapital: { en: 'Registered capital', th: 'ทุนจดทะเบียน', zh: '注册资本' },
+  chartYtd: { en: 'In progress', th: 'กำลังดำเนินอยู่', zh: '进行中' },
+  newCompaniesUnit: { en: 'companies', th: 'บริษัท', zh: '家' },
+  // ── 股东/老板页:重点展示 + 国籍图表 ──
+  ownEyebrow: { en: 'Leading foreign investor origin', th: 'ประเทศต้นทางทุนต่างชาติอันดับหนึ่ง', zh: '最大外资来源地' },
+  ownNoteTail: { en: 'is the single largest source of foreign-ownership signals across Thai companies', th: 'เป็นแหล่งสัญญาณทุนต่างชาติที่ใหญ่ที่สุดในบริษัทไทย', zh: '是泰国企业中最大的外资持股信号来源' },
+  ownForeignOverall: { en: 'Foreign-owned overall', th: 'ทุนต่างชาติโดยรวม', zh: '外资企业总体' },
+  ownOfForeign: { en: 'of foreign-owned', th: 'ของทุนต่างชาติ', zh: '占外资' },
+  natTop10: { en: 'Top 10', th: '10 อันดับแรก', zh: '前 10' },
+  natTop20: { en: 'Top 20', th: '20 อันดับแรก', zh: '前 20' },
+  // ── 外资页 spotlight ──
+  fcEyebrow: { en: 'Foreign vs Thai capital', th: 'ทุนต่างชาติเทียบทุนไทย', zh: '外资与泰资对比' },
+  fcNote: { en: 'of indexed companies carry foreign-capital signals', th: 'ของบริษัทในฐานข้อมูลมีสัญญาณทุนต่างชาติ', zh: '收录企业带有外资信号' },
+  fcTopOrigin: { en: 'Top capital origin', th: 'แหล่งทุนอันดับหนึ่ง', zh: '最大资本来源地' },
+  // ── 行业页 spotlight ──
+  indEyebrow: { en: 'Largest industry section', th: 'หมวดอุตสาหกรรมที่ใหญ่ที่สุด', zh: '最大行业大类' },
+  indNoteTail: { en: 'leads all industry sections by number of companies', th: 'มีจำนวนบริษัทมากที่สุดในบรรดาหมวดอุตสาหกรรม', zh: '是企业数量最多的行业大类' },
+  // ── 投资地图页 spotlight ──
+  provEyebrow: { en: 'Leading province by capital', th: 'จังหวัดที่มีทุนสูงสุด', zh: '资本规模最大的府' },
+  provNoteTail: { en: 'holds the largest share of registered capital nationwide', th: 'มีสัดส่วนทุนจดทะเบียนสูงสุดของประเทศ', zh: '占据全国最大注册资本份额' },
+  provTotal: { en: 'Provinces covered', th: 'จังหวัดที่ครอบคลุม', zh: '覆盖府数' },
+  // ── 排名汇总页 spotlight ──
+  allIndustries: { en: 'All industries', th: 'ทุกอุตสาหกรรม', zh: '全部行业' },
+  sumEyebrow: { en: 'National registry snapshot', th: 'ภาพรวมฐานข้อมูลทั้งประเทศ', zh: '全国登记快照' },
+  sumNote: { en: 'registered companies across all 77 provinces', th: 'บริษัทจดทะเบียนทั่ว 77 จังหวัด', zh: '家企业遍布全部 77 个府' },
+  // ── 股东/老板搜索结果 ──
+  osResults: { en: 'Shareholder & owner search', th: 'ผลการค้นหาผู้ถือหุ้นและเจ้าของ', zh: '股东 / 老板搜索结果' },
+  osPersons: { en: 'people found', th: 'รายชื่อที่พบ', zh: '位相关人士' },
+  osEmpty: { en: 'No shareholders or owners matched your search.', th: 'ไม่พบผู้ถือหุ้นหรือเจ้าของที่ตรงกับการค้นหา', zh: '未找到匹配的股东或老板。' },
+  osTooShort: { en: 'Enter at least 3 characters to search by name.', th: 'กรอกอย่างน้อย 3 ตัวอักษรเพื่อค้นหาด้วยชื่อ', zh: '按姓名搜索请至少输入 3 个字符。' },
+  osInvalidId: { en: 'Enter a valid passport or ID number (6+ characters).', th: 'กรอกเลขหนังสือเดินทางหรือบัตรประชาชนที่ถูกต้อง (6 ตัวอักษรขึ้นไป)', zh: '请输入有效的护照或身份证号(6 位以上)。' },
+  osLinkedCompanies: { en: 'linked companies', th: 'บริษัทที่เกี่ยวข้อง', zh: '家关联公司' },
+  // ── 企业营收/利润排行榜 ──
+  rankMetricRevenue: { en: 'Revenue', th: 'รายได้', zh: '营收' },
+  rankMetricProfit: { en: 'Profit (loss)', th: 'กำไร (ขาดทุน)', zh: '利润(亏损)' },
+  rankMetricGrowth: { en: 'Revenue growth', th: 'การเติบโตของรายได้', zh: '营收增长率' },
+  rankAllIndustries: { en: 'All industries', th: 'ทุกอุตสาหกรรม', zh: '全部行业' },
+  rankAllProvinces: { en: 'All provinces', th: 'ทุกจังหวัด', zh: '全部省份' },
+  rankAllSizes: { en: 'All company sizes', th: 'ทุกขนาดธุรกิจ', zh: '全部规模' },
+  rankSizeS: { en: 'Small', th: 'ขนาดเล็ก', zh: '小型企业' },
+  rankSizeM: { en: 'Medium', th: 'ขนาดกลาง', zh: '中型企业' },
+  rankSizeL: { en: 'Large', th: 'ขนาดใหญ่', zh: '大型企业' },
+  rankColumn: { en: 'Rank', th: 'อันดับ', zh: '排名' },
+  rankFilterYear: { en: 'Fiscal year', th: 'ปีงบประมาณ', zh: '财年' },
+  rankFilterMetric: { en: 'Rank by', th: 'จัดอันดับตาม', zh: '排名指标' },
+  rankFilterIndustry: { en: 'Industry', th: 'อุตสาหกรรม', zh: '行业' },
+  rankFilterProvince: { en: 'Province', th: 'จังหวัด', zh: '省份' },
+  rankFilterSize: { en: 'Company size', th: 'ขนาดธุรกิจ', zh: '企业规模' },
+  rankFiltersTitle: { en: 'Filters', th: 'ตัวกรอง', zh: '筛选条件' },
+  rankLoss: { en: 'loss', th: 'ขาดทุน', zh: '亏损' },
+  rankSmallSample: { en: 'Small sample size — for reference only.', th: 'ตัวอย่างมีจำนวนน้อย ใช้เพื่อการอ้างอิงเท่านั้น', zh: '样本量较小,仅供参考。' },
+  rankMethodology: {
+    en: 'Rankings are computed by BizThai from companies’ own filed financial statements — not a third-party or DBD-provided rank. Only operating companies with a real (non-placeholder) filing for the selected fiscal year are included. For trading companies, reported revenue may reflect gross transaction turnover rather than net value — interpret figures accordingly.',
+    th: 'อันดับนี้คำนวณโดย BizThai จากงบการเงินที่บริษัทยื่นจริง ไม่ใช่อันดับจากบุคคลที่สามหรือ DBD เฉพาะบริษัทที่ยังดำเนินกิจการและมีการยื่นงบจริงในปีงบที่เลือกเท่านั้น สำหรับธุรกิจการค้า ตัวเลขรายได้ที่รายงานอาจสะท้อนมูลค่าการซื้อขายรวม ไม่ใช่มูลค่าสุทธิ ควรตีความตัวเลขด้วยความระมัดระวัง',
+    zh: '本排行榜由 BizThai 基于企业自己提交的财报数据计算得出,不是第三方或 DBD 提供的现成排名。仅包含运营中、且在所选财年有真实(非占位)财报数据的企业。贸易类企业的营收可能包含交易流水总额而非净值,数字仅供参考。',
+  },
+  rankCoverageNote: {
+    en: 'Based on fiscal year {y} — {n} operating companies with reported figures that year.',
+    th: 'อ้างอิงปีงบ {y} — บริษัทที่ดำเนินกิจการและมีข้อมูลรายงานในปีนั้น {n} แห่ง',
+    zh: '基于财年 {y} · 共 {n} 家该年有真实财报数据的运营中企业。',
+  },
+  // 精选榜单「上榜原因」列/弹窗(2026-07-06 新增):列标题同时给弹窗标题复用(theme.js 里
+  // 弹窗自己另存一份三语字符串,两处要手动保持一致,见 theme.js 对应 IIFE 的注释)。
+  rankReasonColumn: { en: 'Why ranked', th: 'เหตุผลที่ติดอันดับ', zh: '上榜原因' },
+  rankReasonLink: { en: 'View reason', th: 'ดูเหตุผล', zh: '查看原因' },
+  rankSidebarTitle: { en: 'More rankings', th: 'อันดับอื่น ๆ', zh: '更多榜单' },
+  rankSidebarNational: { en: 'National', th: 'ทั่วประเทศ', zh: '全国总榜' },
+  rankSidebarIndustry: { en: 'By industry', th: 'ตามอุตสาหกรรม', zh: '分行业' },
+  rankSidebarNationality: { en: 'By investor origin', th: 'ตามแหล่งทุน', zh: '按资本来源国' },
+  rankSidebarComingSoon: { en: 'Coming soon', th: 'เร็ว ๆ นี้', zh: '即将上线' },
+}
+const lbl = (k, lang) => { const e = L[k]; return e ? (e[lang] || e.en) : k }
+
+// ── 格式化(移植自 theme.js;带 lang 参数)──
+function pick(v, lang) {
+  if (!v) return ''
+  if (lang === 'zh') return text(v.zh || v.en || v.th)
+  if (lang === 'th') return text(v.th || v.en || v.zh)
+  return text(v.en || v.th || v.zh)
+}
+function fmtNum(v) {
+  if (v === null || v === undefined || v === '') return '-'
+  const n = Number(v); if (!isFinite(n)) return '-'
+  return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+}
+function moneyCompact(v, lang) {
+  const n = Number(v); if (!isFinite(n) || n === 0) return '฿0'
+  const units = lang === 'zh' ? [[1e12, '万亿'], [1e8, '亿'], [1e4, '万']]
+    : lang === 'th' ? [[1e12, 'ล้านล้าน'], [1e9, 'พันล้าน'], [1e6, 'ล้าน']]
+      : [[1e12, 'T'], [1e9, 'B'], [1e6, 'M'], [1e3, 'K']]
+  for (let i = 0; i < units.length; i += 1) {
+    if (Math.abs(n) >= units[i][0]) return '฿' + (n / units[i][0]).toFixed(2) + units[i][1]
+  }
+  return '฿' + fmtNum(Math.round(n))
+}
+function pct(share) { const n = Number(share); if (!isFinite(n)) return '-'; return (n * 100).toFixed(1) + '%' }
+const BE = 543
+function ceFromYear(y) { y = parseInt(y, 10); if (isNaN(y)) return null; return y >= 2400 ? y - BE : y }
+function dualYear(yearRaw, lang) {
+  const ce = ceFromYear(yearRaw); if (ce === null) return text(yearRaw)
+  return lang === 'th' ? (ce + BE) + ' (' + ce + ')' : ce + ' (' + (ce + BE) + ')'
+}
+function dualDate(raw, lang) {
+  raw = text(raw); const m = raw.match(/^(\d{4})-(\d{2})-(\d{2})/); if (!m) return raw
+  const ce = ceFromYear(m[1]); if (ce === null) return raw
+  const be = ce + BE, rest = '-' + m[2] + '-' + m[3]
+  return lang === 'th' ? (be + rest + ' (' + ce + ')') : (ce + rest + ' (' + be + ')')
+}
+function slugifyName(n) { return text(n).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') }
+function companyHref(code, en) { const s = slugifyName(en); return s ? '/' + s + '.html' : '/' + encodeURIComponent(text(code)) + '.html' }
+// 精选榜单「上榜原因」模版替换:逐个 token 用 split/join(不用正则),避免 {} 转义问题,
+// 同一个 token 出现多次也能正常替换。
+function fillTemplate(str, vars) {
+  return Object.keys(vars).reduce((s, k) => s.split('{' + k + '}').join(vars[k]), str)
+}
+
+function buildTable(headers, rows, lang) {
+  if (!rows.length) return '<p class="biz-report-empty">' + esc(lbl('noData', lang)) + '</p>'
+  const thead = '<thead><tr>' + headers.map(h => '<th>' + esc(h) + '</th>').join('') + '</tr></thead>'
+  const tbody = '<tbody>' + rows.map(cells => '<tr>' + cells.map(c => '<td>' + c + '</td>').join('') + '</tr>').join('') + '</tbody>'
+  return '<table class="biz-report-table biz-an-table">' + thead + tbody + '</table>'
+}
+const badge = n => '<span class="biz-rank-badge">' + n + '</span>'
+function companyCell(r, lang) {
+  const name = pick(r.name, lang) || r.code
+  return '<a href="' + esc(companyHref(r.code, r.name && r.name.en)) + '" class="biz-an-link"><strong>' +
+    esc(name) + '</strong><small>' + esc(r.code) + '</small></a>'
+}
+// 公司列表卡片(复用 biz-industry-item;mode='date' 突出注册日期,mode='trending' 突出
+// 人气分数(r.score + r.scoreUnit,见 renderTrendingMain),否则突出注册资本)
+function companyCardHtml(r, lang, mode) {
+  const name = pick(r.name, lang) || r.code
+  const biz = pick(r.business, lang)
+  const prov = pick(r.province, lang)
+  const status = pick(r.status, lang)
+  const dateChip = mode === 'date' ? '<span class="biz-newreg-date">' + esc(dualDate(r.regDate, lang)) + '</span>' : ''
+  const capChip = Number(r.capital) > 0 ? '<span class="biz-industry-item__cap">' + esc(moneyCompact(r.capital, lang)) + '</span>' : ''
+  const scoreChip = mode === 'trending' && r.score != null
+    ? '<span class="biz-trend-score">' + esc(fmtNum(r.score)) + (r.scoreUnit ? ' ' + esc(r.scoreUnit) : '') + '</span>' : ''
+  return '<a class="biz-industry-item biz-newreg-item" href="' + esc(companyHref(r.code, r.name && r.name.en)) + '">' +
+    '<span class="biz-industry-item__body">' +
+      '<span class="biz-industry-item__namewrap">' +
+        '<strong class="biz-industry-item__name">' + esc(name) + '</strong>' +
+        '<span data-updated-slot></span>' +
+      '</span>' +
+      '<span class="biz-industry-item__sub">' +
+        (biz ? '<span class="biz-industry-item__obj">' + esc(biz) + '</span>' : '') +
+        (prov ? '<span class="biz-industry-item__loc">' + esc(prov) + '</span>' : '') +
+        '<span class="biz-industry-item__jpno">' + esc(r.code) + '</span>' +
+      '</span>' +
+    '</span>' +
+    '<span class="biz-industry-item__aside">' + dateChip + capChip + scoreChip +
+      (status && mode !== 'trending' ? '<span class="biz-industry-item__status">' + esc(status) + '</span>' : '') +
+    '</span>' +
+  '</a>'
+}
+// 通用「重点展示」紫渐变 banner:eyebrow + 大数 + 注脚 + 右侧 3 个 stat({label,val,sub})
+function spotlightHtml(eyebrow, big, note, stats) {
+  const statHtml = (stats || []).filter(Boolean).map(s =>
+    '<div class="biz-spotlight__stat">' +
+      '<span class="biz-spotlight__stat-label">' + esc(s.label) + '</span>' +
+      '<strong class="biz-spotlight__stat-val">' + esc(s.val) + '</strong>' +
+      (s.sub ? '<span class="biz-spotlight__stat-sub">' + esc(s.sub) + '</span>' : '') +
+    '</div>').join('')
+  return '<div class="biz-spotlight">' +
+    '<div class="biz-spotlight__lead">' +
+      '<span class="biz-spotlight__eyebrow">' + esc(eyebrow) + '</span>' +
+      '<strong class="biz-spotlight__num">' + esc(big) + '</strong>' +
+      '<span class="biz-spotlight__note">' + esc(note) + '</span>' +
+    '</div>' +
+    '<div class="biz-spotlight__stats">' + statHtml + '</div>' +
+  '</div>'
+}
+// 通用横向柱状图模块([data-hbar]):items=[{label,value(原始数,绘图用),figureMain,figureSub}];money=金额轴
+// 输出柱状图工具栏(前10/前20)+ canvas + 排名明细列表(SSR 文本爬虫可抓)+ 内嵌 JSON 序列
+function hbarChartHtml(items, lang, money) {
+  if (!items.length) return '<p class="biz-report-empty">' + esc(lbl('noData', lang)) + '</p>'
+  // 明细列表只做「序号+名称+数值」纯文字行(柱状对比由上方图表承担,避免重复进度条)
+  const listRows = items.map((r, i) =>
+    '<li class="biz-newchart__row biz-natchart__row" data-rank="' + (i + 1) + '">' +
+      '<span class="biz-natchart__rank">' + (i + 1) + '</span>' +
+      '<span class="biz-natchart__name">' + esc(r.label) + '</span>' +
+      '<span class="biz-newchart__figure"><strong>' + esc(r.figureMain) + '</strong>' +
+        (r.figureSub ? ' <em class="biz-natchart__share">' + esc(r.figureSub) + '</em>' : '') + '</span>' +
+    '</li>'
+  ).join('')
+  const series = items.map(r => ({ label: r.label, value: Math.round(r.value || 0) }))
+  const json = JSON.stringify(series).replace(/</g, '\\u003c')
+  const pill = (v, k, active) => '<button type="button" class="biz-newchart__pill' + (active ? ' is-active' : '') +
+    '" data-hbarrange="' + v + '">' + esc(lbl(k, lang)) + '</button>'
+  const pills = items.length > 10 ? '<div class="biz-newchart__bar"><div class="biz-newchart__pills" data-hbar-range>' +
+    pill('10', 'natTop10', true) + pill('20', 'natTop20', false) + '</div></div>' : ''
+  return '<div class="biz-newchart biz-natchart" data-hbar' + (money ? ' data-hbar-money="1"' : '') + '>' + pills +
+    '<div class="biz-newchart__canvas biz-natchart__canvas"><canvas data-hbar-canvas></canvas></div>' +
+    '<ol class="biz-newchart__list" data-hbar-list>' + listRows + '</ol>' +
+    '<script type="application/json" data-hbar-series>' + json + '</script>' +
+  '</div>'
+}
+
+// ── 各 data-biz-fill 槽渲染器(签名:(data, lang, tiles))──
+const FILLERS = {
+  metrics(d, lang, tiles) {
+    const fc = d.foreignComposition || {}
+    const TILE = {
+      total: [lbl('tileTotal', lang), fmtNum(d.total)],
+      capital: [lbl('tileCapital', lang), moneyCompact(d.sampleCapital, lang)],
+      avg: [lbl('tileAvg', lang), moneyCompact(d.avgCapital, lang)],
+      foreign: [lbl('tileForeign', lang), pct(d.foreignShare)],
+      foreignTotal: [lbl('tileForeignTotal', lang), fmtNum(fc.foreignTotal)],
+      thaiTotal: [lbl('tileThaiTotal', lang), fmtNum(fc.thaiTotal)],
+      industries: [lbl('tileIndustries', lang), fmtNum((d.businessTypes || []).length)],
+    }
+    return (tiles || '').split(',').map(k => {
+      const p = TILE[k.trim()]; if (!p) return ''
+      return '<div class="biz-an-tile"><span class="biz-an-tile__label">' + esc(p[0]) +
+        '</span><strong class="biz-an-tile__value">' + esc(p[1]) + '</strong></div>'
+    }).join('')
+  },
+  provinces(d, lang) {
+    return buildTable(['#', lbl('province', lang), lbl('companies', lang), lbl('registeredCapital', lang), lbl('avgCapital', lang)],
+      (d.provinceRanking || []).map((r, i) => [badge(r.rank || i + 1), esc(pick(r.province, lang)), fmtNum(r.companyCount), moneyCompact(r.registeredCapital, lang), moneyCompact(r.avgCapital, lang)]), lang)
+  },
+  nationalities(d, lang) {
+    const nats = (d.foreignComposition || {}).nationalities || []
+    return buildTable(['#', lbl('nationality', lang), lbl('companies', lang), lbl('share', lang)],
+      nats.map((r, i) => [badge(i + 1), esc(pick(r.name, lang) || r.code), fmtNum(r.count), pct(r.share)]), lang)
+  },
+  capitalSource(d, lang) {
+    const cs = (d.foreignComposition || {}).capitalSource || []
+    const total = cs.reduce((a, r) => a + (r.count || 0), 0) || 1
+    return '<div class="biz-an-bars">' + cs.map(r => {
+      const p = (r.count / total * 100)
+      return '<div class="biz-an-bar"><div class="biz-an-bar__head"><span>' + esc(pick(r.label, lang)) +
+        '</span><span>' + fmtNum(r.count) + ' · ' + p.toFixed(1) + '%</span></div>' +
+        '<div class="biz-an-bar__track"><div class="biz-an-bar__fill' + (r.key === 'foreign' ? ' is-foreign' : '') +
+        '" style="width:' + p.toFixed(1) + '%"></div></div></div>'
+    }).join('') + '</div>'
+  },
+  industries(d, lang) {
+    return buildTable(['#', lbl('business', lang), lbl('companies', lang), lbl('share', lang)],
+      (d.businessTypes || []).map((r, i) => [badge(i + 1), esc(pick(r.label, lang)), fmtNum(r.count), pct(r.share)]), lang)
+  },
+  statuses(d, lang) {
+    const st = d.statuses || []
+    return '<ul class="biz-an-status-list">' + st.map(r =>
+      '<li><span class="biz-an-status-list__label">' + esc(pick(r.label, lang)) +
+      '</span><span class="biz-an-status-list__val">' + fmtNum(r.count) + (r.share != null ? ' · ' + pct(r.share) : '') + '</span></li>').join('') + '</ul>'
+  },
+  topCapital(d, lang) {
+    return buildTable(['#', lbl('company', lang), lbl('province', lang), lbl('business', lang), lbl('registeredCapital', lang)],
+      (d.topCapitalCompanies || []).map((r, i) => [badge(i + 1), companyCell(r, lang), esc(pick(r.province, lang)), esc(pick(r.business, lang)), moneyCompact(r.capital, lang)]), lang)
+  },
+  latest(d, lang) {
+    return buildTable(['#', lbl('company', lang), lbl('province', lang), lbl('regDate', lang)],
+      (d.latestCompanies || []).map((r, i) => [badge(i + 1), companyCell(r, lang), esc(pick(r.province, lang)), esc(dualDate(r.regDate, lang))]), lang)
+  },
+  years(d, lang) {
+    const ys = (d.newCompaniesByYear || []).slice().sort((a, b) => b.year - a.year)
+    return buildTable([lbl('year', lang), lbl('newCompanies', lang), lbl('registeredCapital', lang), lbl('avgCapital', lang)],
+      ys.map(r => [esc(dualYear(r.year, lang)), fmtNum(r.companyCount), moneyCompact(r.registeredCapital, lang), moneyCompact(r.avgCapital, lang)]), lang)
+  },
+  // 新注册页「重点展示」:当年累计(YTD)大数 + 最近完整年度同比增长 + 本年注册资本
+  newSpotlight(d, lang) {
+    const ys = (d.newCompaniesByYear || []).slice().sort((a, b) => a.year - b.year)
+    if (ys.length < 2) return ''
+    const cur = ys[ys.length - 1]
+    const prev = ys[ys.length - 2]
+    const prev2 = ys.length >= 3 ? ys[ys.length - 3] : null
+    const growth = prev2 && prev2.companyCount ? (prev.companyCount - prev2.companyCount) / prev2.companyCount : null
+    const up = growth != null && growth >= 0
+    const delta = growth == null ? '' :
+      '<span class="biz-spotlight__delta ' + (up ? 'is-up' : 'is-down') + '">' + (up ? '▲' : '▼') + ' ' +
+      Math.abs(growth * 100).toFixed(1) + '% ' + esc(lbl('spotYoY', lang)) + '</span>'
+    const monthly = Math.round((prev.companyCount || 0) / 12)
+    return '<div class="biz-spotlight">' +
+      '<div class="biz-spotlight__lead">' +
+        '<span class="biz-spotlight__eyebrow">' + esc(dualYear(cur.year, lang)) + ' · ' + esc(lbl('spotYtd', lang)) + '</span>' +
+        '<strong class="biz-spotlight__num">' + esc(fmtNum(cur.companyCount)) + '</strong>' +
+        '<span class="biz-spotlight__note">' + esc(lbl('spotNote', lang)) + '</span>' +
+      '</div>' +
+      '<div class="biz-spotlight__stats">' +
+        '<div class="biz-spotlight__stat">' +
+          '<span class="biz-spotlight__stat-label">' + esc(lbl('spotLatestFull', lang)) + ' · ' + esc(dualYear(prev.year, lang)) + '</span>' +
+          '<strong class="biz-spotlight__stat-val">' + esc(fmtNum(prev.companyCount)) + '</strong>' + delta +
+        '</div>' +
+        '<div class="biz-spotlight__stat">' +
+          '<span class="biz-spotlight__stat-label">' + esc(lbl('spotMonthly', lang)) + ' · ' + esc(dualYear(prev.year, lang)) + '</span>' +
+          '<strong class="biz-spotlight__stat-val">' + esc(fmtNum(monthly)) + '</strong>' +
+          '<span class="biz-spotlight__stat-sub">' + esc(lbl('spotPerMonth', lang)) + '</span>' +
+        '</div>' +
+        '<div class="biz-spotlight__stat">' +
+          '<span class="biz-spotlight__stat-label">' + esc(lbl('spotCapThisYear', lang)) + ' · ' + esc(dualYear(cur.year, lang)) + '</span>' +
+          '<strong class="biz-spotlight__stat-val">' + esc(moneyCompact(cur.registeredCapital, lang)) + '</strong>' +
+        '</div>' +
+      '</div>' +
+    '</div>'
+  },
+  // 新注册页「图表模块」:默认近 10 年柱状图(范围/指标切换走客户端)+ 逐年明细列表(SSR 爬虫可抓)+ 内嵌 JSON 序列
+  newChart(d, lang) {
+    const all = (d.newCompaniesByYear || []).slice().sort((a, b) => a.year - b.year)
+    if (!all.length) return '<p class="biz-report-empty">' + esc(lbl('noData', lang)) + '</p>'
+    const years = all.slice(-10)
+    const maxYear = years[years.length - 1].year
+    const maxCount = years.reduce((m, r) => Math.max(m, r.companyCount || 0), 0) || 1
+    const listRows = years.slice().reverse().map((r, i) => {
+      const idx = years.length - 1 - i
+      const prevAsc = idx > 0 ? years[idx - 1] : null
+      const isCurrent = r.year === maxYear
+      let tail = ''
+      if (isCurrent) {
+        tail = '<em class="biz-newchart__tag">' + esc(lbl('chartYtd', lang)) + '</em>'
+      } else if (prevAsc && prevAsc.companyCount) {
+        const g = (r.companyCount - prevAsc.companyCount) / prevAsc.companyCount
+        const up = g >= 0
+        tail = '<em class="biz-newchart__delta ' + (up ? 'is-up' : 'is-down') + '">' + (up ? '▲' : '▼') + ' ' + Math.abs(g * 100).toFixed(1) + '%</em>'
+      }
+      const w = ((r.companyCount || 0) / maxCount * 100).toFixed(1)
+      return '<li class="biz-newchart__row' + (isCurrent ? ' is-current' : '') + '" data-year="' + ceFromYear(r.year) + '">' +
+        '<span class="biz-newchart__year">' + esc(dualYear(r.year, lang)) + '</span>' +
+        '<span class="biz-newchart__track"><span style="width:' + w + '%"></span></span>' +
+        '<span class="biz-newchart__figure"><strong>' + esc(fmtNum(r.companyCount)) + '</strong> <small>' + esc(lbl('newCompaniesUnit', lang)) + '</small>' + tail + '</span>' +
+      '</li>'
+    }).join('')
+    const series = years.map(r => ({
+      y: dualYear(r.year, lang),
+      count: Math.round(r.companyCount || 0),
+      capital: Math.round(r.registeredCapital || 0),
+      partial: r.year === maxYear,
+    }))
+    const json = JSON.stringify(series).replace(/</g, '\\u003c')
+    const pill = (g, k, v, active) => '<button type="button" class="biz-newchart__pill' + (active ? ' is-active' : '') +
+      '" data-' + g + '="' + v + '">' + esc(lbl(k, lang)) + '</button>'
+    return '<div class="biz-newchart" data-newchart>' +
+      '<div class="biz-newchart__bar">' +
+        '<div class="biz-newchart__pills" data-newchart-range>' + pill('range', 'chartRange10', '10', true) + pill('range', 'chartRange5', '5', false) + '</div>' +
+        '<div class="biz-newchart__pills" data-newchart-metric>' + pill('metric', 'chartMetricCount', 'count', true) + pill('metric', 'chartMetricCapital', 'capital', false) + '</div>' +
+      '</div>' +
+      '<div class="biz-newchart__canvas"><canvas data-newchart-canvas></canvas></div>' +
+      '<ol class="biz-newchart__list" data-newchart-list>' + listRows + '</ol>' +
+      '<script type="application/json" data-newchart-series>' + json + '</script>' +
+    '</div>'
+  },
+  // 新注册页「最新企业」:公司列表卡片(复用 biz-industry-item),突出注册日期(非表格)
+  latestCards(d, lang) {
+    const rows = d.latestCompanies || []
+    if (!rows.length) return '<p class="biz-report-empty">' + esc(lbl('noData', lang)) + '</p>'
+    return rows.map(r => companyCardHtml(r, lang, 'date')).join('')
+  },
+  // 股东/老板页「高资本线索」:公司列表卡片,突出注册资本(非表格)
+  leadCards(d, lang) {
+    const rows = d.topCapitalCompanies || []
+    if (!rows.length) return '<p class="biz-report-empty">' + esc(lbl('noData', lang)) + '</p>'
+    return rows.map(r => companyCardHtml(r, lang, 'cap')).join('')
+  },
+  // 股东/老板页「重点展示」:最大外资来源国领衔 + 第2/3名 + 外资总体占比
+  ownerSpotlight(d, lang) {
+    const fc = d.foreignComposition || {}
+    const nats = fc.nationalities || []
+    if (!nats.length) return ''
+    const top = nats[0], n2 = nats[1], n3 = nats[2]
+    const natName = r => pick(r.name, lang) || r.code
+    const stat = r => r ? '<div class="biz-spotlight__stat">' +
+      '<span class="biz-spotlight__stat-label">' + esc(natName(r)) + '</span>' +
+      '<strong class="biz-spotlight__stat-val">' + esc(fmtNum(r.count)) + '</strong>' +
+      '<span class="biz-spotlight__stat-sub">' + esc(pct(r.share)) + ' ' + esc(lbl('ownOfForeign', lang)) + '</span>' +
+    '</div>' : ''
+    return '<div class="biz-spotlight">' +
+      '<div class="biz-spotlight__lead">' +
+        '<span class="biz-spotlight__eyebrow">' + esc(natName(top)) + ' · ' + esc(lbl('ownEyebrow', lang)) + '</span>' +
+        '<strong class="biz-spotlight__num">' + esc(fmtNum(top.count)) + '</strong>' +
+        '<span class="biz-spotlight__note">' + esc(natName(top)) + ' ' + esc(lbl('ownNoteTail', lang)) + '</span>' +
+      '</div>' +
+      '<div class="biz-spotlight__stats">' +
+        stat(n2) + stat(n3) +
+        '<div class="biz-spotlight__stat">' +
+          '<span class="biz-spotlight__stat-label">' + esc(lbl('ownForeignOverall', lang)) + '</span>' +
+          '<strong class="biz-spotlight__stat-val">' + esc(pct(d.foreignShare)) + '</strong>' +
+          '<span class="biz-spotlight__stat-sub">' + esc(fmtNum(fc.foreignTotal)) + ' ' + esc(lbl('newCompaniesUnit', lang)) + '</span>' +
+        '</div>' +
+      '</div>' +
+    '</div>'
+  },
+  // 外资国籍构成横向柱状图(前10/前20)+ 逐国明细列表(SSR 可抓)。复用 hbarChartHtml,股东页/外资页共用
+  nationalityChart(d, lang) {
+    const nats = ((d.foreignComposition || {}).nationalities || []).slice(0, 20)
+    const items = nats.map(r => ({
+      label: pick(r.name, lang) || r.code,
+      value: r.count || 0,
+      figureMain: fmtNum(r.count) + ' ' + lbl('newCompaniesUnit', lang),
+      figureSub: pct(r.share),
+    }))
+    return hbarChartHtml(items, lang, false)
+  },
+  // 府注册资本横向柱状图(前10/前20)+ 明细(资本 + 公司数)。投资地图页/排名汇总页共用
+  provinceChart(d, lang) {
+    const pr = (d.provinceRanking || []).slice(0, 20)
+    const items = pr.map(r => ({
+      label: pick(r.province, lang),
+      value: r.registeredCapital || 0,
+      figureMain: moneyCompact(r.registeredCapital, lang),
+      figureSub: fmtNum(r.companyCount) + ' ' + lbl('newCompaniesUnit', lang),
+    }))
+    return hbarChartHtml(items, lang, true)
+  },
+  // 行业大类横向柱状图(前10/前20)+ 明细(企业数 + 占比)。行业页/排名汇总页共用
+  industryChart(d, lang) {
+    const bt = (d.businessTypes || []).slice(0, 20)
+    const items = bt.map(r => ({
+      label: pick(r.label, lang),
+      value: r.count || 0,
+      figureMain: fmtNum(r.count) + ' ' + lbl('newCompaniesUnit', lang),
+      figureSub: pct(r.share),
+    }))
+    return hbarChartHtml(items, lang, false)
+  },
+  // 外资页「重点」:外资占比大数 + 外资/泰资数 + 最大来源国
+  foreignSpotlight(d, lang) {
+    const fc = d.foreignComposition || {}
+    const top = (fc.nationalities || [])[0]
+    return spotlightHtml(lbl('fcEyebrow', lang), pct(d.foreignShare), lbl('fcNote', lang), [
+      { label: lbl('tileForeignTotal', lang), val: fmtNum(fc.foreignTotal) },
+      { label: lbl('tileThaiTotal', lang), val: fmtNum(fc.thaiTotal) },
+      top ? { label: lbl('fcTopOrigin', lang), val: pick(top.name, lang) || top.code, sub: fmtNum(top.count) + ' ' + lbl('newCompaniesUnit', lang) } : null,
+    ])
+  },
+  // 行业页「重点」:龙头行业大数 + 第2/3 行业 + 行业大类数
+  industrySpotlight(d, lang) {
+    const bt = d.businessTypes || []
+    if (!bt.length) return ''
+    const top = bt[0], n2 = bt[1], n3 = bt[2]
+    const st = r => r ? { label: pick(r.label, lang), val: fmtNum(r.count), sub: pct(r.share) } : null
+    return spotlightHtml(pick(top.label, lang) + ' · ' + lbl('indEyebrow', lang), fmtNum(top.count),
+      pick(top.label, lang) + ' ' + lbl('indNoteTail', lang), [st(n2), st(n3),
+      { label: lbl('tileIndustries', lang), val: fmtNum(bt.length) }])
+  },
+  // 投资地图页「重点」:资本最大府(大数=注册资本)+ 第2/3 府 + 覆盖府数
+  provinceSpotlight(d, lang) {
+    const pr = d.provinceRanking || []
+    if (!pr.length) return ''
+    const top = pr[0], n2 = pr[1], n3 = pr[2]
+    const st = r => r ? { label: pick(r.province, lang), val: moneyCompact(r.registeredCapital, lang), sub: fmtNum(r.companyCount) + ' ' + lbl('newCompaniesUnit', lang) } : null
+    return spotlightHtml(pick(top.province, lang) + ' · ' + lbl('provEyebrow', lang), moneyCompact(top.registeredCapital, lang),
+      pick(top.province, lang) + ' ' + lbl('provNoteTail', lang), [st(n2), st(n3),
+      { label: lbl('provTotal', lang), val: '77' }])
+  },
+  // 各 business 页快捷筛选 chips(链到对应 SSR 公司列表页,爬虫可抓)
+  yearChips(d, lang) {
+    const ys = (d.newCompaniesByYear || []).map(r => ceFromYear(r.year)).filter((v, i, a) => a.indexOf(v) === i).sort((a, b) => b - a)
+    if (!ys.length) return ''
+    return chipsHtml(ys.map(y => ({ label: String(y), href: '/new-companies-' + y + '.html', active: false })))
+  },
+  countryChips(d, lang) {
+    const nats = ((d.foreignComposition || {}).nationalities || []).filter(n => n.code && n.code !== 'other' && !/other|unspecified/i.test((n.name && n.name.en) || ''))
+    if (!nats.length) return ''
+    return chipsHtml(nats.map(n => ({ label: pick(n.name, lang) || n.code, href: '/foreign-companies-' + slugifyName(n.name && n.name.en) + '.html', active: false })))
+  },
+  // 世界地图右侧国家排行(每行 data-iso 与地图 path 联动);列出全部有外资的国家(全量,非 top-N),按公司数排序
+  countryBoard(d, lang) {
+    const nats = ((d.foreignComposition || {}).nationalities || []).filter(n => n.code && n.code !== 'other' && !/other|unspecified/i.test((n.name && n.name.en) || ''))
+    if (!nats.length) return '<p class="biz-report-empty">' + esc(lbl('noData', lang)) + '</p>'
+    const maxV = nats.reduce((m, r) => Math.max(m, r.count || 0), 0) || 1
+    return '<ol class="biz-rank-list">' + nats.map((r, i) => {
+      const rank = i + 1
+      const iso = String(r.code).toLowerCase()
+      const nm = pick(r.name, lang) || r.code
+      const slug = slugifyName(r.name && r.name.en) || iso
+      const href = '/foreign-companies-' + slug + '.html'
+      const w = ((r.count || 0) / maxV * 100).toFixed(1)
+      return '<li><a class="biz-rank-row' + (rank <= 3 ? ' is-top' : '') + '" href="' + href +
+        '" data-iso="' + esc(iso) + '" data-rank="' + rank + '" data-count="' + (r.count || 0) +
+        '" data-name="' + esc(nm) + '">' +
+        '<span class="biz-rank-row__rank">' + rank + '</span>' +
+        '<span class="biz-rank-row__main"><span class="biz-rank-row__name">' + esc(nm) + '</span>' +
+        '<span class="biz-rank-row__bar"><span style="width:' + w + '%"></span></span></span>' +
+        '<span class="biz-rank-row__val"><strong>' + esc(fmtNum(r.count)) + '</strong><small>' + esc(pct(r.share)) + '</small></span>' +
+        '</a></li>'
+    }).join('') + '</ol>'
+  },
+  provinceChips(d, lang) {
+    const pr = (d.provinceRanking || []).slice(0, 24).filter(p => p.province && p.province.en)
+    if (!pr.length) return ''
+    return chipsHtml(pr.map(p => ({ label: pick(p.province, lang), href: '/' + slugifyName(p.province.en) + '.html', active: false })))
+  },
+  // 投资地图行业 chips(三语名来自 analytics industry-sections;服务端标记当前激活 ?industry)
+  industryChipsFill(d, lang) {
+    const secs = d.industrySections || []
+    const cur = d.crossIndustry || ''
+    const items = [{ label: lbl('allIndustries', lang), href: '/business-regional-investment-map', active: !cur }]
+    secs.forEach(s => items.push({ label: pick(s.name, lang) || s.slug, href: '/business-regional-investment-map?industry=' + encodeURIComponent(s.slug), active: s.slug === cur }))
+    return chipsHtml(items)
+  },
+  // 排名汇总页「重点」:全国企业总量大数 + 注册资本总额 + 龙头府 + 外资占比
+  summarySpotlight(d, lang) {
+    const pr = d.provinceRanking || []
+    const top = pr[0]
+    return spotlightHtml(lbl('sumEyebrow', lang), fmtNum(d.total), lbl('sumNote', lang), [
+      { label: lbl('tileCapital', lang), val: moneyCompact(d.sampleCapital, lang) },
+      top ? { label: lbl('provEyebrow', lang), val: pick(top.province, lang), sub: moneyCompact(top.registeredCapital, lang) } : null,
+      { label: lbl('tileForeign', lang), val: pct(d.foreignShare) },
+    ])
+  },
+  // 地区排名「地图模块」右侧排行 + 全榜:每行带 data-prov-eng(对地图 path)/排名/资本/公司数;占比条按当前排序指标
+  provincesBoard(d, lang, tiles, sort) {
+    const rows = d.provinceRanking || []
+    if (!rows.length) return '<p class="biz-report-empty">' + esc(lbl('noData', lang)) + '</p>'
+    const byCount = sort === 'count_desc'
+    const maxV = rows.reduce((m, r) => Math.max(m, byCount ? (r.companyCount || 0) : (r.registeredCapital || 0)), 0) || 1
+    const crossInd = d.crossIndustry // 行业透视:府下钻到 行业×府 交叉页
+    return '<ol class="biz-rank-list">' + rows.map((r, i) => {
+      const rank = r.rank || i + 1
+      const eng = slugifyName((r.province && r.province.en) || '')
+      const href = crossInd && eng ? '/industry-' + crossInd + '-' + eng + '.html'
+        : eng ? '/' + eng + '.html' : '/t/province/' + encodeURIComponent(r.provinceSlug || '')
+      const cap = moneyCompact(r.registeredCapital, lang), cnt = fmtNum(r.companyCount)
+      const v = byCount ? (r.companyCount || 0) : (r.registeredCapital || 0)
+      const w = (v / maxV * 100).toFixed(1)
+      const primary = byCount ? cnt : cap
+      const secondary = byCount ? cap : (cnt + ' ' + lbl('companies', lang))
+      const nm = pick(r.province, lang)
+      return '<li><a class="biz-rank-row' + (rank <= 3 ? ' is-top' : '') + '" href="' + href +
+        '" data-prov-eng="' + esc(eng) + '" data-rank="' + rank + '" data-cap="' + (r.registeredCapital || 0) +
+        '" data-count="' + (r.companyCount || 0) + '" data-name="' + esc(nm) + '">' +
+        '<span class="biz-rank-row__rank">' + rank + '</span>' +
+        '<span class="biz-rank-row__main"><span class="biz-rank-row__name">' + esc(nm) + '</span>' +
+        '<span class="biz-rank-row__bar"><span style="width:' + w + '%"></span></span></span>' +
+        '<span class="biz-rank-row__val"><strong>' + esc(primary) + '</strong><small>' + esc(secondary) + '</small></span>' +
+        '</a></li>'
+    }).join('') + '</ol>'
+  },
+  // 企业营收/利润排行榜:筛选面板,渲染成真链接(<a href>),不是 <select>——跟 trendScopeHero()
+  // 同一个道理:下拉框换 URL 靠 JS change 事件,爬虫不会模拟这个交互,那些筛选组合页面就永远
+  // 不会被发现/收录,白建了。链接本身就是可爬的导航,不需要任何客户端 JS 配合。
+  // 每个链接的 href 都是"当前全部筛选 + 改这一项"拼出来的完整 URL,切某一个维度不会丢掉
+  // 其它几个维度已选的值。
+  // 渲染位置见 page-38.html:跟 rankingYearSelect 同一排放在表格上方的工具栏(2026-07-05 从
+  // 侧边栏挪过来,原来跟 curatedSidebar 同放在左侧 <aside> 里)。不复用 chipsHtml()/.biz-fl-chip——
+  // 那套选中态是实心品牌紫底色,这张榜单页明确要求灰白蓝商务风格、不用紫色,所以这里单独走
+  // .biz-rank-filters__link(选中态改成蓝色文字+浅蓝底,呼应表格公司名链接的蓝色)。
+  // 行业/省份选项多(约 19/78 条),用原生 <details>/<summary> 折叠——纯 HTML 不依赖 JS,
+  // 链接照样原样躺在 DOM 里可以被爬到,只是视觉上默认收起;当前已选项显示在 <summary> 上
+  // (不展开也知道筛的是什么),且已经选了非默认值时服务端直接渲染 open,不用再点一次展开。
+  rankingFilters(d, lang) {
+    if (d._placeholder || d._hideFilters) return ''
+    const f = d.filters || {}
+    const base = '/business-leaderboards'
+    // 注意:必须用 defaultFiscalYearBe(站点固有默认财年,不随本次请求变),不能用
+    // d.fiscalYearBe(那是"这次请求实际生效的年份",覆盖到别的年份时它自己也会变成那个年份——
+    // 拿它来判断"能不能省略 ?year= 参数"会导致非默认年份下切其它筛选维度时 year 被悄悄丢掉)。
+    const defaultYear = d.defaultFiscalYearBe || ''
+    const hrefFor = (overrides) => {
+      const merged = { metric: f.metric || 'revenue', industry: f.industry || '', province: f.province || '', sizeCode: f.sizeCode || '', fiscalYear: f.fiscalYear || '', ...overrides }
+      const qs = new URLSearchParams()
+      if (merged.metric && merged.metric !== 'revenue') qs.set('metric', merged.metric)
+      if (merged.industry) qs.set('industry', merged.industry)
+      if (merged.province) qs.set('province', merged.province)
+      if (merged.sizeCode) qs.set('size', merged.sizeCode)
+      if (merged.fiscalYear && String(merged.fiscalYear) !== String(defaultYear)) qs.set('year', String(merged.fiscalYear))
+      const s = qs.toString()
+      return base + (s ? '?' + s : '')
+    }
+    // 剩下 4 组(指标/规模/行业/省份)统一走 <details>/<summary>,视觉上都收起来像下拉框——
+    // 但底层还是真 <a href> 列表,不是 <select>,爬虫照样能读到每个筛选组合的链接
+    // (2026-07-05 用户确认过这个取舍:要"下拉"的观感,不要 <select> 那种换页靠 JS、组合
+    // 链接从源码里消失的做法)。当前选中值显示在 <summary> 上,不用展开就知道筛的是什么;
+    // 选了非默认值时服务端直接渲染 open。
+    // 年份单独挪到公司列表右上角做真 <select>(见下面 rankingYearSelect)——年份组合不需要
+    // SEO,只是给用户切换方便,所以不用担心 <select> 的可爬性问题(2026-07-05 用户改口径)。
+    const link = (it) => '<a class="biz-rank-filters__link' + (it.active ? ' is-active' : '') + '" href="' + esc(it.href) + '">' + esc(it.label) + '</a>'
+    const list = (items) => '<div class="biz-rank-filters__list">' + items.map(link).join('') + '</div>'
+    const detailsGroup = (labelKey, items, currentLabel, open) => '<details class="biz-rank-filters__group"' + (open ? ' open' : '') + '>' +
+      '<summary>' + esc(lbl(labelKey, lang)) + '<span class="biz-rank-filters__current">' + esc(currentLabel) + '</span></summary>' +
+      list(items) + '</details>'
+
+    const metricItems = [
+      { label: lbl('rankMetricRevenue', lang), href: hrefFor({ metric: 'revenue' }), active: (f.metric || 'revenue') === 'revenue' },
+      { label: lbl('rankMetricProfit', lang), href: hrefFor({ metric: 'profitloss' }), active: f.metric === 'profitloss' },
+    ]
+    const sizeItems = [{ label: lbl('rankAllSizes', lang), href: hrefFor({ sizeCode: '' }), active: !f.sizeCode }]
+      .concat(['S', 'M', 'L'].map(s => ({ label: lbl('rankSize' + s, lang), href: hrefFor({ sizeCode: s }), active: f.sizeCode === s })))
+    const sections = d.industrySections || []
+    const industryItems = [{ label: lbl('rankAllIndustries', lang), href: hrefFor({ industry: '' }), active: !f.industry }]
+      .concat(sections.map(s => ({ label: pick(s.name, lang) || s.slug, href: hrefFor({ industry: s.slug }), active: f.industry === s.slug })))
+    const provinces = d.provinceList || []
+    const provinceItems = [{ label: lbl('rankAllProvinces', lang), href: hrefFor({ province: '' }), active: !f.province }]
+      .concat(provinces.map(p => ({ label: pick(p.name, lang) || p.slug, href: hrefFor({ province: p.slug }), active: f.province === p.slug })))
+
+    const currentOf = items => { const c = items.find(it => it.active); return c ? c.label : '' }
+
+    // 横排工具栏(2026-07-05 改版):外层白卡片/大标题由侧边栏版本用,这里挪到表格上方跟年份
+    // select 同一排,不需要重复的"排行榜筛选"标题,可访问性靠 role=group + aria-label 保留。
+    // 外层容器 class(.biz-rank-filters.biz-rank-filters--toolbar)由模板(page-38.html)提供。
+    // 4 个 <details> 一律不再默认 open(哪怕选了非默认值)——横排布局下几个同时展开的浮层
+    // 会互相压住、挡住彼此的点击区域(旧的侧边栏纵向手风琴版本才适合默认展开);当前选中值
+    // 已经显示在 <summary> 上,不用展开也看得到,不需要靠默认 open 这个信号。
+    return '<div class="biz-rank-filters__row" role="group" aria-label="' + esc(lbl('rankFiltersTitle', lang)) + '">' +
+      detailsGroup('rankFilterMetric', metricItems, currentOf(metricItems), false) +
+      detailsGroup('rankFilterSize', sizeItems, currentOf(sizeItems), false) +
+      detailsGroup('rankFilterIndustry', industryItems, currentOf(industryItems), false) +
+      detailsGroup('rankFilterProvince', provinceItems, currentOf(provinceItems), false) +
+    '</div>'
+  },
+  // 年份切换:公司列表右上角的真 <select>,不走 rankingFilters 那套 <a href> 列表——年份组合
+  // 不需要 SEO,只要用户切换方便;<option> 不是 <a>,爬虫不会把它当可收录链接。用
+  // data-biz-filter="year" 直接复用 theme.js 里商业报告页通用的筛选跳转监听器(不受这张页面
+  // 已 SSR 的 data-biz-ssr 短路影响,那个监听器是独立的顶层 IIFE),切换时自动带上当前其它
+  // 筛选参数跳转,不用再写一份新的客户端 JS。
+  rankingYearSelect(d, lang) {
+    // 注意:只看 _placeholder,不看 _hideFilters——那个 flag 是给 rankingFilters() 那一排
+    // metric/行业/省份/规模筛选链接用的(精选榜单固定预设,不接受任意筛选组合);财年切换
+    // 不影响 SEO(见上面的注释),精选榜单(2026-07-06 起)也应该能切年份,只是不能像
+    // 通用页那样自由换其它筛选维度。
+    if (d._placeholder) return ''
+    const years = Array.isArray(d.availableYears) ? d.availableYears : []
+    if (years.length <= 1) return ''
+    const f = d.filters || {}
+    const cur = String(f.fiscalYear || d.defaultFiscalYearBe || '')
+    // availableYears 应为裸数字;兼容旧缓存里的 {fiscalYearBe} 对象,避免 option 变成 [object Object]
+    const yearVal = (y) => {
+      if (y && typeof y === 'object') return String(y.fiscalYearBe || y.year || '')
+      return String(y == null ? '' : y)
+    }
+    const opts = years.map(y => {
+      const v = yearVal(y)
+      if (!v) return ''
+      return '<option value="' + esc(v) + '"' + (v === cur ? ' selected' : '') + '>' + esc(dualYear(v, lang)) + '</option>'
+    }).join('')
+    return '<select class="biz-rank-year-select" data-biz-filter="year" aria-label="' + esc(lbl('rankFilterYear', lang)) + '">' + opts + '</select>'
+  },
+  // 企业营收/利润排行榜:排名表格。亏损(负值)明确标"亏损"徽章,不是让负号看起来像展示 bug。
+  rankingTable(d, lang) {
+    if (d._placeholder) return ''
+    const rows = d.items || []
+    if (!rows.length) return '<p class="biz-report-empty">' + esc(lbl('noData', lang)) + '</p>'
+    const isProfit = d.metric === 'profitloss'
+    const isGrowth = d.metric === 'growth'
+    const valueCell = (v) => {
+      // growth 的 metricValue 在 analytics 里已经是乘过 100 的百分比数字,不能走
+      // moneyCompact(那是给金额用的)——同样的坑见下面 reasonValueText 的注释。
+      if (isGrowth) return esc(Number(v).toFixed(1) + '%')
+      const n = Number(v)
+      const money = moneyCompact(Math.abs(n), lang)
+      return isProfit && n < 0
+        ? '<span class="biz-rank-loss">-' + esc(money) + ' <em>' + esc(lbl('rankLoss', lang)) + '</em></span>'
+        : esc(money)
+    }
+    // 商务风格公司名单元格:不复用别处的 .biz-an-link(那边继承了品牌紫色),这张表单独走
+    // 灰白蓝配色,类名也单独取(.biz-rank-table__company),不影响其它已经在用 companyCell 的页面。
+    const companyRankCell = (r, lang) => {
+      const name = pick(r.name, lang) || r.code
+      // 链接优先用 slug(id)+英文名;展示用 code(注册号),二者不要混
+      return '<a href="' + esc(companyHref(r.id || r.code, r.name && r.name.en)) + '" class="biz-rank-table__company">' +
+        '<span class="biz-rank-table__namewrap"><strong>' + esc(name) + '</strong><span data-updated-slot></span></span>' +
+        '<small>' + esc(r.code) + '</small></a>'
+    }
+    // 「上榜原因」列(2026-07-06 新增):只有精选榜单(curatedLists.js 的 reasonTemplate 经
+    // server.js 传成 d._reasonTemplate)才会出现;通用 /business-leaderboards 筛选页没有这个
+    // 字段,这一列自动不生效,不用额外判断页面类型。
+    // 数值格式化单独走 reasonValueText,不能复用 valueCell(那是 HTML,这里弹窗走纯文本
+    // textContent),更不能拿现成的 pct() 套 growth——growth 的 metricValue 在 analytics 里
+    // 已经是乘过 100 的百分比数字,pct() 会再乘一次 100,拼出"4530.0%"这种荒谬结果。
+    const hasReason = !!d._reasonTemplate
+    const reasonValueText = (v) => {
+      if (isGrowth) return Number(v).toFixed(1) + '%'
+      const n = Number(v), money = moneyCompact(Math.abs(n), lang)
+      return (isProfit && n < 0) ? '-' + money + ' (' + lbl('rankLoss', lang) + ')' : money
+    }
+    const reasonCell = (r, rank) => {
+      const reasonText = fillTemplate(pick(d._reasonTemplate, lang), {
+        rank: String(rank),
+        company: pick(r.name, lang) || r.code,
+        value: reasonValueText(r.metricValue),
+        year: d.fiscalYearBe ? dualYear(d.fiscalYearBe, lang) : '—',
+      })
+      return '<button type="button" class="biz-rank-reason-link" data-reason="' + esc(reasonText) + '">' + esc(lbl('rankReasonLink', lang)) + '</button>'
+    }
+    const table = buildTable(
+      [lbl('rankColumn', lang), lbl('company', lang), lbl('province', lang), lbl(isGrowth ? 'rankMetricGrowth' : (isProfit ? 'rankMetricProfit' : 'rankMetricRevenue'), lang)]
+        .concat(hasReason ? [lbl('rankReasonColumn', lang)] : []),
+      rows.map((r, i) => {
+        const rank = (d.offset || 0) + i + 1
+        return [rankBadge(rank, lang), companyRankCell(r, lang), esc(pick(r.province, lang)), valueCell(r.metricValue)]
+          .concat(hasReason ? [reasonCell(r, rank)] : [])
+      }),
+      lang
+    )
+    return '<div class="biz-rank-table-wrap">' + table.replace('class="biz-report-table', 'class="biz-report-table biz-rank-table') + '</div>'
+  },
+  // 企业营收/利润排行榜:方法论 + 财年覆盖率说明(透明口径,替代 DBD 那批说不清参照人群的
+  // rank 字段——这是本功能存在的原因,不能省略)+ 命中量过小时的小样本提示。
+  rankingCaption(d, lang) {
+    // 占位榜单(员工数/出口额/EV 企业):没有真实数据可查,直接展示"数据录入中"说明,
+    // 不显示方法论/财年覆盖率这套只有真实排行才有意义的文字。
+    if (d._placeholder) {
+      const text = d.placeholderText ? pick(d.placeholderText, lang) : ''
+      return '<div class="biz-rank-placeholder biz-report-panel">' + esc(text) + '</div>'
+    }
+    const y = d.fiscalYearBe ? dualYear(d.fiscalYearBe, lang) : '—'
+    const coverageLine = lbl('rankCoverageNote', lang).replace('{y}', y).replace('{n}', fmtNum(d.coverage))
+    const smallSample = (d.total > 0 && d.total < 10) ? '<p class="biz-rank-smallsample">' + esc(lbl('rankSmallSample', lang)) + '</p>' : ''
+    return '<p class="biz-rank-methodology">' + esc(lbl('rankMethodology', lang)) + '</p>' +
+      '<p class="biz-rank-coverage">' + esc(coverageLine) + '</p>' + smallSample
+  },
+  // 企业营收/利润排行榜:分页(_basePath 已经把当前筛选参数编进去了,见 server.js 的
+  // /business-leaderboards 分支,翻页不会丢筛选状态)。精选 Top N 榜单(_hidePager,见
+  // serveCuratedListPage)固定只出前 N 名,不给翻页入口——避免变成一个可以逐页翻出
+  // "前 N 名之外"全部公司的采集接口。
+  rankingPager(d, lang) {
+    if (d._placeholder || d._hidePager) return ''
+    // _pagerTotal:resolver 在 offset 封顶后传入,避免分页链指向重复末页;缺省回退 total
+    const pagerTotal = d._pagerTotal != null ? d._pagerTotal : (d.total || 0)
+    return pagerHtml(d._page || 1, pagerTotal, d._perPage || 24, d._basePath || '', lang)
+  },
+  // 精选榜单侧边栏:链到 curatedLists.js 里全部~20个榜单(真链接,不是下拉——同一个理由:
+  // 爬虫不会模拟 JS 交互去发现筛选组合,这批页面要靠真实 <a href> 才能被发现/收录)。
+  // 分三组:全国总榜/分行业/按资本来源国;占位(hasData:false)的条目照样给链接,标"即将上线",
+  // 不是完全隐藏——用户点进去能看到明确的"数据录入中"说明,比链接消失更透明。
+  curatedSidebar(d, lang) {
+    const national = CURATED_LISTS.filter(l => !l.filters?.industry && !l.filters?.natCode && l.hasData !== false)
+    const byIndustry = CURATED_LISTS.filter(l => l.filters?.industry)
+    const byNationality = CURATED_LISTS.filter(l => l.filters?.natCode)
+    const comingSoon = CURATED_LISTS.filter(l => l.hasData === false)
+    const item = (l) => '<li><a href="/' + esc(l.slug) + '.html">' + esc(pick(l.title, lang)) +
+      (l.hasData === false ? ' <em class="biz-rank-sidebar__soon">(' + esc(lbl('rankSidebarComingSoon', lang)) + ')</em>' : '') + '</a></li>'
+    const group = (label, items) => items.length
+      ? '<div class="biz-rank-sidebar__group"><h3>' + esc(label) + '</h3><ul>' + items.map(item).join('') + '</ul></div>'
+      : ''
+    return '<nav class="biz-rank-sidebar biz-report-panel" aria-label="' + esc(lbl('rankSidebarTitle', lang)) + '">' +
+      '<h2>' + esc(lbl('rankSidebarTitle', lang)) + '</h2>' +
+      group(lbl('rankSidebarNational', lang), national) +
+      group(lbl('rankSidebarIndustry', lang), byIndustry) +
+      group(lbl('rankSidebarNationality', lang), byNationality) +
+      group(lbl('rankSidebarComingSoon', lang), comingSoon) +
+    '</nav>'
+  },
+  // 地图模块标题:行业透视时=「<行业>各府分布」;否则随排序指标(注册资本/企业数量)
+  boardTitle(d, lang, tiles, sort) {
+    if (d.crossIndustry && d.crossIndustryName) {
+      const nm = pick(d.crossIndustryName, lang)
+      return esc(lang === 'zh' ? nm + ' · 各府分布' : lang === 'th' ? nm + ' · กระจายตามจังหวัด' : nm + ' across Thailand')
+    }
+    const T = sort === 'count_desc'
+      ? { en: 'Companies across Thailand', th: 'จำนวนบริษัททั่วประเทศไทย', zh: '全国企业数量分布' }
+      : { en: 'Registered capital across Thailand', th: 'ทุนจดทะเบียนทั่วประเทศไทย', zh: '全国注册资本分布' }
+    return esc(T[lang] || T.en)
+  },
+}
+
+// 把壳里所有 <... data-biz-fill="X" ...></...> 空槽用服务端渲染填充
+export function injectBizSlots(html, data, lang, sort) {
+  let out = html.replace(/<(\w+)([^>]*\bdata-biz-fill="([a-zA-Z]+)"[^>]*)>([\s\S]*?)<\/\1>/g, (m, tag, attrs, slot) => {
+    const fn = FILLERS[slot]
+    if (!fn) return m
+    const tiles = (attrs.match(/data-tiles="([^"]*)"/) || [])[1] || ''
+    let rendered = ''
+    try { rendered = fn(data, lang, tiles, sort) } catch (e) { rendered = '' }
+    return '<' + tag + attrs + '>' + rendered + '</' + tag + '>'
+  })
+  // 标记根节点已 SSR(theme.js 见此跳过客户端 fetch);隐藏"加载中"状态条
+  out = out.replace(/(<[^>]*\bdata-biz-analytics="[^"]*")/, '$1 data-biz-ssr="1"')
+  out = out.replace(/(<div[^>]*\bdata-biz-status\b)([^>]*)>/, (m, a, b) => /\bhidden\b/.test(b) ? m : a + b + ' hidden>')
+  return out
+}
+
+// 命中词高亮(大小写不敏感,与公司搜索一致的 .biz-hl 黄底);先转义再注入高亮 span
+function highlightTerm(name, query) {
+  const n = text(name)
+  const qq = text(query)
+  if (!qq) return esc(n)
+  const lowN = n.toLowerCase(), lowQ = qq.toLowerCase()
+  let out = '', i = 0, idx = lowN.indexOf(lowQ)
+  while (idx !== -1) {
+    out += esc(n.slice(i, idx)) + '<span class="biz-hl">' + esc(n.slice(idx, idx + qq.length)) + '</span>'
+    i = idx + qq.length
+    idx = lowN.indexOf(lowQ, i)
+  }
+  return out + esc(n.slice(i))
+}
+
+// 股东/老板姓名搜索结果(directors sidecar /search、mode=name 返回)→ 人物卡片(链董事页)。
+export function renderOwnerSearch(sd, query, lang) {
+  if (!sd) return ''
+  const persons = sd.persons || []
+  const total = sd.total || 0
+  const clean = s => text(s).replace(/\s*\/\s*$/, '').trim()
+  const heading = '<div class="biz-report-section__head"><div>' +
+    '<h2>' + esc(lbl('osResults', lang)) + '</h2>' +
+    '<p>' + esc(total + ' ' + lbl('osPersons', lang)) + ' · “' + esc(query) + '”</p></div></div>'
+  let body
+  if (sd.notice === 'too_short') {
+    body = '<p class="biz-report-empty">' + esc(lbl('osTooShort', lang)) + '</p>'
+  } else if (sd.notice === 'invalid_id') {
+    body = '<p class="biz-report-empty">' + esc(lbl('osInvalidId', lang)) + '</p>'
+  } else if (!persons.length) {
+    body = '<p class="biz-report-empty">' + esc(lbl('osEmpty', lang)) + '</p>'
+  } else {
+    body = '<div class="biz-report-panel"><div class="biz-industry-list">' + persons.map(p => {
+      const en = clean(p.nameEn), th = clean(p.nameTh)
+      const primary = lang === 'th' ? (th || en) : (en || th)
+      const secondary = lang === 'th' ? en : th
+      const hl = s => highlightTerm(s, query)
+      const href = '/director-' + encodeURIComponent(text(p.jpNo)) + '-' + encodeURIComponent(text(p.cmtSeq)) + '.html'
+      return '<a class="biz-industry-item biz-owner-person" href="' + esc(href) + '">' +
+        '<span class="biz-industry-item__body">' +
+          '<strong class="biz-industry-item__name">' + (primary ? hl(primary) : '—') + '</strong>' +
+          '<span class="biz-industry-item__sub">' +
+            (secondary ? '<span class="biz-owner-person__alt">' + hl(secondary) + '</span>' : '') +
+            (p.ntCode ? '<span class="biz-owner-nat">' + esc(p.ntCode) + '</span>' : '') +
+          '</span>' +
+        '</span>' +
+        '<span class="biz-industry-item__aside">' +
+          '<span class="biz-industry-item__cap">' + esc(fmtNum(p.companyCount) + ' ' + lbl('osLinkedCompanies', lang)) + '</span>' +
+        '</span>' +
+      '</a>'
+    }).join('') + '</div></div>'
+  }
+  return '<section class="biz-report-section biz-owner-results-sec">' + heading + body + '</section>'
+}
+
+// ── 筛选公司列表 SSR 页(/new-companies-<年> · /foreign-companies-<国>):按子域名语言直出,无需 ui-strings ──
+function t3(lang, en, th, zh) { return lang === 'th' ? th : (lang === 'zh' ? zh : en) }
+function chipsHtml(items) {
+  return '<div class="biz-fl-chips">' + items.map(it =>
+    '<a class="biz-fl-chip' + (it.active ? ' is-active' : '') + '" href="' + esc(it.href) + '">' + esc(it.label) + '</a>'
+  ).join('') + '</div>'
+}
+export function pagerHtml(page, total, perPage, basePath, lang) {
+  const pages = Math.max(1, Math.ceil(total / perPage))
+  if (pages <= 1) return ''
+  const sep = basePath.indexOf('?') >= 0 ? '&' : '?'
+  const href = p => basePath + (p > 1 ? sep + 'page=' + p : '')
+  const pv = esc(t3(lang, 'Previous', 'ก่อนหน้า', '上一页')), nx = esc(t3(lang, 'Next', 'ถัดไป', '下一页'))
+  const prev = page > 1 ? '<a class="biz-fl-pager__btn" href="' + esc(href(page - 1)) + '">‹ ' + pv + '</a>' : '<span class="biz-fl-pager__btn is-disabled">‹ ' + pv + '</span>'
+  const next = page < pages ? '<a class="biz-fl-pager__btn" href="' + esc(href(page + 1)) + '">' + nx + ' ›</a>' : '<span class="biz-fl-pager__btn is-disabled">' + nx + ' ›</span>'
+  // 数字页码：当前页附近窗口 + 首尾，爬虫可沿真实 <a href> 抓取。
+  const nums = []
+  const pushNum = (p) => {
+    if (p < 1 || p > pages) return
+    if (nums.length && nums[nums.length - 1] === p) return
+    if (nums.length && p - nums[nums.length - 1] > 1) nums.push(0) // ellipsis marker
+    nums.push(p)
+  }
+  pushNum(1)
+  for (let p = Math.max(2, page - 2); p <= Math.min(pages - 1, page + 2); p += 1) pushNum(p)
+  if (pages > 1) pushNum(pages)
+  const numHtml = nums.map(p => {
+    if (p === 0) return '<span class="biz-fl-pager__gap">…</span>'
+    if (p === page) return '<span class="biz-fl-pager__num is-current" aria-current="page">' + p + '</span>'
+    return '<a class="biz-fl-pager__num" href="' + esc(href(p)) + '">' + p + '</a>'
+  }).join('')
+  const mid = '<span class="biz-fl-pager__info">' + esc(t3(lang, 'Page ' + page + ' of ' + pages, 'หน้า ' + page + ' / ' + pages, '第 ' + page + ' / ' + pages + ' 页')) + '</span>'
+  return '<nav class="biz-fl-pager" aria-label="pagination">' + prev + mid + numHtml + next + '</nav>'
+}
+// o.chips/o.chipsLabel:单组筛选 chips(原有用法,仍支持)。o.chipGroups:多组筛选 chips
+// ([{label, html}, ...],人气页要同时放"指标切换/按行业/按地区"三组,见 renderTrendingMain)。
+// o.beforeList:插在筛选 chips 和"常规列表面板"之间、面板外面的内容(不跟面板共用那个纯列表用
+// 的白底边框样式;人气页一度用来放"领奖台",后来那版整个撤掉了,现在没有调用方在用,留着这个
+// 扩展点)。o.listHtml 为空字符串时整个列表面板连标题都不渲染(现有调用方从不传空字符串——
+// 空态也会传一段"暂无数据"提示 HTML,所以这个改动不影响它们)。
+// o.hideListHead:不渲染 biz-report-section__head(标题+totalLine 那一块),人气页用(用户反馈
+// 那块信息跟上面 hero 重复),其它调用方都不传,不受影响。
+function filterListMain(o) {
+  const chipGroups = o.chipGroups && o.chipGroups.length ? o.chipGroups : (o.chips ? [{ label: o.chipsLabel, html: o.chips }] : [])
+  const chipSections = chipGroups.map(g =>
+    '<section class="biz-fl-filter">' + (g.label ? '<p class="biz-fl-filter__label">' + esc(g.label) + '</p>' : '') + g.html + '</section>').join('')
+  const listHead = o.hideListHead ? '' : '<div class="biz-report-section__head"><div><h2>' + esc(o.listTitle) + '</h2>' +
+    (o.totalLine ? '<p>' + esc(o.totalLine) + '</p>' : '') + '</div></div>'
+  const listSection = o.listHtml
+    ? '<section class="biz-report-section">' + listHead +
+      '<div class="biz-report-panel"><div class="biz-industry-list">' + o.listHtml + '</div></div>' + o.pager +
+    '</section>'
+    : ''
+  return '<main class="starter-main biz-fl-page' + (o.rootClass ? ' ' + esc(o.rootClass) : '') + '">' +
+    '<section class="biz-report-hero"><div>' +
+      '<p class="biz-report-kicker">' + esc(o.kicker) + '</p>' +
+      '<h1>' + esc(o.title) + '</h1>' +
+      '<p class="biz-report-lead">' + esc(o.lead) + '</p>' +
+      (o.heroExtra || '') +
+      (o.backHref ? '<div class="biz-report-toolbar"><a href="' + esc(o.backHref) + '">‹ ' + esc(o.backLabel) + '</a></div>' : '') +
+    '</div></section>' +
+    chipSections +
+    (o.beforeList || '') +
+    listSection +
+  '</main>'
+}
+// 年份新注册公司列表 main(facts 形,复用 companyCardHtml date 模式)
+export function renderYearMain(d, year, lang, page, years) {
+  const companies = (d && d.companies) || [], total = (d && d.total) || 0
+  const ce = ceFromYear(year), dy = dualYear(year, lang)
+  const listHtml = companies.length ? companies.map(r => companyCardHtml(r, lang, 'date')).join('')
+    : '<p class="biz-report-empty">' + esc(lbl('noData', lang)) + '</p>'
+  const chips = chipsHtml((years || []).map(y => ({ label: String(ceFromYear(y)), href: '/new-companies-' + ceFromYear(y) + '.html', active: ceFromYear(y) === ce })))
+  return filterListMain({
+    kicker: t3(lang, 'New registrations', 'การจดทะเบียนใหม่', '新注册企业'),
+    title: t3(lang, 'New companies registered in ' + dy, 'บริษัทจดทะเบียนใหม่ปี ' + dy, dy + ' 年新注册公司'),
+    lead: t3(lang,
+      'Every Thai company newly registered in ' + ce + ', most recent first — with province, registered capital and status. Live data from DBD DataWarehouse+.',
+      'บริษัทไทยที่จดทะเบียนใหม่ในปี ' + ce + ' เรียงจากล่าสุด พร้อมจังหวัด ทุนจดทะเบียน และสถานะ ข้อมูลสดจาก DBD DataWarehouse+',
+      ce + ' 年在泰国新注册的全部企业,按最新排序,含所在府、注册资本与经营状态。数据来源 DBD DataWarehouse+。'),
+    backHref: '/business-new-registrations', backLabel: t3(lang, 'New registration trends', 'แนวโน้มการจดทะเบียนใหม่', '新注册趋势分析'),
+    chipsLabel: t3(lang, 'Browse by year', 'เลือกตามปี', '按年份浏览'), chips,
+    listTitle: t3(lang, 'Companies', 'บริษัท', '企业列表'),
+    totalLine: t3(lang, fmtNum(total) + ' companies', fmtNum(total) + ' บริษัท', fmtNum(total) + ' 家公司'),
+    listHtml, pager: pagerHtml(page, total, 24, '/new-companies-' + ce + '.html', lang),
+  })
+}
+// 国籍关联公司列表 main(director 形)
+export function renderNatMain(d, countryName, countrySlug, nats, lang, page) {
+  const companies = (d && d.companies) || [], total = (d && d.total) || 0
+  const listHtml = companies.length ? companies.map(r => companyCardHtml(r, lang, 'cap')).join('')
+    : '<p class="biz-report-empty">' + esc(lbl('noData', lang)) + '</p>'
+  const chips = chipsHtml((nats || []).filter(n => n.code && n.code !== 'other' && !/other|unspecified/i.test((n.name && n.name.en) || '')).map(n => { const slug = slugifyName(n.name && n.name.en); return { label: pick(n.name, lang) || n.code, href: '/foreign-companies-' + slug + '.html', active: slug === countrySlug } }))
+  return filterListMain({
+    kicker: t3(lang, 'Foreign capital', 'ทุนต่างชาติ', '外资构成'),
+    title: t3(lang, countryName + '-linked companies in Thailand', 'บริษัทในไทยที่เชื่อมโยงกับ' + countryName, '关联' + countryName + '的在泰企业'),
+    lead: t3(lang,
+      'Thai companies with at least one director or shareholder from ' + countryName + ', ranked by registered capital. Ownership inferred from director nationality — DBD DataWarehouse+.',
+      'บริษัทไทยที่มีกรรมการหรือผู้ถือหุ้นจาก' + countryName + 'อย่างน้อยหนึ่งราย เรียงตามทุนจดทะเบียน',
+      '至少有一名' + countryName + '籍董事或股东的在泰企业,按注册资本排序。持股关系依董事国籍推断 — DBD DataWarehouse+。'),
+    backHref: '/business-foreign-capital', backLabel: t3(lang, 'Foreign capital overview', 'ภาพรวมทุนต่างชาติ', '外资构成总览'),
+    chipsLabel: t3(lang, 'Browse by country', 'เลือกตามประเทศ', '按国家浏览'), chips,
+    listTitle: t3(lang, 'Companies', 'บริษัท', '企业列表'),
+    totalLine: t3(lang, fmtNum(total) + ' companies', fmtNum(total) + ' บริษัท', fmtNum(total) + ' 家公司'),
+    listHtml, pager: pagerHtml(page, total, 24, '/foreign-companies-' + countrySlug + '.html', lang),
+  })
+}
+
+// 人气排行页 hero 内的「按行业 / 按地区」文字链接行(取代早期的 3 个下拉工具条,以及再上一版
+// 横滑 chip 条——用户反馈 chip 太像按钮、横滑不直观,改回纯文字链接、换行铺满整行不横滑)。
+// 每个链接是真 <a>,点击整页跳转到该行业/地区的榜单;行业/地区天然互斥——每条链接只带其中
+// 一维。指标(浏览/搜索)由 header 二级菜单切换,这里的链接始终带上当前 metric 以便切维度时
+// 保持指标。"全部行业/全部地区"链接回到全站榜(参数少,用 ?metric= 就行,没必要拆扁平 URL)。
+// 行业/地区链接本身走扁平 URL(/trending-<metric>-industry|region-<slug>.html,见 server.js
+// serveTrendingPage 的 flat 参数)而不是 ?industry=/?region=——用户反馈行业 19×地区 77 这种
+// query string 组合太多不利于 SEO,改成扁平路径,数量虽然没变但每条都是独立的干净 URL。
+// 用独立的 .biz-trend-scope__link(不复用 .biz-fl-chip,那个是按钮/pill 视觉,还被
+// /new-companies-<年>、/foreign-companies-<国> 两个页面共用,不能直接改样式)。
+// 时间窗口下拉(24小时/7天/30天/全部,2026-07-05 新增):真 <select>,不是 flat URL——跟排行榜页
+// 的年份下拉(rankingYearSelect)同一个道理,时间窗口不需要 SEO,只是给用户看着方便,直接复用
+// theme.js 里那段通用的 data-biz-filter 监听器(见该文件顶部注释),零新增 JS。选项值必须跟
+// analytics/src/db.js 的 TRENDING_WINDOWS 键名一致('24h'/'7d'/'30d'),空值=全量累计(不传参数)。
+function trendWindowSelect(lang, current) {
+  const opts = [
+    { v: '', label: t3(lang, 'All time', 'ทั้งหมด', '全部时间') },
+    { v: '24h', label: t3(lang, 'Last 24 hours', '24 ชั่วโมงล่าสุด', '近24小时') },
+    { v: '7d', label: t3(lang, 'Last 7 days', '7 วันล่าสุด', '近7天') },
+    { v: '30d', label: t3(lang, 'Last 30 days', '30 วันล่าสุด', '近30天') },
+  ]
+  const cur = current || ''
+  const options = opts.map(o => '<option value="' + esc(o.v) + '"' + (o.v === cur ? ' selected' : '') + '>' + esc(o.label) + '</option>').join('')
+  return '<div class="biz-trend-window"><select class="biz-rank-year-select" data-biz-filter="window" aria-label="' +
+    esc(t3(lang, 'Time range', 'ช่วงเวลา', '时间范围')) + '">' + options + '</select></div>'
+}
+function trendScopeHero(o) {
+  const lang = o.lang, base = o.basePath || '/trending-companies'
+  const metric = o.metric === 'search' ? 'search' : 'views'
+  const scope = o.scope === 'province' || o.scope === 'industry' ? o.scope : 'global'
+  const value = o.value
+  const localePrefix = o.localePrefix || ''
+  const allHref = base + '?metric=' + encodeURIComponent(metric)
+  const flatHref = (kind, slug) => localePrefix + '/trending-' + metric + '-' + kind + '-' + encodeURIComponent(slug) + '.html'
+  const chip = (label, href, active) =>
+    '<a class="biz-trend-scope__link' + (active ? ' is-active' : '') + '" href="' + esc(href) + '">' + esc(label) + '</a>'
+  const row = (label, chips) =>
+    '<div class="biz-trend-scope__row">' +
+      '<span class="biz-trend-scope__label">' + esc(label) + '</span>' +
+      '<div class="biz-trend-scope__links">' + chips + '</div>' +
+    '</div>'
+
+  const indChips = chip(t3(lang, 'All industries', 'ทุกอุตสาหกรรม', '全部行业'), allHref, scope === 'global') +
+    (o.industrySections || []).map(s =>
+      chip(pick(s.name, lang) || s.slug, flatHref('industry', s.slug), scope === 'industry' && s.slug === value)).join('')
+  const regChips = chip(t3(lang, 'All regions', 'ทุกภูมิภาค', '全部地区'), allHref, scope === 'global') +
+    (o.provinces || []).map(p =>
+      chip(pick(p.name, lang) || p.slug, flatHref('region', p.slug), scope === 'province' && p.slug === value)).join('')
+
+  return trendWindowSelect(lang, o.window) +
+    '<div class="biz-trend-scope">' +
+    row(t3(lang, 'Browse by industry', 'เลือกตามอุตสาหกรรม', '按行业查看'), indChips) +
+    row(t3(lang, 'Browse by region', 'เลือกตามภูมิภาค', '按地区查看'), regChips) +
+  '</div>'
+}
+// 人气排行页 main(/trending-companies):两个独立指标(浏览量/搜索曝光,不合并成一个分数,
+// 见 analytics/src/db.js fetchTrending 顶部注释)× 三种维度(全站/按行业/按地区),都是各自
+// 独立的服务端渲染 URL。数据量还小(2026-07-02 刚上线),空态给出"还在积累"而不是单纯"无数据"。
+// 前三名曾经做过"领奖台"(台阶+奖杯+背景光斑,迭代了五六轮才定稿),但用户最终反馈整块都不要
+// 了,回归跟第 4 名往后完全一样的紧凑列表行,唯一区别是排名圆圈换成金/银/铜底色 + 一个五角星
+// 图标(不用奖牌 emoji——不同系统渲染差别大,见 CLAUDE.md 记忆 bizthai-wc-t-translation 同类
+// 教训;用内联 SVG 保证跨系统一致)。
+const MEDAL_STAR_SVG = '<svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="M12 2l2.9 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 7.1-1.01L12 2z"/></svg>'
+function rankBadge(n, lang) {
+  if (n > 3) return '<span class="biz-trend-rank">' + n + '</span>'
+  const tierLabel = n === 1 ? t3(lang, 'Gold', 'ทอง', '金牌')
+    : n === 2 ? t3(lang, 'Silver', 'เงิน', '银牌')
+      : t3(lang, 'Bronze', 'ทองแดง', '铜牌')
+  return '<span class="biz-trend-rank biz-trend-rank--' + n + '" title="' + esc(tierLabel) + '">' + MEDAL_STAR_SVG + '</span>'
+}
+
+export function renderTrendingMain(o) {
+  const lang = o.lang
+  const base = o.basePath || '/trending-companies'
+  const metric = o.metric === 'search' ? 'search' : 'views'
+  const scope = o.scope === 'province' || o.scope === 'industry' ? o.scope : 'global'
+  const scoreUnit = metric === 'search'
+    ? t3(lang, 'search hits', 'ครั้งในผลค้นหา', '次搜索曝光')
+    : t3(lang, 'views', 'ครั้งเข้าชม', '次浏览')
+  const items = (o.items || []).map(r => ({ ...r, scoreUnit }))
+  const emptyMsg = t3(lang,
+    'Not enough real visitor activity yet for this view. Rankings update as people search and browse BizThai — check back soon.',
+    'ยังไม่มีข้อมูลกิจกรรมผู้เยี่ยมชมเพียงพอสำหรับมุมมองนี้ อันดับจะปรับตามการค้นหาและเข้าชมจริง กลับมาดูใหม่เร็ว ๆ นี้',
+    '这个维度暂时还没有足够的真实访问数据,排名会随真实搜索和浏览逐步积累,过段时间再来看看。')
+  const listHtml = items.length
+    ? '<div class="biz-trend-list">' + items.map((r, i) =>
+        '<div class="biz-trend-row">' + rankBadge(i + 1, lang) + companyCardHtml(r, lang, 'trending') + '</div>').join('') + '</div>'
+    : ''
+  const emptyHtml = items.length ? '' : '<p class="biz-report-empty">' + esc(emptyMsg) + '</p>'
+
+  const heroExtra = trendScopeHero({ lang, basePath: base, metric, scope, value: o.value, industrySections: o.industrySections, provinces: o.provinces, localePrefix: o.localePrefix, window: o.window })
+
+  const scopeLabel = scope === 'industry'
+    ? (o.scopeName ? pick(o.scopeName, lang) : t3(lang, 'this industry', 'อุตสาหกรรมนี้', '该行业'))
+    : scope === 'province'
+      ? (o.scopeName ? (lang === 'th' ? o.scopeName.th : (lang === 'zh' ? o.scopeName.zh : o.scopeName.en)) : t3(lang, 'this region', 'ภูมิภาคนี้', '该地区'))
+      : t3(lang, 'all companies', 'ทุกบริษัท', '全站')
+  const metricName = metric === 'search' ? t3(lang, 'search appearances', 'การปรากฏในผลค้นหา', '搜索曝光量') : t3(lang, 'page views', 'ยอดเข้าชมหน้า', '页面浏览量')
+  // 页面大标题(<h1>)跟 server.js trendingSeo() 的 <title> 一样按行业/地区加后缀——之前只有
+  // <title> 会变、<h1> 一直是固定的"热门泰国公司",96 个行业/地区子页面 H1 完全一样不利于 SEO
+  // (同类页面 renderYearMain/renderNatMain 的 H1 本来就是跟着年份/国家动态变的,这里只是补齐)。
+  const titleScopeBit = scope !== 'global' && o.scopeName ? ' — ' + pick(o.scopeName, lang) : ''
+
+  return filterListMain({
+    rootClass: 'biz-trend-page',
+    kicker: t3(lang, 'Popularity rankings', 'อันดับความนิยม', '人气排行'),
+    title: t3(lang, 'Trending Thai Companies', 'บริษัทไทยยอดนิยม', '热门泰国公司') + titleScopeBit,
+    lead: t3(lang,
+      'Ranked by real BizThai visitor activity (bot traffic excluded)\n' + metricName + ', ' + scopeLabel + '. Rankings grow as more people search and browse.',
+      'จัดอันดับจากกิจกรรมผู้เยี่ยมชม BizThai จริง (ไม่รวมบอท)\n' + metricName + ', ' + scopeLabel + ' อันดับจะแม่นยำขึ้นเมื่อมีการค้นหาและเข้าชมมากขึ้น',
+      '基于 BizThai 真实访客行为排名(已排除爬虫流量)\n' + metricName + '、' + scopeLabel + '。数据仍在积累,排名会随更多真实访问逐步稳定。'),
+    heroExtra,
+    hideListHead: true,
+    listHtml: listHtml || emptyHtml, pager: '',
+  })
+}
+
+// ── 地区下钻浏览(page-9:府 grid → 县 grid → 县公司报告;按子域名语言 SSR)──
+const RB = '/business-regional-rankings-summary'
+function regionTiles(items) {
+  return '<div class="biz-region-grid">' + items.map(it =>
+    '<a class="biz-region-tile' + (it.active ? ' is-active' : '') + '" href="' + esc(it.href) + '">' +
+      '<span class="biz-region-tile__name">' + esc(it.label) + '</span>' +
+      (it.sub ? '<span class="biz-region-tile__sub">' + esc(it.sub) + '</span>' : '') +
+    '</a>').join('') + '</div>'
+}
+function regionCrumb(items) {
+  return '<nav class="biz-region-crumb" aria-label="breadcrumb">' + items.map((it, i) =>
+    (i ? '<span class="biz-region-crumb__sep" aria-hidden="true">›</span>' : '') +
+    (it.href ? '<a href="' + esc(it.href) + '">' + esc(it.label) + '</a>' : '<span class="biz-region-crumb__cur">' + esc(it.label) + '</span>')
+  ).join('') + '</nav>'
+}
+// 默认:全部府 grid(核心模块)
+export function renderRegionProvinceGrid(rows, lang) {
+  const tiles = (rows || []).filter(r => r.province && r.province.en).map(r => ({
+    label: pick(r.province, lang),
+    sub: fmtNum(r.companyCount) + ' ' + lbl('newCompaniesUnit', lang),
+    href: RB + '?province=' + slugifyName(r.province.en),
+  }))
+  return '<section class="biz-report-section biz-region-sec">' +
+    '<div class="biz-report-section__head"><div><h2>' + esc(t3(lang, 'Browse companies by province', 'เลือกชมบริษัทตามจังหวัด', '按府浏览公司')) + '</h2>' +
+    '<p>' + esc(t3(lang, 'Pick a province to drill into its districts, then open any district for its company report.', 'เลือกจังหวัดเพื่อเจาะลึกถึงอำเภอ แล้วเปิดดูรายงานบริษัทของแต่ละอำเภอ', '选择一个府,下钻到其下各县/区,再打开任一县/区查看该地区企业报告。')) + '</p></div></div>' +
+    (tiles.length ? regionTiles(tiles) : '<p class="biz-report-empty">' + esc(lbl('noData', lang)) + '</p>') + '</section>'
+}
+// 二级:某府的县 grid
+export function renderRegionDistrictGrid(data, provName, provEng, lang) {
+  const dists = ((data && data.districts) || []).filter(x => (x.companyCount || 0) > 0)
+  const crumb = regionCrumb([{ label: t3(lang, 'All provinces', 'ทุกจังหวัด', '全部府'), href: RB }, { label: provName }])
+  const tiles = dists.map(x => ({
+    label: pick(x.name, lang) || x.slug,
+    sub: fmtNum(x.companyCount) + ' ' + lbl('newCompaniesUnit', lang),
+    href: RB + '?province=' + encodeURIComponent(provEng) + '&district=' + encodeURIComponent(x.slug),
+  }))
+  return '<section class="biz-report-section biz-region-sec">' + crumb +
+    '<div class="biz-report-section__head"><div><h2>' + esc(provName) + '</h2>' +
+    '<p>' + esc(t3(lang, dists.length + ' districts — open one for its company report.', dists.length + ' อำเภอ — เปิดดูรายงานบริษัทของแต่ละอำเภอ', '共 ' + dists.length + ' 个县/区 — 点击查看该地区企业报告。')) + '</p></div></div>' +
+    (tiles.length ? regionTiles(tiles) : '<p class="biz-report-empty">' + esc(lbl('noData', lang)) + '</p>') + '</section>'
+}
+// 三级落点:某县的公司报告(统计行 + 公司列表 + 分页)
+export function renderRegionDistrictReport(data, provEng, lang, page) {
+  const companies = (data && data.companies) || [], total = (data && data.total) || 0
+  const dName = pick(data.district, lang), pName = pick(data.province, lang)
+  const crumb = regionCrumb([
+    { label: t3(lang, 'All provinces', 'ทุกจังหวัด', '全部府'), href: RB },
+    { label: pName, href: RB + '?province=' + encodeURIComponent(provEng) },
+    { label: dName },
+  ])
+  const listHtml = companies.length ? companies.map(r => companyCardHtml(r, lang, 'cap')).join('') : '<p class="biz-report-empty">' + esc(lbl('noData', lang)) + '</p>'
+  const statLine = t3(lang,
+    fmtNum(total) + ' companies · ' + moneyCompact(data.totalCapital, lang) + ' registered capital',
+    fmtNum(total) + ' บริษัท · ทุนจดทะเบียน ' + moneyCompact(data.totalCapital, lang),
+    fmtNum(total) + ' 家企业 · 注册资本 ' + moneyCompact(data.totalCapital, lang))
+  const base = RB + '?province=' + encodeURIComponent(provEng) + '&district=' + encodeURIComponent(data.districtSlug || '')
+  return '<section class="biz-report-section biz-region-sec">' + crumb +
+    '<div class="biz-report-section__head"><div><h2>' + esc(dName) + ' · ' + esc(pName) + '</h2><p>' + esc(statLine) + '</p></div></div>' +
+    '<div class="biz-report-panel"><div class="biz-industry-list">' + listHtml + '</div></div>' +
+    pagerHtml(page, total, 24, base, lang) + '</section>'
+}
+
+// 把 URL 筛选参数透传给 analytics 综合端点(每个组合都是可被爬虫抓取的 SSR 页)
+export function analyticsQuery(searchParams) {
+  const p = new URLSearchParams('limit=20&businessLimit=25&foreignLimit=50&statusLimit=10&latestLimit=10')
+  for (const k of ['sort', 'provinceSlug', 'fromYear', 'toYear', 'limitYears', 'limit', 'businessLimit', 'foreignLimit', 'statusLimit', 'latestLimit', 'offset']) {
+    const v = searchParams.get(k)
+    if (v != null && v !== '') p.set(k, v)
+  }
+  return p.toString()
+}

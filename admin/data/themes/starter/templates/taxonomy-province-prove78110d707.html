@@ -1,0 +1,69 @@
+<div class="starter-theme biz-report-page biz-industry-archive starter-archive" data-industry-archive data-taxonomy="province">
+  <wc-slot name="header"></wc-slot>
+
+  <section class="industry-hero" data-industry-hero>
+    <div class="industry-hero__inner">
+      <nav class="industry-hero__crumb" aria-label="{{ t "Breadcrumb" }}">
+        <a href="/"><wc-t>Home</wc-t></a>
+        <span aria-hidden="true">&rsaquo;</span>
+        <a href="/regional-rankings"><wc-t>Regional Rankings</wc-t></a>
+        <span aria-hidden="true">&rsaquo;</span>
+        <span><wc-out path="title"></wc-out></span>
+      </nav>
+      <div class="industry-hero__top">
+        <h1 class="industry-hero__title"><wc-out path="title"></wc-out></h1>
+        <a class="biz-prov-back" href="/regional-rankings"><span aria-hidden="true">&lsaquo;</span> <wc-t>Regional Rankings</wc-t></a>
+      </div>
+      <p class="industry-hero__stats">
+        <span class="industry-hero__stat"><strong data-industry-count><wc-data source="cpt:thaicompany" term="province:prove78110d707" field="_count"></wc-data></strong> <wc-t>registered companies</wc-t></span>
+      </p>
+    </div>
+  </section>
+
+  <main class="starter-main">
+    <nav class="biz-prov-filter" aria-label="{{ t "Filter by industry" }}">
+        <a class="biz-prov-chip is-active" href="/phayao.html"><wc-t>All industries</wc-t></a>
+        <a class="biz-prov-chip" href="/industry-agriculture-forestry-fishing-phayao.html"><wc-t>Agriculture, Forestry & Fishing</wc-t></a>
+        <a class="biz-prov-chip" href="/industry-mining-quarrying-phayao.html"><wc-t>Mining & Quarrying</wc-t></a>
+        <a class="biz-prov-chip" href="/industry-manufacturing-phayao.html"><wc-t>Manufacturing</wc-t></a>
+        <a class="biz-prov-chip" href="/industry-electricity-gas-supply-phayao.html"><wc-t>Electricity & Gas Supply</wc-t></a>
+        <a class="biz-prov-chip" href="/industry-water-supply-waste-management-phayao.html"><wc-t>Water Supply & Waste Management</wc-t></a>
+        <a class="biz-prov-chip" href="/industry-construction-phayao.html"><wc-t>Construction</wc-t></a>
+        <a class="biz-prov-chip" href="/industry-wholesale-retail-trade-phayao.html"><wc-t>Wholesale & Retail Trade</wc-t></a>
+        <a class="biz-prov-chip" href="/industry-transportation-storage-phayao.html"><wc-t>Transportation & Storage</wc-t></a>
+        <a class="biz-prov-chip" href="/industry-accommodation-food-service-phayao.html"><wc-t>Accommodation & Food Service</wc-t></a>
+        <a class="biz-prov-chip" href="/industry-information-communication-phayao.html"><wc-t>Information & Communication</wc-t></a>
+        <a class="biz-prov-chip" href="/industry-finance-insurance-phayao.html"><wc-t>Finance & Insurance</wc-t></a>
+        <a class="biz-prov-chip" href="/industry-real-estate-phayao.html"><wc-t>Real Estate</wc-t></a>
+        <a class="biz-prov-chip" href="/industry-professional-scientific-technical-phayao.html"><wc-t>Professional, Scientific & Technical</wc-t></a>
+        <a class="biz-prov-chip" href="/industry-administrative-support-service-phayao.html"><wc-t>Administrative & Support Service</wc-t></a>
+        <a class="biz-prov-chip" href="/industry-education-phayao.html"><wc-t>Education</wc-t></a>
+        <a class="biz-prov-chip" href="/industry-health-social-work-phayao.html"><wc-t>Health & Social Work</wc-t></a>
+        <a class="biz-prov-chip" href="/industry-arts-entertainment-recreation-phayao.html"><wc-t>Arts, Entertainment & Recreation</wc-t></a>
+        <a class="biz-prov-chip" href="/industry-other-service-activities-phayao.html"><wc-t>Other Service Activities</wc-t></a>
+        <a class="biz-prov-chip" href="/industry-household-employment-activities-phayao.html"><wc-t>Household Employment Activities</wc-t></a>
+    </nav>
+
+    <div class="biz-industry-list" data-industry-list data-industry-term="province:prove78110d707">
+      <wc-data source="cpt:thaicompany" term="province:prove78110d707" limit="20" offset="0" sort="id_desc">
+        <a class="biz-industry-item" data-ssr-row href="/{{ .slug }}.html" data-en-name="{{ .meta.jpnamee }}" data-name-en="{{ .meta.jpnamee }}" data-name-th="{{ .meta.jpname }}" data-name-zh="{{ .meta.jpnamezh }}">
+          <span class="biz-industry-item__body">
+            <strong class="biz-industry-item__name">{{ .meta.jpnamee }}</strong>
+            <span class="biz-industry-item__sub">
+              <span class="biz-industry-item__obj" data-en="{{ .meta.setupobjdesce }}" data-th="{{ .meta.setupobjdesc }}" data-zh="{{ .meta.setupobjdesczh }}">{{ .meta.setupobjdesce }}</span>
+              <span class="biz-industry-item__loc" data-en="{{ .meta.provincee }}" data-th="{{ .meta.province }}" data-zh="{{ .meta.provincezh }}">{{ .meta.provincee }}</span>
+              <span class="biz-industry-item__jpno">{{ .meta.jpno }}</span>
+            </span>
+          </span>
+          <span class="biz-industry-item__aside">
+            <span class="biz-industry-item__cap" data-cap="{{ .meta.capamt }}">{{ .meta.capamt }}</span>
+            <span class="biz-industry-item__status" data-en="{{ .meta.jpstatdesce }}" data-th="{{ .meta.jpstatdesc }}" data-zh="{{ .meta.statuszh }}">{{ .meta.jpstatdesce }}</span>
+          </span>
+        </a>
+        <wc-empty><p class="biz-report-empty"><wc-t>No companies in this province yet.</wc-t></p></wc-empty>
+      </wc-data>
+    </div>
+    <nav class="biz-arch-pager" data-industry-pager hidden aria-label="{{ t "Pagination" }}"></nav>
+  </main>
+  <wc-slot name="footer"></wc-slot>
+</div>

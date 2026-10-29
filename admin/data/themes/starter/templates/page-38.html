@@ -1,0 +1,37 @@
+<div class="starter-theme biz-report-page biz-analytics biz-rank" data-biz-analytics="leaderboards">
+  <wc-slot name="header"></wc-slot>
+  <main class="starter-main">
+    <section class="biz-report-hero" aria-labelledby="leaderboards-title">
+      <div>
+        <p class="biz-report-kicker"><wc-t>Company Rankings</wc-t></p>
+        <h1 id="leaderboards-title"><wc-t>Thailand Company Revenue & Profit Leaderboards</wc-t></h1>
+        <p class="biz-report-lead"><wc-t>Rank Thai companies by revenue or profit — nationwide, by industry, by province, or by company size — computed transparently by BizThai from companies' own filed financial statements.</wc-t></p>
+        <div class="biz-report-toolbar">
+          <a href="/trending-companies?metric=views"><wc-t>Most Viewed</wc-t></a>
+          <a href="/trending-companies?metric=search"><wc-t>Most Searched</wc-t></a>
+        </div>
+      </div>
+    </section>
+
+    <div class="biz-an-status" data-biz-status>Loading rankings…</div>
+
+    <div class="biz-report-layout biz-report-layout--rank">
+      <aside class="biz-rank-aside">
+        <div data-biz-fill="curatedSidebar"></div>
+      </aside>
+      <div>
+        <section class="biz-rank-caption-wrap" data-biz-fill="rankingCaption"></section>
+
+        <section class="biz-rank-board-wrap" aria-labelledby="biz-leaderboard-title">
+          <div class="biz-rank-toolbar">
+            <div class="biz-rank-filters biz-rank-filters--toolbar" data-biz-fill="rankingFilters"></div>
+            <div data-biz-fill="rankingYearSelect"></div>
+          </div>
+          <div data-biz-fill="rankingTable"></div>
+          <div data-biz-fill="rankingPager"></div>
+        </section>
+      </div>
+    </div>
+  </main>
+  <wc-slot name="footer"></wc-slot>
+</div>

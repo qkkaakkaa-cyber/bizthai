@@ -1,0 +1,63 @@
+<div class="starter-theme biz-auth-standalone" data-auth-page="auth" data-auth-default="register">
+  <main class="auth-standalone">
+    <div class="auth-card">
+      <a class="auth-brand" href="/" aria-label="{{ t "BizThai home" }}">
+        <span class="auth-brand__mark" aria-hidden="true">B</span>
+        <span class="auth-brand__text">BizThai</span>
+      </a>
+
+      <div class="auth-tabs" role="tablist" aria-label="{{ t "Sign in or create account" }}">
+        <button type="button" class="auth-tab" data-auth-switch="login" role="tab"><wc-t>Sign in</wc-t></button>
+        <button type="button" class="auth-tab is-active" data-auth-switch="register" role="tab"><wc-t>Create account</wc-t></button>
+      </div>
+
+      <!-- 登录 -->
+      <section class="auth-pane" data-auth-pane="login" hidden>
+        <p class="auth-card__sub"><wc-t>Sign in to manage your saved companies, claims and downloads.</wc-t></p>
+        <div class="auth-alert" data-auth-alert hidden></div>
+        <form class="auth-form" data-auth-form novalidate>
+          <label class="auth-field">
+            <span class="auth-field__label"><wc-t>Email</wc-t></span>
+            <input type="email" name="email" autocomplete="email" required placeholder="{{ t "you@example.com" }}">
+          </label>
+          <label class="auth-field">
+            <span class="auth-field__label"><wc-t>Password</wc-t></span>
+            <input type="password" name="password" autocomplete="current-password" required minlength="6">
+          </label>
+          <div class="auth-form__row">
+            <a class="auth-link" href="/forgot-password"><wc-t>Forgot password?</wc-t></a>
+          </div>
+          <button type="submit" class="auth-submit" data-auth-submit><wc-t>Sign in</wc-t></button>
+        </form>
+      </section>
+
+      <!-- 注册 -->
+      <section class="auth-pane" data-auth-pane="register">
+        <div data-register-form>
+          <p class="auth-card__sub"><wc-t>Join free to save companies, claim your business and download company profiles.</wc-t></p>
+          <div class="auth-note" data-auth-claim-note hidden><wc-t>Sign up to finish claiming this company.</wc-t></div>
+          <div class="auth-alert" data-auth-alert hidden></div>
+          <form class="auth-form" data-auth-form novalidate>
+            <label class="auth-field">
+              <span class="auth-field__label"><wc-t>Email</wc-t></span>
+              <input type="email" name="email" autocomplete="email" required placeholder="{{ t "you@example.com" }}">
+            </label>
+            <label class="auth-field">
+              <span class="auth-field__label"><wc-t>Verification code</wc-t></span>
+              <div class="auth-code-row">
+                <input type="text" name="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" required placeholder="000000">
+                <button type="button" class="auth-code-btn" data-send-code><wc-t>Send code</wc-t></button>
+              </div>
+            </label>
+            <label class="auth-field">
+              <span class="auth-field__label"><wc-t>Password</wc-t></span>
+              <input type="password" name="password" autocomplete="new-password" required minlength="8">
+              <span class="auth-field__hint"><wc-t>At least 8 characters.</wc-t></span>
+            </label>
+            <button type="submit" class="auth-submit" data-auth-submit><wc-t>Create account</wc-t></button>
+          </form>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>

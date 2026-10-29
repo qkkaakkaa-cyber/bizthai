@@ -1,0 +1,22 @@
+[Unit]
+Description=BizThai public page resolver
+After=network.target bizthai-web.service
+StartLimitIntervalSec=60
+StartLimitBurst=3
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/www/wwwroot/bizthai/dbd-thai/resolver
+EnvironmentFile=/www/wwwroot/bizthai/dbd-thai/resolver/.env
+Environment=DISABLE_WARMUP=1 HTML_CACHE_MAX=300 HTML_SHARED_MAX_AGE=600 NODE_OPTIONS=--max-old-space-size=512 BIZTHAI_ENGLISH_ENABLED=1
+ExecStart=/usr/bin/node src/server.js
+Restart=on-failure
+RestartSec=5
+CPUQuota=150%
+MemoryHigh=768M
+MemoryMax=1G
+TasksMax=64
+NoNewPrivileges=true
+[Install]
+WantedBy=multi-user.target

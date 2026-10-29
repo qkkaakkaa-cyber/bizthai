@@ -1,0 +1,13 @@
+# /etc/systemd/system/dbdadmin-homepage-pool.timer
+# 每周刷新一次(脚本注释自称 Weekly cron),错开工作日高峰。
+[Unit]
+Description=每周触发首页浏览池刷新
+
+[Timer]
+OnCalendar=Sun *-*-* 04:00:00
+RandomizedDelaySec=10min
+AccuracySec=10min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

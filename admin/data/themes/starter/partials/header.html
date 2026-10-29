@@ -1,0 +1,177 @@
+<link rel="icon" type="image/svg+xml" href="/theme-assets/starter/favicon.svg">
+<link rel="icon" type="image/x-icon" href="/theme-assets/starter/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/theme-assets/starter/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/theme-assets/starter/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/theme-assets/starter/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/theme-assets/starter/favicon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300..800&display=swap" rel="stylesheet">
+
+<header class="market-header bizthai-header" role="banner">
+  <div class="bizthai-hero-map-bg" aria-hidden="true"></div>
+  <div class="market-header__inner">
+    <div class="market-header__top">
+      <a class="market-logo" href="/" aria-label="{{ t "BizThai home" }}">
+        <span class="market-logo__mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" role="img" focusable="false" aria-hidden="true">
+            <rect x="4" y="4" width="32" height="32" rx="10"></rect>
+            <path d="M15 11.5h7.4c3.1 0 5.1 1.7 5.1 4.2 0 1.7-.9 3-2.4 3.7 2 .6 3.2 2.2 3.2 4.2 0 3-2.3 4.9-5.9 4.9H15v-17Zm6.8 6.8c1.5 0 2.4-.7 2.4-1.9s-.9-1.9-2.4-1.9h-3.5v3.8h3.5Zm.4 7.1c1.7 0 2.7-.8 2.7-2.1 0-1.4-1-2.2-2.7-2.2h-3.9v4.3h3.9Z"></path>
+          </svg>
+        </span>
+        <span class="market-logo__text">BizThai</span>
+      </a>
+
+      <button class="market-burger" type="button" data-mobile-toggle aria-label="{{ t "Toggle menu" }}" aria-controls="marketHeaderCollapse" aria-expanded="false">
+        <span class="market-burger__box" aria-hidden="true">
+          <span class="market-burger__bar"></span>
+          <span class="market-burger__bar"></span>
+          <span class="market-burger__bar"></span>
+        </span>
+      </button>
+
+      <div class="market-header__collapse" id="marketHeaderCollapse" data-mobile-panel>
+        <div class="market-collapse__head">
+          <span class="market-collapse__title"><wc-t>Menu</wc-t></span>
+          <button class="market-collapse__close" type="button" data-mobile-close aria-label="{{ t "Close menu" }}">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+          </button>
+        </div>
+
+      <nav class="market-mainnav" aria-label="{{ t "Primary navigation" }}">
+        <a href="#business-categories" class="bizthai-category-trigger" data-category-trigger aria-haspopup="true" aria-expanded="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+          <span data-i18n-all-categories><wc-t>All Categories</wc-t></span>
+        </a>
+        <a href="/business-reports"><wc-t>Business Reports</wc-t></a>
+        <a href="/companies"><wc-t>All Companies</wc-t></a>
+        <a href="/business-leaderboards"><wc-t>Leaderboards</wc-t></a>
+
+      </nav>
+
+      <button type="button" class="bizthai-quick-search-toggle" data-quick-search-toggle aria-haspopup="true" aria-expanded="false" aria-controls="bizthai-search-dropdown" aria-label="{{ t "Search" }}">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <circle cx="11" cy="11" r="6"></circle>
+          <path d="M16 16l4 4"></path>
+        </svg>
+        <span class="bizthai-quick-search-toggle__text"><wc-t>Search</wc-t></span>
+      </button>
+
+      <div class="market-actions">
+        <div class="market-lang" data-lang-select>
+          <button type="button" class="market-lang__btn" data-lang-toggle aria-haspopup="listbox" aria-expanded="false" aria-label="{{ t "Switch language" }}">
+            <span class="market-lang__flag" data-lang-flag aria-hidden="true">🇹🇭</span>
+            <span class="market-lang__code" data-lang-code>TH</span>
+            <svg class="market-lang__caret" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"></path></svg>
+          </button>
+          <ul class="market-lang__menu" role="listbox" aria-label="{{ t "Switch language" }}" data-lang-menu>
+            <li class="market-lang__opt" role="option" tabindex="-1" data-lang="en" data-flag="🇬🇧" data-code="EN"><span class="market-lang__flag" aria-hidden="true">🇬🇧</span><span class="market-lang__name">English</span></li>
+            <li class="market-lang__opt" role="option" tabindex="-1" data-lang="th" data-flag="🇹🇭" data-code="TH"><span class="market-lang__flag" aria-hidden="true">🇹🇭</span><span class="market-lang__name">ไทย</span></li>
+            
+          </ul>
+        </div>
+        <a href="/register" class="market-register" data-auth-guest><wc-t>Join free</wc-t></a>
+        <div class="market-account" data-auth-account hidden>
+          <button type="button" class="market-account__btn" data-account-toggle aria-haspopup="true" aria-expanded="false">
+            <span class="market-account__avatar" data-account-avatar aria-hidden="true"></span>
+            <span class="market-account__name" data-account-name></span>
+            <svg class="market-account__caret" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"></path></svg>
+          </button>
+          <div class="market-account__menu" data-account-menu role="menu">
+            <a href="/account" class="market-account__item" role="menuitem"><wc-t>Member center</wc-t></a>
+            <button type="button" class="market-account__item market-account__item--btn" data-account-logout role="menuitem"><wc-t>Sign out</wc-t></button>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="market-hero-copy">
+      <div class="bizthai-hero-main">
+        <div class="bizthai-hero-counter" data-company-counter>
+          <div class="bizthai-counter-row">
+            <span class="bizthai-counter-label" data-counter-pre data-en="Indexed" data-th="รวบรวมแล้ว" data-zh="当前已收录">Indexed</span>
+            <span class="bizthai-counter-slots" data-counter-slots aria-hidden="true">
+              <span class="bizthai-counter-loading">• • •</span>
+            </span>
+            <span class="bizthai-counter-label" data-counter-post data-en="companies" data-th="บริษัท" data-zh="家企业">companies</span>
+          </div>
+          <span class="screen-reader-text" data-counter-aria aria-live="polite"></span>
+        </div>
+        <p class="market-hero-desc" data-hero-desc data-en="Come to BizThai.com and use AI to discover your next Thai partner." data-th="ใช้ BizThai.com และ AI เพื่อค้นหาพันธมิตรธุรกิจไทยรายต่อไปของคุณ" data-zh="来 BizThai.com，用 AI 发现您的下一位泰国商业伙伴。">Come to BizThai.com and use AI to discover your next Thai partner.</p>
+      </div>
+    </div>
+
+    <form class="market-search" action="/ai" method="get" role="search" data-home-search>
+      <label class="screen-reader-text" for="market-search-input"><wc-t>Search with AI, companies or owners</wc-t></label>
+      <input type="hidden" name="type" value="ai" data-search-mode-value />
+      <div class="market-search__tabs" role="tablist" aria-label="{{ t "Search modes" }}" data-search-tabs>
+        <button type="button" class="market-search__tab market-search__tab--ai is-active" role="tab" aria-selected="true" tabindex="0" data-search-mode="ai">
+          <span data-search-tab-text data-en="AI Mode" data-th="โหมด AI" data-zh="AI 模式"><wc-t>AI Mode</wc-t></span>
+          <span class="market-search__tab-spark" aria-hidden="true">✦</span>
+        </button>
+        <span class="market-search__tab-sep" aria-hidden="true"></span>
+        <button type="button" class="market-search__tab" role="tab" aria-selected="false" tabindex="-1" data-search-mode="companies">
+          <span data-search-tab-text data-en="Search Companies" data-th="ค้นหาบริษัท" data-zh="查企业"><wc-t>Search Companies</wc-t></span>
+        </button>
+        <span class="market-search__tab-sep" aria-hidden="true"></span>
+        <button type="button" class="market-search__tab" role="tab" aria-selected="false" tabindex="-1" data-search-mode="owners">
+          <span data-search-tab-text data-en="Search Owners" data-th="ค้นหาเจ้าของ" data-zh="查老板"><wc-t>Search Owners</wc-t></span>
+        </button>
+      </div>
+      <div class="market-search__panel">
+        <div class="market-search__field">
+          <input id="market-search-input" name="q" type="search" placeholder="{{ t "Ask AI: describe the company, owner or sector you need" }}" autocomplete="off" />
+          <span class="market-search__modehint" data-search-mode-hint><wc-t>AI chat mode</wc-t></span>
+        </div>
+        <button type="submit" class="market-search__submit">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="11" cy="11" r="6"></circle>
+            <path d="M16 16l4 4"></path>
+          </svg>
+          <span><wc-t>Search</wc-t></span>
+        </button>
+      </div>
+    </form>
+
+    <section id="business-categories" class="bizthai-category-panel" aria-label="{{ t "Business categories" }}" data-bizthai-categories>
+      <div class="bizthai-category-sidebar" aria-label="{{ t "Primary business categories" }}" data-category-sidebar>
+        <div class="bizthai-category-item is-active">
+          <span class="bizthai-category-item__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M4 20V9l8-5 8 5v11"></path>
+              <path d="M9 20v-7h6v7"></path>
+            </svg>
+          </span>
+          <span class="bizthai-category-item__text" data-en="Browse categories" data-th="เลือกดูหมวดหมู่" data-zh="浏览分类">Browse categories</span>
+          <span class="bizthai-category-item__count"></span>
+        </div>
+      </div>
+
+      <div class="bizthai-category-content" data-category-content>
+        <section class="bizthai-category-section">
+          <div class="bizthai-category-section__head">
+            <h2><wc-t>Business categories</wc-t></h2>
+          </div>
+          <p class="bizthai-category-status" data-en="Browse business categories" data-th="เลือกดูหมวดหมู่ธุรกิจ" data-zh="浏览业务分类">Browse business categories</p>
+        </section>
+      </div>
+    </section>
+
+    <div id="bizthai-search-dropdown" class="bizthai-search-dropdown" data-quick-search-panel>
+      <form class="bizthai-search-dropdown__inner" action="/search" method="get" role="search">
+        <span class="bizthai-search-dropdown__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false"><circle cx="11" cy="11" r="6"></circle><path d="M16 16l4 4"></path></svg>
+        </span>
+        <label class="screen-reader-text" for="bizthai-quick-q"><wc-t>Search companies</wc-t></label>
+        <input id="bizthai-quick-q" name="q" type="search" placeholder="{{ t "AI smart search" }}" autocomplete="off" data-quick-search-input />
+        <button type="submit" class="bizthai-search-dropdown__submit"><wc-t>Search</wc-t></button>
+      </form>
+    </div>
+
+    <div class="market-backdrop" data-mobile-backdrop aria-hidden="true"></div>
+  </div>
+
+</header>

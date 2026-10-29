@@ -1,0 +1,397 @@
+// HTTP 服务:按 business-analysis-api.md 暴露聚合接口。
+// 路由前缀(与文档一致,经 nginx 反代到本服务):
+//   GET /api/site/v1/analytics/business            综合(总接口)
+//   GET /api/site/v1/analytics/business/summary    概览指标
+//   GET /api/site/v1/analytics/business/provinces   各府排行
+//   GET /api/site/v1/analytics/business/foreign      外资组成
+//   GET /api/site/v1/analytics/business/new-companies 新增企业
+//   GET /api/site/v1/analytics/business/companies     企业统计列表
+//   GET /api/site/v1/analytics/business/distribution  行业与状态
+//   GET /api/site/v1/analytics/health                 健康/缓存状态
+import { createServer } from 'node:http'
+import { config } from './config.js'
+import { getProvinceSnapshot, startScheduler, snapshotMeta } from './cache.js'
+import { foreignCompositionResponse } from './aggregate.js'
+import { crossCompanies, listProvinces, listIndustryTerms, fetchCompaniesByYear, industryProvinces, industrySections, districtList, districtCompanies, rankCompaniesByProvince, browseCompanies, bumpSearchHits, fetchTrending } from './db.js'
+
+const BASE = '/api/site/v1/analytics'
+const intParam = (q, key, d) => {
+  const n = Number(q.get(key))
+  return Number.isFinite(n) && n > 0 ? Math.floor(n) : d
+}
+// 与 resolver/src/server.js 的 isBotUA 同一份规则(两个 sidecar 独立维护,无共享 lib);
+// 搜索命中计数只认非爬虫 UA,爬虫/无头/命令行工具一律不计。
+function isBotUA(ua) {
+  if (!ua) return true
+  return /bot|crawl|spider|slurp|mediapartners|facebookexternalhit|embedly|bingpreview|yandex|baidu|sogou|duckduck|whatsapp|telegram|skypeuripreview|semrush|ahrefs|mj12|dotbot|petalbot|bytespider|headless|phantom|python|curl|wget|axios|okhttp|go-http|java\//i.test(ua)
+}
+
+// ── 响应整形 ─────────────────────────────────────────────
+function rankProvinces(rows, sort, limit) {
+  const sorted = [...rows].sort((a, b) =>
+    sort === 'count_desc' ? b.companyCount - a.companyCount : b.registeredCapital - a.registeredCapital)
+  return sorted.slice(0, limit).map((r, i) => ({ rank: i + 1, ...r }))
+}
+
+function yearRows(snap, q) {
+  let rows = snap.years
+  const from = Number(q.get('fromYear')), to = Number(q.get('toYear'))
+  if (Number.isFinite(from) && from > 0) rows = rows.filter(r => r.year >= from)
+  if (Number.isFinite(to) && to > 0) rows = rows.filter(r => r.year <= to)
+  const limitYears = intParam(q, 'limitYears', 12)
+  return rows.slice(-limitYears)
+}
+
+const summaryOf = snap => ({
+  totalRecords: snap.total,
+  sampleRecords: snap.sampleSize,
+  requestedSampleSize: snap.requestedSampleSize,
+  sampleCapital: snap.sampleCapital,
+  avgCapital: snap.avgCapital,
+  foreignShare: foreignShareOf(snap),
+  refreshedAt: snap.refreshedAt,
+})
+
+const foreignShareOf = snap => (snap.foreign.total ? Math.round((snap.foreign.foreignTotal / snap.foreign.total) * 100) / 100 : 0)
+
+// ── 各端点 ───────────────────────────────────────────────
+const handlers = {
+  '': (snap, q) => ({
+    total: snap.total,
+    sampleSize: snap.sampleSize,
+    requestedSampleSize: snap.requestedSampleSize,
+    sampleCapital: snap.sampleCapital,
+    avgCapital: snap.avgCapital,
+    foreignShare: foreignShareOf(snap),
+    provinceRanking: rankProvinces(snap.provinceRanking, q.get('sort') || 'capital_desc', intParam(q, 'limit', 20)),
+    foreignComposition: foreignCompositionResponse(snap.foreign, intParam(q, 'foreignLimit', 8)),
+    newCompaniesByYear: yearRows(snap, q),
+    businessTypes: snap.businessTypes.slice(0, intParam(q, 'businessLimit', 7)),
+    statuses: snap.statuses.slice(0, intParam(q, 'statusLimit', 7)),
+    topCapitalCompanies: snap.companiesByCapital.slice(0, intParam(q, 'latestLimit', 10)),
+    latestCompanies: snap.companiesByDate.slice(0, intParam(q, 'latestLimit', 10)),
+    refreshedAt: snap.refreshedAt,
+    basis: snap.basis,
+  }),
+
+  summary: snap => summaryOf(snap),
+
+  provinces: (snap, q) => ({
+    rows: rankProvinces(snap.provinceRanking, q.get('sort') || 'capital_desc', intParam(q, 'limit', 20)),
+    refreshedAt: snap.refreshedAt,
+    basis: { companyCount: 'accurate', capital: 'accurate' },
+  }),
+
+  foreign: (snap, q) => ({
+    ...foreignCompositionResponse(snap.foreign, intParam(q, 'limit', 8)),
+    refreshedAt: snap.refreshedAt,
+  }),
+
+  'new-companies': (snap, q) => ({
+    years: yearRows(snap, q),
+    latestCompanies: snap.companiesByDate.slice(0, intParam(q, 'latestLimit', 10)),
+    refreshedAt: snap.refreshedAt,
+    basis: 'sampled',
+  }),
+
+  companies: (snap, q) => {
+    const sort = q.get('sort') || 'capital_desc'
+    const list = sort === 'reg_date_desc' ? snap.companiesByDate : snap.companiesByCapital
+    const limit = intParam(q, 'limit', 10)
+    const offset = intParam(q, 'offset', 0) - 1 >= 0 ? Number(q.get('offset')) || 0 : 0
+    return {
+      items: list.slice(offset, offset + limit),
+      total: list.length,
+      limit,
+      offset,
+      refreshedAt: snap.refreshedAt,
+      basis: 'accurate',
+    }
+  },
+
+  distribution: (snap, q) => ({
+    businessTypes: snap.businessTypes.slice(0, intParam(q, 'businessLimit', 7)),
+    statuses: snap.statuses.slice(0, intParam(q, 'statusLimit', 7)),
+    refreshedAt: snap.refreshedAt,
+    basis: { businessTypes: 'accurate', statuses: 'accurate' },
+  }),
+}
+
+// ── HTTP ─────────────────────────────────────────────────
+function send(res, status, body) {
+  const payload = JSON.stringify(body)
+  const headers = { 'Content-Type': 'application/json; charset=utf-8' }
+  if (config.corsOrigin) {
+    headers['Access-Control-Allow-Origin'] = config.corsOrigin
+    headers['Vary'] = 'Origin'
+  }
+  res.writeHead(status, headers)
+  res.end(payload)
+}
+
+// ── 府筛选(实时直查 DB term 交叉,带缓存;WooCMS API 不支持多 taxonomy AND 的绕过)──
+let regionsCache = null, regionsAt = 0
+async function getRegions() {
+  if (regionsCache && Date.now() - regionsAt < 3600000) return regionsCache
+  regionsCache = { provinces: await listProvinces() }; regionsAt = Date.now()
+  return regionsCache
+}
+const crossCache = new Map()
+async function getCross(q) {
+  const ind = (q.get('industry') || '').trim()
+  const prov = (q.get('province') || '').trim()
+  if (!ind || !prov) return { error: 'missing_params', hint: 'industry & province slugs required' }
+  const limit = intParam(q, 'limit', 20)
+  const offset = Math.max(0, Number(q.get('offset')) || 0)
+  const key = `${ind}|${prov}|${limit}|${offset}`
+  const hit = crossCache.get(key)
+  if (hit && Date.now() - hit.at < 300000) return hit.body
+  const { items, total } = await crossCompanies(ind, prov, limit, offset)
+  const body = { data: { items, total, limit, offset } }
+  if (crossCache.size > 2000) crossCache.clear()
+  crossCache.set(key, { at: Date.now(), body })
+  return body
+}
+
+// 渲染交叉企业列表 HTML(结构与 theme.js renderRows / 行业页 SSR 完全一致,供 resolver 注入交叉页)
+function esc(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])) }
+function slugifyName(n) { return String(n || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') }
+function companyHref(jpno, en) { const s = slugifyName(en); return s ? `/${s}.html` : `/${encodeURIComponent(String(jpno))}.html` }
+function renderItemsHtml(items) {
+  return items.map(it => {
+    const m = it.meta || {}
+    const jpno = String(m.jpno || it.slug || '')
+    const enName = m.jpnamee || it.title || jpno
+    return `<a class="biz-industry-item" href="${esc(companyHref(jpno, enName))}" data-en-name="${esc(enName)}"`
+      + ` data-name-en="${esc(enName)}" data-name-th="${esc(m.jpname || '')}" data-name-zh="${esc(m.jpnamezh || '')}">`
+      + '<span class="biz-industry-item__body">'
+      + `<strong class="biz-industry-item__name">${esc(enName)}</strong>`
+      + '<span class="biz-industry-item__sub">'
+      + `<span class="biz-industry-item__obj" data-en="${esc(m.setupobjdesce || '')}" data-th="${esc(m.setupobjdesc || '')}" data-zh="${esc(m.setupobjdesczh || '')}">${esc(m.setupobjdesce || '')}</span>`
+      + `<span class="biz-industry-item__loc" data-en="${esc(m.provincee || '')}" data-th="${esc(m.province || '')}" data-zh="${esc(m.provincezh || '')}">${esc(m.provincee || '')}</span>`
+      + `<span class="biz-industry-item__jpno">${esc(jpno)}</span>`
+      + '</span></span>'
+      + '<span class="biz-industry-item__aside">'
+      + `<span class="biz-industry-item__cap" data-cap="${esc(m.capamt != null ? m.capamt : '')}">${esc(m.capamt != null ? m.capamt : '')}</span>`
+      + `<span class="biz-industry-item__status" data-en="${esc(m.jpstatdesce || '')}" data-th="${esc(m.jpstatdesc || '')}" data-zh="${esc(m.statuszh || '')}">${esc(m.jpstatdesce || '')}</span>`
+      + '</span></a>'
+  }).join('')
+}
+async function getCrossHtml(q) {
+  const ind = (q.get('industry') || '').trim(), prov = (q.get('province') || '').trim()
+  if (!ind || !prov) return { html: '', total: 0 }
+  const limit = intParam(q, 'limit', 20), offset = Math.max(0, Number(q.get('offset')) || 0)
+  const key = `html|${ind}|${prov}|${limit}|${offset}`
+  const hit = crossCache.get(key)
+  if (hit && Date.now() - hit.at < 300000) return hit.body
+  const { items, total } = await crossCompanies(ind, prov, limit, offset)
+  const body = { html: renderItemsHtml(items), total }
+  if (crossCache.size > 2000) crossCache.clear()
+  crossCache.set(key, { at: Date.now(), body })
+  return body
+}
+
+// sitemap:让爬虫发现行业页(590)+ 大类×府交叉页(19×77),否则府 tab 是客户端渲染、爬虫看不到链接
+const sitemapByHost = new Map()
+async function getSitemap(host) {
+  host = String(host || 'dbd.woocms.org').toLowerCase().replace(/[^a-z0-9.-]/g, '')
+  const hit = sitemapByHost.get(host)
+  if (hit && Date.now() - hit.at < 6 * 3600000) return hit.xml
+  const [inds, provs] = await Promise.all([listIndustryTerms(), listProvinces()])
+  const base = 'https://' + host
+  const urls = []
+  inds.forEach(i => urls.push('/industry-' + i.eng + '.html'))
+  inds.filter(i => i.isTop).forEach(i => provs.forEach(p => urls.push('/industry-' + i.eng + '-' + p.engslug + '.html')))
+  // 新注册按年份筛选页(2015..当年)
+  const curY = new Date().getFullYear()
+  for (let y = 2015; y <= curY; y += 1) urls.push('/new-companies-' + y + '.html')
+  const xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    + urls.map(u => '<url><loc>' + base + u + '</loc></url>').join('\n') + '\n</urlset>\n'
+  if (sitemapByHost.size > 10) sitemapByHost.clear()
+  sitemapByHost.set(host, { at: Date.now(), xml })
+  return xml
+}
+function sendXml(res, xml) {
+  res.writeHead(200, { 'Content-Type': 'application/xml; charset=utf-8' })
+  res.end(xml)
+}
+
+const server = createServer(async (req, res) => {
+  try {
+    const url = new URL(req.url, `http://localhost:${config.port}`)
+    const path = url.pathname.replace(/\/$/, '')
+    const q = url.searchParams
+
+    if (path === `${BASE}/health`) {
+      return send(res, 200, { ok: true, ...snapshotMeta() })
+    }
+    if (path === `${BASE}/regions`) {
+      return send(res, 200, await getRegions())
+    }
+    if (path === `${BASE}/sitemap.xml`) {
+      return sendXml(res, await getSitemap(req.headers.host))
+    }
+    if (path === `${BASE}/cross`) {
+      if (q.get('format') === 'html') return send(res, 200, await getCrossHtml(q))
+      return send(res, 200, await getCross(q))
+    }
+    // 某府的县(二级)列表 + 各县公司数(府→县下钻),缓存
+    if (path === `${BASE}/province-districts`) {
+      const prov = (q.get('province') || '').trim()
+      if (!prov) return send(res, 200, { provinceSlug: '', districts: [] })
+      const key = `provdist|${prov}`
+      const hit = crossCache.get(key)
+      if (hit && Date.now() - hit.at < 600000) return send(res, 200, hit.body)
+      const body = await districtList(prov) || { provinceSlug: prov, districts: [] }
+      if (crossCache.size > 2000) crossCache.clear()
+      crossCache.set(key, { at: Date.now(), body })
+      return send(res, 200, body)
+    }
+    // 某县(二级)的公司报告(县→公司),entry_terms + facts
+    if (path === `${BASE}/district-companies`) {
+      const dist = (q.get('district') || '').trim()
+      const limit = intParam(q, 'limit', 24)
+      const offset = Math.max(0, Number(q.get('offset')) || 0)
+      if (!dist) return send(res, 200, { districtSlug: '', total: 0, companies: [] })
+      const key = `distco|${dist}|${limit}|${offset}`
+      const hit = crossCache.get(key)
+      if (hit && Date.now() - hit.at < 300000) return send(res, 200, hit.body)
+      const body = await districtCompanies(dist, { limit, offset }) || { districtSlug: dist, total: 0, companies: [] }
+      if (crossCache.size > 2000) crossCache.clear()
+      crossCache.set(key, { at: Date.now(), body })
+      return send(res, 200, body)
+    }
+    // 顶层行业大类三语名(投资地图 chips 用),缓存 1h
+    if (path === `${BASE}/industry-sections`) {
+      const key = 'indsections'
+      const hit = crossCache.get(key)
+      if (hit && Date.now() - hit.at < 3600000) return send(res, 200, hit.body)
+      const body = { sections: await industrySections() || [] }
+      crossCache.set(key, { at: Date.now(), body })
+      return send(res, 200, body)
+    }
+    // 行业 → 各府分布(投资地图行业透视:?industry=<term slug>),taxonomy 交集 + facts 聚合,缓存
+    if (path === `${BASE}/industry-provinces`) {
+      const ind = (q.get('industry') || '').trim()
+      if (!ind) return send(res, 200, { industrySlug: '', total: 0, provinceRanking: [] })
+      const key = `indprov|${ind}`
+      const hit = crossCache.get(key)
+      if (hit && Date.now() - hit.at < 600000) return send(res, 200, hit.body)
+      const body = await industryProvinces(ind) || { industrySlug: ind, total: 0, provinceRanking: [] }
+      if (crossCache.size > 2000) crossCache.clear()
+      crossCache.set(key, { at: Date.now(), body })
+      return send(res, 200, body)
+    }
+    // 按注册年份取公司(/new-companies-<年> SSR 列表页用),facts 视图 regyear 已索引
+    if (path === `${BASE}/companies-by-year`) {
+      const year = q.get('year')
+      const limit = intParam(q, 'limit', 24)
+      const offset = Math.max(0, Number(q.get('offset')) || 0)
+      const key = `byyear|${year}|${limit}|${offset}`
+      const hit = crossCache.get(key)
+      if (hit && Date.now() - hit.at < 300000) return send(res, 200, hit.body)
+      const body = await fetchCompaniesByYear(year, { limit, offset }) || { year: Number(year) || null, total: 0, companies: [], limit, offset }
+      if (crossCache.size > 2000) crossCache.clear()
+      crossCache.set(key, { at: Date.now(), body })
+      return send(res, 200, body)
+    }
+    // 府级公司排名(按资本/注册日期),直查物化视图(索引安全,毫秒级);供 AI 助手等用。
+    if (path === `${BASE}/top-companies`) {
+      const province = (q.get('province') || '').trim()
+      const sort = q.get('sort') === 'reg_date_desc' ? 'reg_date_desc' : 'capital_desc'
+      const limit = intParam(q, 'limit', 10)
+      if (!province) return send(res, 200, { province: '', sort, items: [] })
+      const key = `topco|${province}|${sort}|${limit}`
+      const hit = crossCache.get(key)
+      if (hit && Date.now() - hit.at < 300000) return send(res, 200, hit.body)
+      const body = await rankCompaniesByProvince(province, sort, { limit }) || { province, sort, items: [] }
+      if (crossCache.size > 2000) crossCache.clear()
+      crossCache.set(key, { at: Date.now(), body })
+      return send(res, 200, body)
+    }
+    // 统一「正常经营优先」浏览列表(/companies 的默认视图 + 全部筛选都走这个)。
+    // province/industry/capital/keyword 都可选且按 AND 组合——见 db.js browseCompanies 顶部注释。
+    if (path === `${BASE}/company-list`) {
+      let province = (q.get('province') || '').trim()
+      let industry = (q.get('industry') || '').trim()
+      let capital = (q.get('capital') || '').trim()
+      // 兼容旧版单 taxonomy+term 调用方(行业/府 taxonomy 归档页 theme.js、/search 无关键词分支,
+      // 均只会传一个维度),新的具名参数是 /companies 筛选器在用、可以同时组合多个维度的新写法。
+      const legacyTaxonomy = (q.get('taxonomy') || '').trim()
+      const legacyTerm = (q.get('term') || '').trim()
+      if (legacyTaxonomy && legacyTerm) {
+        if (legacyTaxonomy === 'province' && !province) province = legacyTerm
+        else if (legacyTaxonomy === 'industry' && !industry) industry = legacyTerm
+        else if (legacyTaxonomy === 'capital' && !capital) capital = legacyTerm
+      }
+      const keyword = (q.get('keyword') || '').trim()
+      const limit = intParam(q, 'limit', 24)
+      const offset = Math.max(0, Number(q.get('offset')) || 0)
+      const asHtml = q.get('format') === 'html'
+      const key = `browse|${province}|${industry}|${capital}|${keyword}|${limit}|${offset}|${asHtml ? 'html' : 'json'}`
+      // 搜索命中计数:带关键词 + 结果第一页 + 非爬虫,才算一次搜索命中(浏览/翻页/机器人都不算)。
+      // 命中内存缓存也要计数——缓存只是省了重新查库,不代表这次搜索没发生;所以把 jpnos 存进
+      // 缓存项里,缓存命中分支也能照样计数。失败(数据库抖动等)不影响搜索本身,不 await、
+      // 静默吞掉错误。
+      const countable = !!keyword && offset === 0 && !isBotUA(req.headers['user-agent'])
+      const hit = crossCache.get(key)
+      if (hit && Date.now() - hit.at < 300000) {
+        if (countable && hit.jpnos.length) bumpSearchHits(hit.jpnos).catch(() => {})
+        return send(res, 200, hit.body)
+      }
+      const { items, total } = await browseCompanies({ province, industry, capital, keyword, limit, offset })
+      // format=html:供 resolver 给 /companies、税收分类页做服务端可翻页(与 /cross 的
+      // format=html 同一套路,复用 renderItemsHtml 保证渲染出的卡片跟客户端 wc-data 版一致)。
+      const body = asHtml
+        ? { html: renderItemsHtml(items), total, limit, offset }
+        : { data: { items, total, limit, offset } }
+      const jpnos = items.map(it => ({ jpno: it.slug, entryId: it.meta && it.meta.entry_id ? Number(it.meta.entry_id) : null }))
+      if (countable && jpnos.length) bumpSearchHits(jpnos).catch(() => {})
+      if (crossCache.size > 2000) crossCache.clear()
+      crossCache.set(key, { at: Date.now(), body, jpnos })
+      return send(res, 200, body)
+    }
+    // 人气排行:metric=views|search(必填,两个指标独立排行不合并)、scope=global|province|industry
+    // (默认 global)、scope 非 global 时 value=<对应 taxonomy term slug> 必填。见 db.js fetchTrending。
+    if (path === `${BASE}/trending`) {
+      const metric = (q.get('metric') || '').trim()
+      const scopeRaw = (q.get('scope') || 'global').trim()
+      const scope = scopeRaw === 'province' || scopeRaw === 'industry' ? scopeRaw : 'global'
+      const value = (q.get('value') || '').trim()
+      const limit = intParam(q, 'limit', 20)
+      if (metric !== 'views' && metric !== 'search') {
+        return send(res, 400, { error: 'invalid_metric', hint: 'metric must be "views" or "search"' })
+      }
+      if (scope !== 'global' && !value) {
+        return send(res, 400, { error: 'missing_value', hint: 'scope=province|industry requires value=<term slug>' })
+      }
+      const key = `trending|${metric}|${scope}|${value}|${limit}`
+      const hit = crossCache.get(key)
+      if (hit && Date.now() - hit.at < 300000) return send(res, 200, hit.body)
+      const result = await fetchTrending({ metric, scope, value, limit })
+      const body = { data: result }
+      if (crossCache.size > 2000) crossCache.clear()
+      crossCache.set(key, { at: Date.now(), body })
+      return send(res, 200, body)
+    }
+    if (!path.startsWith(`${BASE}/business`)) {
+      return send(res, 404, { error: 'not_found', hint: `endpoints live under ${BASE}/business` })
+    }
+    const sub = path.slice(`${BASE}/business`.length).replace(/^\//, '')
+    const handler = handlers[sub]
+    if (!handler) {
+      return send(res, 404, { error: 'unknown_endpoint', endpoint: sub })
+    }
+
+    const snap = await getProvinceSnapshot(q.get('provinceSlug') || '')
+    return send(res, 200, handler(snap, q))
+  } catch (err) {
+    console.error('[analytics] 请求处理失败:', err.message)
+    return send(res, 503, { error: 'snapshot_unavailable', message: err.message })
+  }
+})
+
+startScheduler()
+server.listen(config.port, process.env.BIND_HOST || '127.0.0.1', () => {
+  console.log(`[analytics] 监听 ${process.env.BIND_HOST || '127.0.0.1'}:${config.port},读取通道 ${config.woocmsBase},样本 ${config.sampleSize},刷新 ${config.refreshMs}ms`)
+})

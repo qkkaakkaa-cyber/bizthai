@@ -1,0 +1,15 @@
+{
+  "name": "dbd-deploy-webhook",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "GitHub push webhook 接收端:校验签名后 git pull,按改动路径决定是否重启对应服务",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {}
+}

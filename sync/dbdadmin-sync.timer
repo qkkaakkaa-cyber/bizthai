@@ -1,0 +1,12 @@
+[Unit]
+Description=每日定时运行 DBD Thai 数据同步(增量 + 详情轮转刷新)
+
+[Timer]
+# 每日 03:30(泰国低峰),开机错过则补跑,随机抖动最多 10 分钟
+OnCalendar=*-*-* 03:30:00
+Persistent=true
+RandomizedDelaySec=600
+Unit=dbdadmin-sync.service
+
+[Install]
+WantedBy=timers.target

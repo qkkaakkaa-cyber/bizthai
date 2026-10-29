@@ -1,0 +1,44 @@
+/* 搜索页本身即搜索入口 → 隐藏页脚里重复的紫色「智能搜索」引导框 */
+    [data-ai-search] .market-footer__ai { display: none; }
+    [data-ai-search] .market-footer { padding-top: 40px; }
+    .search-results { width: min(1380px, calc(100% - 48px)); margin: 0 auto; margin-top: 26px; padding-bottom: 12px; }
+
+    /* ===== 搜索框 ===== */
+    .ai-searchbar { display: flex; align-items: center; gap: 0; width: 100%; max-width: 760px; min-height: 64px; margin-top: 20px; padding: 0 0 0 17px; border: 2px solid var(--market-primary, #7901b2); border-radius: 10px; background: #fff; box-shadow: none; transition: box-shadow .18s ease; }
+    .ai-searchbar:focus-within { box-shadow: 0 0 0 3px rgba(121,1,178,.12); }
+    .ai-searchbar__spark { flex: 0 0 auto; color: var(--market-primary, #7901b2); font-size: 18px; line-height: 1; }
+    .ai-searchbar input { flex: 1 1 auto; min-width: 0; height: 44px; border: 0; outline: 0; font: inherit; font-size: 16px; font-weight: 500; color: #14121a; background: transparent; }
+    .ai-searchbar input::placeholder { color: rgba(32,19,43,.45); }
+    .ai-searchbar button { align-self: stretch; flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-width: clamp(118px, 9vw, 136px); min-height: 60px; margin: 0; padding: 0 18px; border: 0; border-radius: 0 8px 8px 0; color: #fff; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; background: var(--market-primary, #7901b2); transition: background .18s ease; }
+    .ai-searchbar button:hover { background: var(--market-primary, #7901b2); }
+    .ai-searchbar button .spark { font-size: 14px; }
+    .industry-hero__kicker.ai-kicker { display: inline-flex; align-items: center; gap: 6px; color: var(--market-primary, #7901b2); font-weight: 700; }
+
+    /* ===== 结果列表 + 分页 ===== */
+    .search-results__head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+    .search-results__head h2 { margin: 0; font-size: 17px; color: #14121a; }
+    .search-results__note { color: var(--market-muted, #5b5566); font-size: 13px; }
+    .ai-list { border: 1px solid rgba(20,20,30,.1); border-radius: 10px; overflow: hidden; background: #fff; }
+    .ai-list__row { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; padding: 9px 14px; border-top: 1px solid rgba(20,20,30,.06); transition: background .14s ease; }
+    .ai-list__row:first-child { border-top: 0; }
+    .ai-list__row:hover { background: #f6f7f9; }
+    .ai-list__main { flex: 1 1 auto; min-width: 0; }
+    .ai-list__name { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; font-size: 13.8px; font-weight: 600; color: #14121a; line-height: 1.4; overflow-wrap: anywhere; }
+    .ai-list__sub { display: block; font-size: 12px; color: var(--market-muted, #5b5566); line-height: 1.4; overflow-wrap: anywhere; }
+    .ai-list__sub .dot { margin: 0 6px; opacity: .45; }
+    .ai-list__meta { flex: 0 0 auto; display: inline-flex; flex-direction: column; align-items: flex-end; gap: 5px; text-align: right; }
+    .ai-list__cap { font-size: 12.8px; font-weight: 600; color: var(--market-primary, #7901b2); white-space: nowrap; }
+    .ai-list__status { padding: 2px 9px; border: 1px solid transparent; border-radius: 10px; font-size: 12px; line-height: 1.35; font-weight: 600; white-space: nowrap; }
+    .search-hit { padding: 0 2px; border-radius: 3px; color: #14121a; background: #fff176; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+    .search-results__empty { color: var(--market-muted, #5b5566); font-size: 14px; padding: 18px 2px; }
+
+    .search-pager { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 16px; }
+    .search-pager[hidden] { display: none; }
+    .search-pager__btn { min-width: 36px; height: 36px; padding: 0 11px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid rgba(20,20,30,.14); border-radius: 10px; background: #fff; color: #34303b; font-size: 13.5px; cursor: pointer; transition: border-color .14s ease, color .14s ease, background .14s ease; }
+    .search-pager__btn:hover { border-color: var(--market-primary, #7901b2); color: var(--market-primary, #7901b2); }
+    .search-pager__btn.is-active { background: var(--market-primary, #7901b2); border-color: var(--market-primary, #7901b2); color: #fff; cursor: default; }
+    .search-pager__btn.is-dis { opacity: .4; cursor: default; border-color: rgba(20,20,30,.1); color: rgba(20,20,30,.4); }
+    @media (max-width: 640px) {
+      .ai-searchbar { flex-wrap: nowrap; min-height: 64px; padding-left: 13px; }
+      .ai-searchbar button { width: auto; min-width: 108px; min-height: 60px; }
+    }

@@ -1,0 +1,18 @@
+{
+  "name": "dbd-analytics",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "DBD Thai 商业环境分析聚合服务(独立轻量 sidecar,底层数据来自 WooCMS 站点接口)",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "gen:data": "node scripts/gen-data.mjs"
+  },
+  "dependencies": {
+    "pg": "^8.13.0"
+  }
+}

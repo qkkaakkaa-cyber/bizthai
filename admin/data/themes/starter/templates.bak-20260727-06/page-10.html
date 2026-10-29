@@ -1,0 +1,129 @@
+<div class="starter-theme biz-report-page biz-company-directory starter-archive" data-company-directory>
+  <wc-slot name="header"></wc-slot>
+  <main class="starter-main">
+    <section class="biz-report-hero" aria-labelledby="all-companies-title">
+      <div>
+        <p class="biz-report-kicker"><wc-t>Thailand Company Directory</wc-t></p>
+        <h1 id="all-companies-title"><wc-t>Find any registered company in Thailand</wc-t></h1>
+        <p class="biz-report-lead"><wc-t>Search and filter Thailand's complete business registry by name, province and industry. Every profile carries the official registration number, registered capital and business activity — sourced from DBD DataWarehouse+.</wc-t></p>
+        <div class="biz-report-toolbar">
+          <a href="/companies"><wc-t>Company Lookup</wc-t></a>
+          <a href="/business-new-registrations"><wc-t>New Registrations</wc-t></a>
+          <a href="/business-reports"><wc-t>Business Reports</wc-t></a>
+        </div>
+      </div>
+      <aside class="biz-report-hero__aside">
+        <div class="biz-report-stat"><strong data-company-total><wc-data source="cpt:thaicompany" field="_count"></wc-data></strong><span><wc-t>Registered companies indexed</wc-t></span></div>
+        <div class="biz-report-stat-row">
+          <div class="biz-report-stat biz-report-stat--sm"><strong>77</strong><span><wc-t>Provinces covered nationwide</wc-t></span></div>
+          <div class="biz-report-stat biz-report-stat--sm"><strong><wc-data source="taxonomy:industry" field="_count"></wc-data></strong><span><wc-t>Industry classifications</wc-t></span></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="biz-report-section">
+      <div class="biz-report-section__head">
+        <div>
+          <h2><wc-t>Browse the company directory</wc-t></h2>
+          <p><wc-t>Filter by province, industry or ownership, then open any company for its full registration, capital and shareholding profile.</wc-t></p>
+        </div>
+      </div>
+
+      <section class="biz-indbrowse" data-industry-browse aria-label="{{ t "Industry categories" }}">
+        <div class="biz-indbrowse__head">
+          <div class="biz-indbrowse__heading">
+            <h3 data-industry-title><wc-t>Industry categories</wc-t></h3>
+            <p class="biz-indbrowse__sel" data-industry-selection></p>
+          </div>
+          <div class="biz-indbrowse__tools">
+            <input type="search" class="biz-indbrowse__search" data-industry-search autocomplete="off" />
+            <button type="button" class="biz-indbrowse__clear" data-industry-clear hidden></button>
+            <button type="button" class="biz-indbrowse__toggle" data-industry-toggle aria-expanded="true"></button>
+          </div>
+        </div>
+        <div class="biz-indbrowse__body" data-industry-body>
+          <div class="biz-indbrowse__sidebar" data-industry-sections></div>
+          <div class="biz-indbrowse__content" data-industry-content></div>
+        </div>
+      </section>
+
+      <form class="biz-filterbar" data-company-filters action="/search" method="get" role="search">
+        <label class="biz-filterbar__field biz-filterbar__field--keyword">
+          <span class="biz-filterbar__label"><wc-t>Keyword</wc-t></span>
+          <input type="search" name="q" data-filter-keyword autocomplete="off" placeholder="{{ t "Company name or registration number" }}" />
+        </label>
+        <label class="biz-filterbar__field">
+          <span class="biz-filterbar__label"><wc-t>Province</wc-t></span>
+          <select data-filter-province><option value=""><wc-t>All provinces</wc-t></option></select>
+        </label>
+        <label class="biz-filterbar__field">
+          <span class="biz-filterbar__label"><wc-t>Ownership</wc-t></span>
+          <select data-filter-capital>
+            <option value=""><wc-t>All ownership</wc-t></option>
+            <option value="thai-capital"><wc-t>Thai-owned</wc-t></option>
+            <option value="foreign-capital"><wc-t>Foreign-owned</wc-t></option>
+          </select>
+        </label>
+        <div class="biz-filterbar__field">
+          <span class="biz-filterbar__label" data-country-filter-label><wc-t>Country</wc-t></span>
+          <button type="button" class="biz-filterbar__country-btn" data-filter-country-btn>
+            <span class="biz-filterbar__country-flag" data-filter-country-flag></span>
+            <span class="biz-filterbar__country-name" data-filter-country-name></span>
+            <svg class="biz-filterbar__country-arr" viewBox="0 0 12 8" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M1 1.5 6 6.5 11 1.5"/></svg>
+          </button>
+        </div>
+        <div class="biz-filterbar__actions">
+          <button type="submit" class="biz-filterbar__submit"><wc-t>Search</wc-t></button>
+          <button type="button" class="biz-filterbar__reset" data-filter-reset hidden><wc-t>Reset filters</wc-t></button>
+        </div>
+        <label class="biz-filterbar__check">
+          <input type="checkbox" data-filter-inactive />
+          <span data-en="Include dissolved / inactive companies" data-th="รวมบริษัทที่เลิกกิจการ / ไม่ดำเนินกิจการ" data-zh="包含已解散 / 非运营公司">Include dissolved / inactive companies</span>
+        </label>
+      </form>
+      <p class="biz-filterbar__hint" data-company-hint data-en="By default only operating companies are listed. Combine keyword, province, industry and country for a precise search." data-th="ค่าเริ่มต้นแสดงเฉพาะบริษัทที่ยังดำเนินกิจการ รวมคำค้น จังหวัด อุตสาหกรรม และประเทศเพื่อค้นหาที่แม่นยำขึ้น" data-zh="默认仅列出正常经营公司。可组合关键词、府、行业与国家做精确筛选。">By default only operating companies are listed. Combine keyword, province, industry and country for a precise search.</p>
+
+      <p class="biz-arch-range" data-company-range></p>
+
+      <div class="biz-industry-list biz-report-company-list" data-company-list>
+        <wc-data source="cpt:thaicompany" limit="24" offset="0" sort="id_desc">
+          <a class="biz-industry-item" data-ssr-row data-slug="{{ .slug }}" href="/{{ .slug }}.html" data-en-name="{{ .meta.jpnamee }}" data-name-en="{{ if .meta.jpnamee }}{{ .meta.jpnamee }}{{ else }}{{ .meta.jpname }}{{ end }}" data-name-th="{{ .meta.jpname }}" data-name-zh="{{ .meta.jpnamezh }}">
+            <span class="biz-industry-item__body">
+              <span class="biz-industry-item__namewrap">
+                <strong class="biz-industry-item__name">{{ if .meta.jpnamee }}{{ .meta.jpnamee }}{{ else }}{{ .meta.jpname }}{{ end }}</strong>
+                <span data-updated-slot></span>
+              </span>
+              <span class="biz-industry-item__sub">
+                <span class="biz-industry-item__obj" data-en="{{ .meta.setupobjdesce }}" data-th="{{ .meta.setupobjdesc }}" data-zh="{{ .meta.setupobjdesczh }}">{{ .meta.setupobjdesce }}</span>
+                <span class="biz-industry-item__loc" data-en="{{ .meta.provincee }}" data-th="{{ .meta.province }}" data-zh="{{ .meta.provincezh }}">{{ .meta.provincee }}</span>
+                <span class="biz-industry-item__jpno">{{ .meta.jpno }}</span>
+              </span>
+            </span>
+            <span class="biz-industry-item__aside">
+              <span class="biz-industry-item__cap" data-cap="{{ .meta.capamt }}">{{ .meta.capamt }}</span>
+              <span class="biz-industry-item__status" data-en="{{ .meta.jpstatdesce }}" data-th="{{ .meta.jpstatdesc }}" data-zh="{{ .meta.statuszh }}">{{ .meta.jpstatdesce }}</span>
+            </span>
+          </a>
+          <wc-empty><p class="biz-report-empty"><wc-t>No company records are available.</wc-t></p></wc-empty>
+        </wc-data>
+      </div>
+      <nav class="biz-arch-pager" data-company-pager hidden aria-label="{{ t "Pagination" }}"></nav>
+    </section>
+  </main>
+  <wc-slot name="footer"></wc-slot>
+
+  <div class="biz-country-modal" data-country-modal hidden aria-modal="true" role="dialog">
+    <div class="biz-country-modal__backdrop" data-country-modal-close></div>
+    <div class="biz-country-modal__panel">
+      <div class="biz-country-modal__head">
+        <h3 class="biz-country-modal__title" data-country-modal-title></h3>
+        <button type="button" class="biz-country-modal__x" data-country-modal-close aria-label="Close">&#x2715;</button>
+      </div>
+      <div class="biz-country-modal__search-wrap">
+        <input type="search" class="biz-country-modal__search-input" data-country-search autocomplete="off" />
+      </div>
+      <div class="biz-country-modal__list" data-country-list></div>
+    </div>
+  </div>
+
+</div>

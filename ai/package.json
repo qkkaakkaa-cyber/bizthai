@@ -1,0 +1,18 @@
+{
+  "name": "dbd-ai",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "DBD Thai AI 对话助手(sidecar:DeepSeek 工具调用 Agent,底层复用 WooCMS/analytics/directors 接口)",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "puppeteer": "^25.2.1",
+    "qrcode": "^1.5.4"
+  }
+}

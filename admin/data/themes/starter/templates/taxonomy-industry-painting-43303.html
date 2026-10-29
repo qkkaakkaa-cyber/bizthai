@@ -1,0 +1,48 @@
+<div class="starter-theme biz-report-page biz-industry-archive starter-archive" data-industry-archive data-taxonomy="industry" data-industry-ssr>
+  <wc-slot name="header"></wc-slot>
+
+  <section class="industry-hero" data-industry-hero data-industry-engslug="painting-43303">
+    <div class="industry-hero__inner">
+      <nav class="industry-hero__crumb" aria-label="{{ t "Breadcrumb" }}">
+        <a href="/"><wc-t>Home</wc-t></a>
+        <span aria-hidden="true">›</span>
+        <a href="/business-industry-overview"><wc-t>Industries</wc-t></a>
+        <span aria-hidden="true">›</span>
+        <span><wc-out path="title"></wc-out></span>
+      </nav>
+      <h1 class="industry-hero__title"><wc-out path="title"></wc-out></h1>
+      <p class="industry-hero__stats">
+        <span class="industry-hero__stat"><strong data-industry-count><wc-data source="cpt:thaicompany" term="industry:painting-43303" field="_count"></wc-data></strong> <wc-t>registered companies</wc-t></span>
+        <span class="industry-hero__stat" data-industry-childwrap hidden><strong data-industry-childcount>—</strong> <wc-t>sub-industries</wc-t></span>
+      </p>
+      <div class="industry-hero__nav" data-industry-nav hidden></div>
+    </div>
+  </section>
+
+  <main class="starter-main">
+    <div class="biz-industry-list" data-industry-list data-industry-term="industry:painting-43303">
+      <wc-data source="cpt:thaicompany" term="industry:painting-43303" limit="20" offset="0" sort="id_desc">
+        <a class="biz-industry-item" data-ssr-row data-slug="{{ .slug }}" href="/{{ .slug }}.html" data-en-name="{{ .meta.jpnamee }}" data-name-en="{{ .meta.jpnamee }}" data-name-th="{{ .meta.jpname }}" data-name-zh="{{ .meta.jpnamezh }}">
+          <span class="biz-industry-item__body">
+            <span class="biz-industry-item__namewrap">
+              <strong class="biz-industry-item__name">{{ .meta.jpnamee }}</strong>
+              <span data-updated-slot></span>
+            </span>
+            <span class="biz-industry-item__sub">
+              <span class="biz-industry-item__obj" data-en="{{ .meta.setupobjdesce }}" data-th="{{ .meta.setupobjdesc }}" data-zh="{{ .meta.setupobjdesczh }}">{{ .meta.setupobjdesce }}</span>
+              <span class="biz-industry-item__loc" data-en="{{ .meta.provincee }}" data-th="{{ .meta.province }}" data-zh="{{ .meta.provincezh }}">{{ .meta.provincee }}</span>
+              <span class="biz-industry-item__jpno">{{ .meta.jpno }}</span>
+            </span>
+          </span>
+          <span class="biz-industry-item__aside">
+            <span class="biz-industry-item__cap" data-cap="{{ .meta.capamt }}">{{ .meta.capamt }}</span>
+            <span class="biz-industry-item__status" data-en="{{ .meta.jpstatdesce }}" data-th="{{ .meta.jpstatdesc }}" data-zh="{{ .meta.statuszh }}">{{ .meta.jpstatdesce }}</span>
+          </span>
+        </a>
+        <wc-empty><p class="biz-report-empty"><wc-t>No companies in this industry yet.</wc-t></p></wc-empty>
+      </wc-data>
+    </div>
+    <nav class="biz-arch-pager" data-industry-pager hidden aria-label="{{ t "Pagination" }}"></nav>
+  </main>
+  <wc-slot name="footer"></wc-slot>
+</div>

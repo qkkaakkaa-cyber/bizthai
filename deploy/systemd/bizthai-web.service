@@ -1,0 +1,22 @@
+[Unit]
+Description=BizThai public website
+After=network.target
+StartLimitIntervalSec=60
+StartLimitBurst=3
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/www/wwwroot/bizthai/dbd-thai/admin
+EnvironmentFile=/www/wwwroot/bizthai/dbd-thai/admin/.env
+Environment=GOMAXPROCS=2 DB_MAX_CONNS=8 DB_MIN_CONNS=1 DB_STATEMENT_TIMEOUT_MS=8000
+ExecStart=/www/wwwroot/bizthai/dbd-thai/admin/woocms --role=web
+Restart=on-failure
+RestartSec=5
+CPUQuota=200%
+MemoryHigh=1536M
+MemoryMax=2G
+TasksMax=128
+NoNewPrivileges=true
+[Install]
+WantedBy=multi-user.target

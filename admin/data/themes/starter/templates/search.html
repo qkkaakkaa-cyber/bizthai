@@ -1,0 +1,46 @@
+<div class="starter-theme biz-report-page biz-industry-archive" data-ai-search>
+  <wc-slot name="header"></wc-slot>
+
+  <link rel="stylesheet" href="/theme-assets/starter/search.min.css?v=40cc8adf09">
+
+  <section class="industry-hero" data-search-hero>
+    <div class="industry-hero__inner">
+      <nav class="industry-hero__crumb" aria-label="{{ t "Breadcrumb" }}">
+        <a href="/"><wc-t>Home</wc-t></a>
+        <span aria-hidden="true">›</span>
+        <span><wc-t>Search</wc-t></span>
+      </nav>
+      <p class="industry-hero__kicker ai-kicker" data-ai-kicker><span aria-hidden="true">✦</span> <wc-t>Smart search</wc-t></p>
+      <h1 class="industry-hero__title" data-search-title><wc-t>Find the right Thai company</wc-t></h1>
+      <p class="industry-hero__stats">
+        <span class="industry-hero__stat" data-search-summary><wc-t>Search Thai companies by name, industry or province using official registry data.</wc-t></span>
+      </p>
+      <form class="ai-searchbar" action="/search" method="get" role="search">
+        <span class="ai-searchbar__spark" aria-hidden="true">✦</span>
+        <label class="screen-reader-text" for="ai-search-input"><wc-t>Describe the companies you are looking for</wc-t></label>
+        <input id="ai-search-input" name="q" type="search" data-search-input placeholder="{{ t "e.g. company name, industry or province" }}" autocomplete="off" />
+        <button type="submit"><span class="spark" aria-hidden="true">✦</span> <span data-ai-searchbtn><wc-t>Search</wc-t></span></button>
+      </form>
+    </div>
+  </section>
+
+  <main class="search-results" data-search-results-wrap hidden>
+    <div class="search-results__head">
+      <h2 data-search-results-title><wc-t>Matching companies</wc-t></h2>
+      <span class="search-results__note" data-search-results-note></span>
+    </div>
+    <div class="search-results__opts">
+      <label class="search-results__check">
+        <input type="checkbox" data-search-inactive />
+        <span data-search-inactive-label>Include dissolved / inactive companies</span>
+      </label>
+    </div>
+    <div class="ai-list" data-search-results hidden></div>
+    <p class="search-results__empty" data-search-results-empty hidden></p>
+    <nav class="search-pager" data-search-pager hidden aria-label="{{ t "Pagination" }}"></nav>
+  </main>
+
+  <wc-slot name="footer"></wc-slot>
+
+  <script src="/theme-assets/starter/search.min.js?v=e992a5e29f" defer></script>
+</div>

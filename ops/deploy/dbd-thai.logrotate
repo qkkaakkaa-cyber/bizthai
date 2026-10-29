@@ -1,0 +1,20 @@
+# 安装:sudo cp ops/deploy/dbd-thai.logrotate /etc/logrotate.d/dbd-thai
+#
+# 体检发现:各 sidecar 的 systemd unit 都用 StandardOutput=append:.../logs/xxx.app.log
+# 直接追加写文件,仓库里没有任何 logrotate 配置——长期运行日志无限增长,尤其 resolver
+# 每个 .html 请求都可能打印一行,存在撑爆磁盘的风险。
+#
+# 用 copytruncate:systemd 的 append: 重定向是进程持有着文件描述符长期写入,不是每次
+# 打开文件——常规 logrotate 的 rename+新建 会导致进程继续写向被移走的旧 inode(新文件
+# 反而一直空着);copytruncate 复制内容后原地截断,不需要重启进程或重新打开 fd。
+/data/projects/dbd-thai/logs/*.app.log
+/data/projects/dbd-thai/logs/*.app-error.log {
+    daily
+    rotate 14
+    compress
+    delaycompress
+    missingok
+    notifempty
+    copytruncate
+    dateext
+}

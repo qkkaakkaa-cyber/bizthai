@@ -1,0 +1,596 @@
+<div class="starter-theme starter-front">
+  <wc-slot name="header"></wc-slot>
+  <main class="starter-main">
+    <section class="starter-quick-tools" aria-label="{{ t "Homepage shortcuts" }}">
+      <a class="starter-quick-tool starter-quick-tool--dir" href="/companies">
+        <span class="starter-quick-tool__title"><wc-t>Company Directory</wc-t></span>
+        <span class="starter-quick-tool__desc"><wc-t>Browse every registered company</wc-t></span>
+      </a>
+      <a class="starter-quick-tool starter-quick-tool--rank" href="/business-leaderboards">
+        <span class="starter-quick-tool__title"><wc-t>Company Rankings</wc-t></span>
+        <span class="starter-quick-tool__desc"><wc-t>Top firms by region and revenue</wc-t></span>
+      </a>
+      <a class="starter-quick-tool starter-quick-tool--foreign" href="/business-foreign-capital">
+        <span class="starter-quick-tool__title"><wc-t>Foreign Investment</wc-t></span>
+        <span class="starter-quick-tool__desc"><wc-t>Companies backed by foreign capital</wc-t></span>
+      </a>
+      <a class="starter-quick-tool starter-quick-tool--new" href="/business-new-registrations">
+        <span class="starter-quick-tool__title"><wc-t>New Companies</wc-t></span>
+        <span class="starter-quick-tool__desc"><wc-t>Latest business registrations</wc-t></span>
+      </a>
+      <a class="starter-quick-tool starter-quick-tool--industry" href="/business-industry-overview">
+        <span class="starter-quick-tool__title"><wc-t>Industry Analysis</wc-t></span>
+        <span class="starter-quick-tool__desc"><wc-t>Trends and breakdowns by sector</wc-t></span>
+      </a>
+      <a class="starter-quick-tool starter-quick-tool--region" href="/business-regional-investment-map">
+        <span class="starter-quick-tool__title"><wc-t>Regional Analysis</wc-t></span>
+        <span class="starter-quick-tool__desc"><wc-t>Investment mapped across provinces</wc-t></span>
+      </a>
+    </section>
+
+    <section class="starter-promo" aria-labelledby="starter-promo-title">
+      <div class="starter-promo__head">
+        <div class="starter-promo__head-copy">
+          <span class="starter-promo__kicker" data-en="Popular Leaderboards" data-th="อันดับยอดนิยม" data-zh="热门榜单"><wc-t>Popular Leaderboards</wc-t></span>
+          <h1 id="starter-promo-title" data-en="Thailand Company Leaderboards" data-th="อันดับบริษัทไทย" data-zh="泰国企业排行榜"><wc-t>Thailand Company Leaderboards</wc-t></h1>
+          <p data-en="Ranked from companies' own filed financial statements — revenue, profit, growth and capital origin, updated continuously." data-th="จัดอันดับจากงบการเงินที่บริษัทยื่นจริง ทั้งรายได้ กำไร การเติบโต และแหล่งที่มาของทุน อัปเดตต่อเนื่อง" data-zh="基于企业自己提交的财报数据排名——营收、利润、增速与资本来源,持续更新。"><wc-t>Ranked from companies' own filed financial statements — revenue, profit, growth and capital origin, updated continuously.</wc-t></p>
+        </div>
+        <a class="starter-promo__more" href="/business-leaderboards" data-en="View all leaderboards" data-th="ดูอันดับทั้งหมด" data-zh="查看全部排行榜"><wc-t>View all leaderboards</wc-t></a>
+      </div>
+      <div class="starter-promo__lockup">
+        <a class="starter-promo__hero" href="/top-100-thai-companies-by-revenue.html">
+          <span class="starter-promo__hot" data-en="Hot" data-th="ยอดนิยม" data-zh="热门"><wc-t>Hot</wc-t></span>
+          <span class="starter-promo__hero-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978"/>
+              <path d="M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978"/>
+              <path d="M18 9h1.5a1 1 0 0 0 0-5H18"/>
+              <path d="M4 22h16"/>
+              <path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"/>
+              <path d="M6 9H4.5a1 1 0 0 1 0-5H6"/>
+            </svg>
+          </span>
+          <span class="starter-promo__hero-kicker" data-en="Flagship ranking" data-th="อันดับหลัก" data-zh="旗舰主榜"><wc-t>Flagship ranking</wc-t></span>
+          <h3 class="starter-promo__hero-title" data-en="Thailand Top 100 Companies by Revenue" data-th="100 อันดับบริษัทไทยรายได้สูงสุด" data-zh="泰国营收最高100家公司"><wc-t>Thailand Top 100 Companies by Revenue</wc-t></h3>
+          <p class="starter-promo__hero-desc" data-en="BizThai's broadest, most frequently updated ranking — Thailand's 100 highest-revenue companies from filed financial statements." data-th="อันดับที่ครอบคลุมและอัปเดตบ่อยที่สุดของ BizThai — 100 บริษัทไทยที่มีรายได้สูงสุดจากงบการเงินที่ยื่นจริง" data-zh="BizThai覆盖最广、更新最频繁的旗舰榜单——按财报营收排名的泰国企业TOP 100。"><wc-t>BizThai's broadest, most frequently updated ranking — Thailand's 100 highest-revenue companies from filed financial statements.</wc-t></p>
+          <span class="starter-promo__hero-btn" data-en="View ranking" data-th="ดูอันดับ" data-zh="查看榜单"><wc-t>View ranking</wc-t></span>
+        </a>
+        <div class="starter-promo__side">
+          <a class="starter-promo__tile starter-promo__tile--profit" href="/top-100-thai-companies-by-profit.html">
+            <span class="starter-promo__tile-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect class="promo-fill" x="3" y="6.5" width="18" height="11" rx="2"/><circle cx="12" cy="12" r="2.6"/><circle cx="6.3" cy="9.2" r="0.9" fill="currentColor" stroke="none"/><circle cx="17.7" cy="14.8" r="0.9" fill="currentColor" stroke="none"/></svg>
+            </span>
+            <span class="starter-promo__tile-title" data-en="Top 100 Most Profitable Companies in Thailand" data-th="100 อันดับบริษัทไทยกำไรสูงสุด" data-zh="泰国利润最高100家公司"><wc-t>Top 100 Most Profitable Companies in Thailand</wc-t></span>
+          </a>
+          <a class="starter-promo__tile starter-promo__tile--growth" href="/top-100-fastest-growing-companies-in-thailand.html">
+            <span class="starter-promo__tile-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4.5 17 10 11.2l3.3 3 5.7-6.7"/><path d="M14.2 7h4.8v4.8"/></svg>
+            </span>
+            <span class="starter-promo__tile-title" data-en="Top 100 Fastest Growing Companies in Thailand" data-th="100 อันดับบริษัทไทยเติบโตเร็วที่สุด" data-zh="泰国增长最快100家公司"><wc-t>Top 100 Fastest Growing Companies in Thailand</wc-t></span>
+          </a>
+          <a class="starter-promo__tile starter-promo__tile--foreign" href="/top-100-foreign-owned-companies-in-thailand.html">
+            <span class="starter-promo__tile-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect class="promo-fill" x="4" y="10" width="16" height="10.5" rx="1.6"/><path d="M12 2.5v8.3"/><path d="M8.2 7.3 12 11l3.8-3.7"/></svg>
+            </span>
+            <span class="starter-promo__tile-title" data-en="Top 100 Foreign-Invested Companies in Thailand" data-th="100 อันดับบริษัททุนต่างชาติในไทย" data-zh="泰国外资企业100强"><wc-t>Top 100 Foreign-Invested Companies in Thailand</wc-t></span>
+          </a>
+          <a class="starter-promo__tile starter-promo__tile--china" href="/top-500-chinese-companies-in-thailand.html">
+            <span class="starter-promo__tile-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><polygon class="promo-fill" points="12,3 14.4,9.3 21,9.8 15.9,13.9 17.6,20.3 12,16.6 6.4,20.3 8.1,13.9 3,9.8 9.6,9.3"/></svg>
+            </span>
+            <span class="starter-promo__tile-title" data-en="Top 500 Chinese-Invested Companies in Thailand" data-th="500 อันดับบริษัทที่มีทุนจีนในไทย" data-zh="中资企业在泰国500强"><wc-t>Top 500 Chinese-Invested Companies in Thailand</wc-t></span>
+          </a>
+          <a class="starter-promo__tile starter-promo__tile--estate" href="/top-100-real-estate-developers-in-thailand.html">
+            <span class="starter-promo__tile-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path class="promo-fill" d="M4 21V9.3l5-3 5 3V21Z"/><path d="M14 21V5.2l6 3.1V21Z"/><path d="M4 21h16"/></svg>
+            </span>
+            <span class="starter-promo__tile-title" data-en="Top 100 Real Estate Developers in Thailand" data-th="100 อันดับผู้พัฒนาอสังหาริมทรัพย์ไทย" data-zh="泰国房地产开发企业100强"><wc-t>Top 100 Real Estate Developers in Thailand</wc-t></span>
+          </a>
+          <a class="starter-promo__tile starter-promo__tile--tech" href="/top-100-tech-companies-in-thailand.html">
+            <span class="starter-promo__tile-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect class="promo-fill" x="7.5" y="7.5" width="9" height="9" rx="1.4"/><path d="M9.5 7.5V4M14.5 7.5V4M9.5 20v-3.5M14.5 20v-3.5M7.5 9.5H4M7.5 14.5H4M20 9.5h-3.5M20 14.5h-3.5"/></svg>
+            </span>
+            <span class="starter-promo__tile-title" data-en="Top 100 Tech Companies in Thailand" data-th="100 อันดับบริษัทเทคโนโลยีไทย" data-zh="泰国科技企业100强"><wc-t>Top 100 Tech Companies in Thailand</wc-t></span>
+          </a>
+          <a class="starter-promo__tile starter-promo__tile--trending starter-promo__tile--wide" href="/trending-companies?metric=views">
+            <span class="starter-promo__tile-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path class="promo-fill" d="M12 2.3c1.3 2.8-1.8 4-2.4 6.7-.5 2.2.7 3.6 2.1 3.9-1-1.6.1-2.9 1-4 .3 1.4-.2 2.1-.1 3 .1 1.3 1.1 2.1 2.2 2.1a3.4 3.4 0 0 0 3.4-3.4c0-3.3-3.4-4-3.9-8.3-.8 1.6-1.2 3-1.1 4.4-.9-1-1.4-2.6-1.2-4.4Z"/></svg>
+            </span>
+            <span class="starter-promo__tile-body">
+              <span class="starter-promo__tile-title"><wc-t>Most Viewed</wc-t></span>
+              <span class="starter-promo__tile-desc" data-en="Ranked by page views, refreshed daily" data-th="จัดอันดับตามยอดเข้าชม อัปเดตทุกวัน" data-zh="按访问量排名,每日刷新"><wc-t>Ranked by page views, refreshed daily</wc-t></span>
+            </span>
+            <span class="starter-promo__hot" data-en="Hot" data-th="ยอดนิยม" data-zh="热门"><wc-t>Hot</wc-t></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      /* ── Tab browse module ── */
+      .bz-tabs { margin-top: 52px; border-top: 1px solid #ebe8f5; }
+      .bz-tabs__nav { display: flex; align-items: stretch; border-bottom: 1px solid #e4e0f5; }
+      .bz-tabs__btn { padding: 13px 24px; font-size: 13.5px; font-weight: 600; color: #999; background: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; cursor: pointer; transition: color .15s, border-color .15s; white-space: nowrap; letter-spacing: -.01em; }
+      .bz-tabs__btn[aria-selected="true"] { color: #7901b2; border-bottom-color: #7901b2; }
+      .bz-tabs__btn:hover { color: #7901b2; }
+      .bz-tabs__fill { flex: 1; }
+      .bz-tabs__note { display: flex; align-items: center; padding-right: 2px; font-size: 11px; color: #c8c5d8; }
+      .bz-tabs__panel { padding: 0; }
+      .bz-tabs__panel[hidden] { display: none; }
+      /* ── Rows ── */
+      .bz-row { border-bottom: 1px solid #f0eef9; }
+      .bz-row__h { display: flex; align-items: center; gap: 7px; padding: 9px 0 4px; }
+      .bz-row__ltr { width: 26px; height: 26px; border-radius: 6px; background: rgba(121,1,178,0.1); color: #7901b2; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+      .bz-row__ltr svg { width: 15px; height: 15px; }
+      .bz-row__ltr svg :where(path, rect, circle, ellipse, line) { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+      .bz-row__nm { font-size: 13px; font-weight: 700; color: #14121a; text-decoration: none; }
+      .bz-row__nm:hover { color: #7901b2; }
+      .bz-row__sep { color: #ddd; font-size: 10px; flex-shrink: 0; }
+      .bz-row__cnt { font-size: 11px; color: #bbb; white-space: nowrap; }
+      .bz-row__a { font-size: 11px; color: #7901b2; text-decoration: none; margin-left: auto; padding-left: 8px; white-space: nowrap; }
+      .bz-row__a:hover { text-decoration: underline; }
+      .bz-cos { display: grid; grid-template-columns: 1fr 1fr; column-gap: 28px; row-gap: 2px; padding: 2px 0 10px 28px; }
+      .bz-co { display: flex; align-items: baseline; gap: 7px; min-width: 0; font-size: 11.5px; line-height: 1.85; text-decoration: none; }
+      .bz-co:nth-of-type(n+9) { display: none; } /* cap to 8 entries; province lists over-fetch to skip un-enriched stubs */
+      .bz-co__nm { flex: 0 1 auto; min-width: 0; color: #555; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .bz-co:hover .bz-co__nm { color: #7901b2; text-decoration: underline; }
+      .bz-co__cap { flex: 0 0 auto; margin-left: auto; color: #aaa; font-size: 11px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+      @media (max-width: 680px) {
+        .bz-tabs__btn { padding: 11px 14px; font-size: 13px; }
+        .bz-tabs__note { display: none; }
+        .bz-cos { grid-template-columns: 1fr; padding-left: 0; }
+      }
+    </style>
+
+    <!-- ══ Browse tabs: Industry + Province ══ -->
+    <section class="bz-tabs" aria-label="Browse companies">
+      <nav class="bz-tabs__nav" role="tablist">
+        <button class="bz-tabs__btn" role="tab" aria-selected="true" aria-controls="bz-panel-ind" data-en="Browse by Industry" data-th="ค้นหาตามอุตสาหกรรม" data-zh="按行业分类浏览">Browse by Industry</button>
+        <button class="bz-tabs__btn" role="tab" aria-selected="false" aria-controls="bz-panel-prov" data-en="Browse by Province" data-th="ค้นหาตามจังหวัด" data-zh="按府浏览">Browse by Province</button>
+        <span class="bz-tabs__fill"></span>
+        <span class="bz-tabs__note" data-en="19 TSIC sectors · 10 key provinces" data-th="TSIC 19 ประเภท · 10 จังหวัดหลัก" data-zh="TSIC 19个行业 · 10大府">19 TSIC sectors · 10 key provinces</span>
+      </nav>
+
+      <!-- Panel: Industry -->
+      <div class="bz-tabs__panel" id="bz-panel-ind" role="tabpanel">
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <span class="bz-row__ltr"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 21V9"></path><path d="M12 9C12 6 10 3.6 7.4 3 7.4 6 9.4 8.4 12 9Z"></path><path d="M12 9c0-3 2-5.4 4.6-6C16.6 6 14.6 8.4 12 9Z"></path><path d="M12 14.5c-2.4-.3-4.1-1.9-4.4-4.2 2.4.3 4.1 1.9 4.4 4.2Z"></path><path d="M12 14.5c2.4-.3 4.1-1.9 4.4-4.2-2.4.3-4.1 1.9-4.4 4.2Z"></path></svg></span>
+            <a class="bz-row__nm" href="/industry-agriculture-forestry-fishing.html" data-en="Agriculture, Forestry &amp; Fishing" data-th="เกษตรกรรม ป่าไม้ และประมง" data-zh="农业、林业和渔业">Agriculture, Forestry &amp; Fishing</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="6,949 co." data-th="6,949 บริษัท" data-zh="6,949 家">6,949 co.</span>
+            <a class="bz-row__a" href="/industry-agriculture-forestry-fishing.html" data-en="View all →" data-th="ดูทั้งหมด →" data-zh="查看全部 →">View all →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/green-skyline-medical-thailand-co-ltd.html" data-en-name="GREEN SKYLINE MEDICAL (THAILAND) CO., LTD."><span class="bz-co__nm" data-en="GREEN SKYLINE MEDICAL (THAILAND) CO., LTD." data-th="กรีนสกายไลน์ เมดิคอล (ไทยแลนด์) จำกัด" data-zh="">GREEN SKYLINE MEDICAL (THAILAND) CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/kanokporn-farm-co-ltd.html" data-en-name="KANOKPORN FARM CO., LTD."><span class="bz-co__nm" data-en="KANOKPORN FARM CO., LTD." data-th="กนกภรณ์ ฟาร์ม จำกัด" data-zh="">KANOKPORN FARM CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/cyk-farm-co-ltd.html" data-en-name="CYK FARM CO., LTD."><span class="bz-co__nm" data-en="CYK FARM CO., LTD." data-th="ซีวายเค ฟาร์ม  จำกัด" data-zh="">CYK FARM CO., LTD.</span><span class="bz-co__cap" data-cap="2000000">2000000</span></a><a class="bz-co" href="/deedee-flower-grow-co-ltd.html" data-en-name="DEEDEE FLOWER &amp; GROW CO., LTD."><span class="bz-co__nm" data-en="DEEDEE FLOWER &amp; GROW CO., LTD." data-th="ดีดี ฟลาเวอร์ แอนด์ โกรว์ จำกัด" data-zh="">DEEDEE FLOWER &amp; GROW CO., LTD.</span><span class="bz-co__cap" data-cap="5000000">5000000</span></a><a class="bz-co" href="/triple-t-farm-co-ltd.html" data-en-name="TRIPLE T FARM CO., LTD."><span class="bz-co__nm" data-en="TRIPLE T FARM CO., LTD." data-th="ทริปเปิลที ฟาร์ม จำกัด" data-zh="">TRIPLE T FARM CO., LTD.</span><span class="bz-co__cap" data-cap="5000000">5000000</span></a><a class="bz-co" href="/trf-genetics-company-limited.html" data-en-name="TRF GENETICS COMPANY LIMITED"><span class="bz-co__nm" data-en="TRF GENETICS COMPANY LIMITED" data-th="ทีอาร์เอฟเจเนติกส์ จำกัด" data-zh="">TRF GENETICS COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/prin-farm-company-limited.html" data-en-name="PRIN FARM COMPANY LIMITED"><span class="bz-co__nm" data-en="PRIN FARM COMPANY LIMITED" data-th="ปริญญ์ฟาร์ม จำกัด" data-zh="">PRIN FARM COMPANY LIMITED</span><span class="bz-co__cap" data-cap="46400000">46400000</span></a><a class="bz-co" href="/beginning-agro-co-ltd.html" data-en-name="BEGINNING AGRO CO., LTD."><span class="bz-co__nm" data-en="BEGINNING AGRO CO., LTD." data-th="บีกินนิ่ง อะโกร จำกัด" data-zh="">BEGINNING AGRO CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <span class="bz-row__ltr"><svg viewBox="0 0 24 24" focusable="false"><path d="M6 4h12l3 5-9 11L3 9z"></path><path d="M3 9h18"></path><path d="M9 4 6 9l6 11"></path><path d="M15 4l3 5-6 11"></path></svg></span>
+            <a class="bz-row__nm" href="/industry-mining-quarrying.html" data-en="Mining &amp; Quarrying" data-th="การทำเหมืองแร่" data-zh="采矿和采石业">Mining &amp; Quarrying</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="2,012 co." data-th="2,012 บริษัท" data-zh="2,012 家">2,012 co.</span>
+            <a class="bz-row__a" href="/industry-mining-quarrying.html" data-en="View all →" data-th="ดูทั้งหมด →" data-zh="查看全部 →">View all →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/konmohin-engineering-co-ltd.html" data-en-name="KONMOHIN ENGINEERING CO., LTD."><span class="bz-co__nm" data-en="KONMOHIN ENGINEERING CO., LTD." data-th="คนโม่หิน เอ็นจิเนียริ่ง จำกัด" data-zh="">KONMOHIN ENGINEERING CO., LTD.</span><span class="bz-co__cap" data-cap="5000000">5000000</span></a><a class="bz-co" href="/subnakra-co-ltd.html" data-en-name="SUBNAKRA CO., LTD."><span class="bz-co__nm" data-en="SUBNAKRA CO., LTD." data-th="ทรัพย์นาครา จำกัด" data-zh="">SUBNAKRA CO., LTD.</span><span class="bz-co__cap" data-cap="2000000">2000000</span></a><a class="bz-co" href="/tonnam-rimkok-company-limited.html" data-en-name="TONNAM RIMKOK COMPANY LIMITED"><span class="bz-co__nm" data-en="TONNAM RIMKOK COMPANY LIMITED" data-th="ต้นน้ำ ริมกก จำกัด" data-zh="">TONNAM RIMKOK COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/phatub-company-limited.html" data-en-name="PHATUB COMPANY LIMITED"><span class="bz-co__nm" data-en="PHATUB COMPANY LIMITED" data-th="ผาตูบ จำกัด" data-zh="">PHATUB COMPANY LIMITED</span><span class="bz-co__cap" data-cap="80000000">80000000</span></a><a class="bz-co" href="/siam-dolomite-company-limited.html" data-en-name="SIAM DOLOMITE COMPANY LIMITED"><span class="bz-co__nm" data-en="SIAM DOLOMITE COMPANY LIMITED" data-th="สยามโดโลไมท์ จำกัด" data-zh="">SIAM DOLOMITE COMPANY LIMITED</span><span class="bz-co__cap" data-cap="4000000">4000000</span></a><a class="bz-co" href="/lampang-mining-company-limited.html" data-en-name="LAMPANG MINING COMPANY LIMITED"><span class="bz-co__nm" data-en="LAMPANG MINING COMPANY LIMITED" data-th="ลำปาง ไมนิ่ง จำกัด" data-zh="">LAMPANG MINING COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/aquacerca-company-limited.html" data-en-name="AQUACERCA COMPANY LIMITED"><span class="bz-co__nm" data-en="AQUACERCA COMPANY LIMITED" data-th="อากวาเซอร์คา จำกัด" data-zh="">AQUACERCA COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/mathawee-construction-co-ltd.html" data-en-name="MATHAWEE CONSTRUCTION CO., LTD."><span class="bz-co__nm" data-en="MATHAWEE CONSTRUCTION CO., LTD." data-th="มาทวี คอนสตรัคชั่น จำกัด" data-zh="">MATHAWEE CONSTRUCTION CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <span class="bz-row__ltr"><svg viewBox="0 0 24 24" focusable="false"><path d="M3 21V11l5 3V11l5 3V8l5 3v10z"></path><path d="M3 21h18"></path><path d="M7 21v-3h3v3"></path></svg></span>
+            <a class="bz-row__nm" href="/industry-manufacturing.html" data-en="Manufacturing" data-th="การผลิต" data-zh="制造业">Manufacturing</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="84,672 co." data-th="84,672 บริษัท" data-zh="84,672 家">84,672 co.</span>
+            <a class="bz-row__a" href="/industry-manufacturing.html" data-en="View all →" data-th="ดูทั้งหมด →" data-zh="查看全部 →">View all →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/khunboonmnee-company-limited.html" data-en-name="KHUNBOONMNEE COMPANY LIMITED"><span class="bz-co__nm" data-en="KHUNBOONMNEE COMPANY LIMITED" data-th="คุณบุญมณี จำกัด" data-zh="">KHUNBOONMNEE COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/king-work-engineering-company-limited.html" data-en-name="KING WORK ENGINEERING COMPANY LIMITED"><span class="bz-co__nm" data-en="KING WORK ENGINEERING COMPANY LIMITED" data-th="คิง เวิร์ค เอ็นจิเนียริ่ง จำกัด" data-zh="">KING WORK ENGINEERING COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/group-diamond-co-ltd.html" data-en-name="GROUP DIAMOND CO., LTD."><span class="bz-co__nm" data-en="GROUP DIAMOND CO., LTD." data-th="กรุ๊ป ไดมอน จำกัด" data-zh="">GROUP DIAMOND CO., LTD.</span><span class="bz-co__cap" data-cap="2000000">2000000</span></a><a class="bz-co" href="/chicony-electronics-thailand-co-ltd.html" data-en-name="CHICONY ELECTRONICS (THAILAND) CO., LTD."><span class="bz-co__nm" data-en="CHICONY ELECTRONICS (THAILAND) CO., LTD." data-th="ชิโคนี่ อีเลคทรอนิคส์ (ประเทศไทย) จำกัด" data-zh="">CHICONY ELECTRONICS (THAILAND) CO., LTD.</span><span class="bz-co__cap" data-cap="1000252500">1000252500</span></a><a class="bz-co" href="/duangthipnet-industry-co-ltd.html" data-en-name="DUANGTHIPNET INDUSTRY CO.,LTD."><span class="bz-co__nm" data-en="DUANGTHIPNET INDUSTRY CO.,LTD." data-th="ดวงทิพย์เนตร อุตสาหกรรม จำกัด" data-zh="">DUANGTHIPNET INDUSTRY CO.,LTD.</span><span class="bz-co__cap" data-cap="5000000">5000000</span></a><a class="bz-co" href="/w-b-team-network-company-limited.html" data-en-name="W.B.TEAM NETWORK  COMPANY LIMITED"><span class="bz-co__nm" data-en="W.B.TEAM NETWORK  COMPANY LIMITED" data-th="ดับบลิว.บี.ทีม เน็ตเวิร์ก  จำกัด" data-zh="">W.B.TEAM NETWORK  COMPANY LIMITED</span><span class="bz-co__cap" data-cap="2000000">2000000</span></a><a class="bz-co" href="/dd-rubber-2020-co-ltd.html" data-en-name="DD RUBBER 2020 CO., LTD."><span class="bz-co__nm" data-en="DD RUBBER 2020 CO., LTD." data-th="ดีดี รับเบอร์ 2020 จำกัด" data-zh="">DD RUBBER 2020 CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/bangkok-metropolis-motor-company-limited.html" data-en-name="BANGKOK METROPOLIS MOTOR COMPANY LIMITED"><span class="bz-co__nm" data-en="BANGKOK METROPOLIS MOTOR COMPANY LIMITED" data-th="บางกอกพัฒนามอเตอร์ จำกัด" data-zh="">BANGKOK METROPOLIS MOTOR COMPANY LIMITED</span><span class="bz-co__cap" data-cap="250000000">250000000</span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <span class="bz-row__ltr"><svg viewBox="0 0 24 24" focusable="false"><path d="M13 2 4 14h6l-1 8 9-12h-6z"></path></svg></span>
+            <a class="bz-row__nm" href="/industry-electricity-gas-supply.html" data-en="Electricity &amp; Gas Supply" data-th="ไฟฟ้า แก๊ส และไอน้ำ" data-zh="电力、燃气供应">Electricity &amp; Gas Supply</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="4,591 co." data-th="4,591 บริษัท" data-zh="4,591 家">4,591 co.</span>
+            <a class="bz-row__a" href="/industry-electricity-gas-supply.html" data-en="View all →" data-th="ดูทั้งหมด →" data-zh="查看全部 →">View all →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/pst-git-joint-venture-co-ltd.html" data-en-name="PST - GIT JOINT VENTURE CO., LTD."><span class="bz-co__nm" data-en="PST - GIT JOINT VENTURE CO., LTD." data-th="กิจการร่วมค้า พีเอสที - จีไอที จำกัด" data-zh="">PST - GIT JOINT VENTURE CO., LTD.</span><span class="bz-co__cap" data-cap="30000000">30000000</span></a><a class="bz-co" href="/connoisseur-team-co-ltd.html" data-en-name="CONNOISSEUR TEAM CO., LTD."><span class="bz-co__nm" data-en="CONNOISSEUR TEAM CO., LTD." data-th="คอนนอยเซอร์ ทีม จำกัด" data-zh="">CONNOISSEUR TEAM CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/green-energy-evolution-thailand-co-ltd.html" data-en-name="GREEN ENERGY EVOLUTION (THAILAND) CO., LTD."><span class="bz-co__nm" data-en="GREEN ENERGY EVOLUTION (THAILAND) CO., LTD." data-th="กรีน เอ็นเนอร์ยี่ เอฟโวลูชั่น (ประเทศไทย) จำกัด" data-zh="">GREEN ENERGY EVOLUTION (THAILAND) CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/chario-energy-co-ltd.html" data-en-name="CHARIO ENERGY CO., LTD."><span class="bz-co__nm" data-en="CHARIO ENERGY CO., LTD." data-th="ชาริโอ เอ็นเนอร์จี้ จำกัด" data-zh="">CHARIO ENERGY CO., LTD.</span><span class="bz-co__cap" data-cap="5000000">5000000</span></a><a class="bz-co" href="/c-p-n-enterprise-company-limited.html" data-en-name="C.P.N. ENTERPRISE COMPANY LIMITED"><span class="bz-co__nm" data-en="C.P.N. ENTERPRISE COMPANY LIMITED" data-th="ซี.พี.เอ็น. เอ็นเตอร์ไพรส์ จำกัด" data-zh="">C.P.N. ENTERPRISE COMPANY LIMITED</span><span class="bz-co__cap" data-cap="5000000">5000000</span></a><a class="bz-co" href="/t-y-t-s-thailand-company-limited.html" data-en-name="T Y T S (THAILAND) COMPANY LIMITED"><span class="bz-co__nm" data-en="T Y T S (THAILAND) COMPANY LIMITED" data-th="ทีวายทีเอส (ไทยแลนด์) จำกัด" data-zh="">T Y T S (THAILAND) COMPANY LIMITED</span><span class="bz-co__cap" data-cap="9000000">9000000</span></a><a class="bz-co" href="/differ-tech-thailand-company-limited.html" data-en-name="DIFFER TECH (THAILAND) COMPANY LIMITED"><span class="bz-co__nm" data-en="DIFFER TECH (THAILAND) COMPANY LIMITED" data-th="ดิฟเฟอร์เทค (ประเทศไทย) จำกัด" data-zh="">DIFFER TECH (THAILAND) COMPANY LIMITED</span><span class="bz-co__cap" data-cap="2000000">2000000</span></a><a class="bz-co" href="/tvp-solar-company-limited.html" data-en-name="TVP SOLAR COMPANY LIMITED"><span class="bz-co__nm" data-en="TVP SOLAR COMPANY LIMITED" data-th="ทีวีพี โซล่าร์ จำกัด" data-zh="">TVP SOLAR COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <span class="bz-row__ltr"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"></path><path d="M9.3 13.5a2.7 2.7 0 0 0 5.4 0"></path></svg></span>
+            <a class="bz-row__nm" href="/industry-water-supply-waste-management.html" data-en="Water Supply &amp; Waste Management" data-th="น้ำประปาและการจัดการของเสีย" data-zh="水供应和废物管理">Water Supply &amp; Waste Management</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="2,449 co." data-th="2,449 บริษัท" data-zh="2,449 家">2,449 co.</span>
+            <a class="bz-row__a" href="/industry-water-supply-waste-management.html" data-en="View all →" data-th="ดูทั้งหมด →" data-zh="查看全部 →">View all →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/cowtec-green-energy-co-ltd.html" data-en-name="COWTEC GREEN ENERGY CO., LTD."><span class="bz-co__nm" data-en="COWTEC GREEN ENERGY CO., LTD." data-th="คาวเทค กรีน เอเนอร์จี จำกัด" data-zh="">COWTEC GREEN ENERGY CO., LTD.</span><span class="bz-co__cap" data-cap="2000000">2000000</span></a><a class="bz-co" href="/kitpinan-products-co-ltd.html" data-en-name="KITPINAN PRODUCTS CO., LTD."><span class="bz-co__nm" data-en="KITPINAN PRODUCTS CO., LTD." data-th="กิจพินัน โปรดักส์ จำกัด" data-zh="">KITPINAN PRODUCTS CO., LTD.</span><span class="bz-co__cap" data-cap="28000000">28000000</span></a><a class="bz-co" href="/green-waste-recycle-company-limited.html" data-en-name="GREEN WASTE RECYCLE COMPANY LIMITED"><span class="bz-co__nm" data-en="GREEN WASTE RECYCLE COMPANY LIMITED" data-th="กรีน เวสต์ รีไซเคิล จำกัด" data-zh="">GREEN WASTE RECYCLE COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/kridsada-service-supply-co-ltd.html" data-en-name="KRIDSADA SERVICE &amp; SUPPLY CO., LTD."><span class="bz-co__nm" data-en="KRIDSADA SERVICE &amp; SUPPLY CO., LTD." data-th="กฤษฎา เซอร์วิส แอนด์ ซัพพลาย จำกัด" data-zh="">KRIDSADA SERVICE &amp; SUPPLY CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/jin-heng-78-co-ltd.html" data-en-name="JIN HENG 78 CO., LTD."><span class="bz-co__nm" data-en="JIN HENG 78 CO., LTD." data-th="จินเฮง 78 จำกัด" data-zh="">JIN HENG 78 CO., LTD.</span><span class="bz-co__cap" data-cap="10000000">10000000</span></a><a class="bz-co" href="/kijsathaporn-recycle-co-ltd.html" data-en-name="KIJSATHAPORN RECYCLE CO., LTD."><span class="bz-co__nm" data-en="KIJSATHAPORN RECYCLE CO., LTD." data-th="กิจสถาพร รีไซเคิล จำกัด" data-zh="">KIJSATHAPORN RECYCLE CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/t-o-m-regenerate-co-ltd.html" data-en-name="T.O.M (REGENERATE) CO., LTD."><span class="bz-co__nm" data-en="T.O.M (REGENERATE) CO., LTD." data-th="ที.โอ.เอ็ม (รีเจนเนอเรท) จำกัด" data-zh="">T.O.M (REGENERATE) CO., LTD.</span><span class="bz-co__cap" data-cap="2000000">2000000</span></a><a class="bz-co" href="/tt-service-2023-thailand-co-ltd.html" data-en-name="TT SERVICE 2023 (THAILAND) CO., LTD."><span class="bz-co__nm" data-en="TT SERVICE 2023 (THAILAND) CO., LTD." data-th="ทีที เซอร์วิส 2023 (ประเทศไทย) จำกัด" data-zh="">TT SERVICE 2023 (THAILAND) CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <span class="bz-row__ltr"><svg viewBox="0 0 24 24" focusable="false"><path d="M3 18h18v2.2H3z"></path><path d="M5 18a7 7 0 0 1 14 0"></path><path d="M9 8.6V6h6v2.6"></path><path d="M12 5.2V8"></path></svg></span>
+            <a class="bz-row__nm" href="/industry-construction.html" data-en="Construction" data-th="การก่อสร้าง" data-zh="建筑业">Construction</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="70,383 co." data-th="70,383 บริษัท" data-zh="70,383 家">70,383 co.</span>
+            <a class="bz-row__a" href="/industry-construction.html" data-en="View all →" data-th="ดูทั้งหมด →" data-zh="查看全部 →">View all →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/charatcharoenkanchang-co-ltd.html" data-en-name="CHARATCHAROENKANCHANG CO., LTD."><span class="bz-co__nm" data-en="CHARATCHAROENKANCHANG CO., LTD." data-th="จรัสเจริญการช่าง จำกัด" data-zh="">CHARATCHAROENKANCHANG CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/3fa-construction-co-ltd.html" data-en-name="3FA CONSTRUCTION CO., LTD."><span class="bz-co__nm" data-en="3FA CONSTRUCTION CO., LTD." data-th="3ฟ คอนสตรัคชั่น จำกัด" data-zh="">3FA CONSTRUCTION CO., LTD.</span><span class="bz-co__cap" data-cap="3000000">3000000</span></a><a class="bz-co" href="/thanee-property-company-limited.html" data-en-name="THANEE  PROPERTY COMPANY LIMITED"><span class="bz-co__nm" data-en="THANEE  PROPERTY COMPANY LIMITED" data-th="ธานี  พร็อพเพอร์ตี้ จำกัด" data-zh="">THANEE  PROPERTY COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/w-c-w-construction-and-supply-company-limited.html" data-en-name="W.C.W CONSTRUCTION AND SUPPLY COMPANY LIMITED"><span class="bz-co__nm" data-en="W.C.W CONSTRUCTION AND SUPPLY COMPANY LIMITED" data-th="ดับเบิ้ลยู.ซี.ดับเบิ้ลยู คอนสตรัคชั่น แอนด์ ซัพพลาย จำกัด" data-zh="">W.C.W CONSTRUCTION AND SUPPLY COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/sunflower-house-interior-co-ltd.html" data-en-name="SUNFLOWER HOUSE INTERIOR CO., LTD."><span class="bz-co__nm" data-en="SUNFLOWER HOUSE INTERIOR CO., LTD." data-th="ซันฟลาวเวอร์ เฮาส์ อินทีเรีย จำกัด" data-zh="">SUNFLOWER HOUSE INTERIOR CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/pranchai-construction-co-ltd.html" data-en-name="PRANCHAI CONSTRUCTION CO., LTD."><span class="bz-co__nm" data-en="PRANCHAI CONSTRUCTION CO., LTD." data-th="ปรัญชัย คอนสตรัคชั่น จำกัด" data-zh="">PRANCHAI CONSTRUCTION CO., LTD.</span><span class="bz-co__cap" data-cap="5000000">5000000</span></a><a class="bz-co" href="/b-m-engineering-co-ltd.html" data-en-name="B&amp;M ENGINEERING Co., Ltd."><span class="bz-co__nm" data-en="B&amp;M ENGINEERING Co., Ltd." data-th="บีแอนด์เอ็ม วิศวกรรม จำกัด" data-zh="">B&amp;M ENGINEERING Co., Ltd.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/pathumpaisan-trading-and-construction-co-ltd.html" data-en-name="PATHUMPAISAN TRADING AND CONSTRUCTION CO., LTD."><span class="bz-co__nm" data-en="PATHUMPAISAN TRADING AND CONSTRUCTION CO., LTD." data-th="ปทุมไพศาล เทรดดิ้งแอนด์คอนสตรัคชั่น จำกัด" data-zh="">PATHUMPAISAN TRADING AND CONSTRUCTION CO., LTD.</span><span class="bz-co__cap" data-cap="500000">500000</span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <span class="bz-row__ltr"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 8h14l-1.2 12H6.2z"></path><path d="M9 8V6a3 3 0 0 1 6 0v2"></path></svg></span>
+            <a class="bz-row__nm" href="/industry-wholesale-retail-trade.html" data-en="Wholesale &amp; Retail Trade" data-th="การค้าส่งและค้าปลีก" data-zh="批发和零售业">Wholesale &amp; Retail Trade</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="248,129 co." data-th="248,129 บริษัท" data-zh="248,129 家">248,129 co.</span>
+            <a class="bz-row__a" href="/industry-wholesale-retail-trade.html" data-en="View all →" data-th="ดูทั้งหมด →" data-zh="查看全部 →">View all →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/qc-sticker-thaiherbal-hongthai-co-ltd.html" data-en-name="QC STICKER THAIHERBAL HONGTHAI CO., LTD."><span class="bz-co__nm" data-en="QC STICKER THAIHERBAL HONGTHAI CO., LTD." data-th="คิวซี สติ๊กเกอร์ สมุนไพรไทย หงส์ไทย จำกัด" data-zh="">QC STICKER THAIHERBAL HONGTHAI CO., LTD.</span><span class="bz-co__cap" data-cap="5000000">5000000</span></a><a class="bz-co" href="/chakkrawan-motor-1989-co-ltd.html" data-en-name="CHAKKRAWAN MOTOR (1989) CO., LTD."><span class="bz-co__nm" data-en="CHAKKRAWAN MOTOR (1989) CO., LTD." data-th="จักรวาลมอเตอร์ (1989) จำกัด" data-zh="">CHAKKRAWAN MOTOR (1989) CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/karnwanit-trading-2-co-ltd.html" data-en-name="KARNWANIT TRADING 2 CO., LTD."><span class="bz-co__nm" data-en="KARNWANIT TRADING 2 CO., LTD." data-th="กานต์วณิช เทรดดิ้ง 2 จำกัด" data-zh="">KARNWANIT TRADING 2 CO., LTD.</span><span class="bz-co__cap" data-cap="500000">500000</span></a><a class="bz-co" href="/29sep-co-ltd.html" data-en-name="29SEP CO., LTD."><span class="bz-co__nm" data-en="29SEP CO., LTD." data-th="ทูไนน์เซ็พ จำกัด" data-zh="">29SEP CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/supkananan-co-ltd.html" data-en-name="SUPKANANAN CO., LTD."><span class="bz-co__nm" data-en="SUPKANANAN CO., LTD." data-th="ทรัพย์คณานันต์ จำกัด" data-zh="">SUPKANANAN CO., LTD.</span><span class="bz-co__cap" data-cap="5000000">5000000</span></a><a class="bz-co" href="/beebot-thailand-co-ltd.html" data-en-name="BEEBOT (THAILAND) Co., Ltd."><span class="bz-co__nm" data-en="BEEBOT (THAILAND) Co., Ltd." data-th="บีบอท (ไทยแลนด์) จำกัด" data-zh="">BEEBOT (THAILAND) Co., Ltd.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/nana-krongnok-co-ltd.html" data-en-name="NANA KRONGNOK Co., Ltd."><span class="bz-co__nm" data-en="NANA KRONGNOK Co., Ltd." data-th="นานากรงนก จำกัด" data-zh="">NANA KRONGNOK Co., Ltd.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/nagasaki-kiki-thailand-company-limited.html" data-en-name="NAGASAKI KIKI (THAILAND)  COMPANY LIMITED"><span class="bz-co__nm" data-en="NAGASAKI KIKI (THAILAND)  COMPANY LIMITED" data-th="นางาซากิ คิคิ (ประเทศไทย) จำกัด" data-zh="">NAGASAKI KIKI (THAILAND)  COMPANY LIMITED</span><span class="bz-co__cap" data-cap="10000000">10000000</span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <span class="bz-row__ltr"><svg viewBox="0 0 24 24" focusable="false"><path d="M3 6h11v9H3z"></path><path d="M14 9h4l3 3v3h-7z"></path><circle cx="7" cy="18" r="1.8"></circle><circle cx="17" cy="18" r="1.8"></circle></svg></span>
+            <a class="bz-row__nm" href="/industry-transportation-storage.html" data-en="Transportation &amp; Storage" data-th="การขนส่งและสถานที่เก็บสินค้า" data-zh="交通运输和仓储">Transportation &amp; Storage</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="28,579 co." data-th="28,579 บริษัท" data-zh="28,579 家">28,579 co.</span>
+            <a class="bz-row__a" href="/industry-transportation-storage.html" data-en="View all →" data-th="ดูทั้งหมด →" data-zh="查看全部 →">View all →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/kowklaithransport-company-limited.html" data-en-name="KOWKLAITHRANSPORT COMPANY LIMITED"><span class="bz-co__nm" data-en="KOWKLAITHRANSPORT COMPANY LIMITED" data-th="ก้าวไกลทรานสปอร์ต จำกัด" data-zh="">KOWKLAITHRANSPORT COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/khanthong-crane-company-limited.html" data-en-name="KHANTHONG  CRANE COMPANY LIMITED"><span class="bz-co__nm" data-en="KHANTHONG  CRANE COMPANY LIMITED" data-th="ขันทอง  เครน จำกัด" data-zh="">KHANTHONG  CRANE COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/2-p-s-logistics-2012-company-limited.html" data-en-name="2 P S LOGISTICS (2012) COMPANY LIMITED"><span class="bz-co__nm" data-en="2 P S LOGISTICS (2012) COMPANY LIMITED" data-th="ทู พี เอส โลจิสติกส์ (2012) จำกัด" data-zh="">2 P S LOGISTICS (2012) COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/tnb-logistics-co-ltd.html" data-en-name="TNB LOGISTICS CO., LTD."><span class="bz-co__nm" data-en="TNB LOGISTICS CO., LTD." data-th="ทีเอ็นบี โลจิสติกส์ จำกัด" data-zh="">TNB LOGISTICS CO., LTD.</span><span class="bz-co__cap" data-cap="5000000">5000000</span></a><a class="bz-co" href="/ce-logistics-thailand-co-ltd.html" data-en-name="CE LOGISTICS (THAILAND) CO., LTD."><span class="bz-co__nm" data-en="CE LOGISTICS (THAILAND) CO., LTD." data-th="ซีอี โลจิสติกส์ (ประเทศไทย) จำกัด" data-zh="">CE LOGISTICS (THAILAND) CO., LTD.</span><span class="bz-co__cap" data-cap="40000000">40000000</span></a><a class="bz-co" href="/suetrong-management-1999-co-ltd.html" data-en-name="SUETRONG MANAGEMENT 1999 CO., LTD."><span class="bz-co__nm" data-en="SUETRONG MANAGEMENT 1999 CO., LTD." data-th="ซื่อตรง แมเนจเม้นท์ 1999 จำกัด" data-zh="">SUETRONG MANAGEMENT 1999 CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/g-travel-transport-corporation-limited.html" data-en-name="G TRAVEL TRANSPORT CORPORATION LIMITED"><span class="bz-co__nm" data-en="G TRAVEL TRANSPORT CORPORATION LIMITED" data-th="จีทราเวลทรานสปอร์ต  จำกัด" data-zh="">G TRAVEL TRANSPORT CORPORATION LIMITED</span><span class="bz-co__cap" data-cap="3000000">3000000</span></a><a class="bz-co" href="/thanakrit-charoenrungreuang-transport-co-ltd.html" data-en-name="THANAKRIT CHAROENRUNGREUANG TRANSPORT CO., LTD."><span class="bz-co__nm" data-en="THANAKRIT CHAROENRUNGREUANG TRANSPORT CO., LTD." data-th="ธนกฤต เจริญรุ่งเรือง ทรานสปอร์ต จำกัด" data-zh="">THANAKRIT CHAROENRUNGREUANG TRANSPORT CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <span class="bz-row__ltr"><svg viewBox="0 0 24 24" focusable="false"><path d="M6 3v5a2 2 0 0 0 4 0V3"></path><path d="M8 8v13"></path><path d="M16 3c-1.6 0-2.6 2.1-2.6 5 0 2 1 3.1 2.6 3.1V21"></path></svg></span>
+            <a class="bz-row__nm" href="/industry-accommodation-food-service.html" data-en="Accommodation &amp; Food Service" data-th="ที่พักและบริการอาหาร" data-zh="住宿和餐饮业">Accommodation &amp; Food Service</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="38,577 co." data-th="38,577 บริษัท" data-zh="38,577 家">38,577 co.</span>
+            <a class="bz-row__a" href="/industry-accommodation-food-service.html" data-en="View all →" data-th="ดูทั้งหมด →" data-zh="查看全部 →">View all →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/kushitaro-co-ltd.html" data-en-name="KUSHITARO CO., LTD."><span class="bz-co__nm" data-en="KUSHITARO CO., LTD." data-th="คูชิทะโร่ จำกัด" data-zh="">KUSHITARO CO., LTD.</span><span class="bz-co__cap" data-cap="5000000">5000000</span></a><a class="bz-co" href="/cream-and-cone-company-limited.html" data-en-name="CREAM AND CONE  Company Limited"><span class="bz-co__nm" data-en="CREAM AND CONE  Company Limited" data-th="ครีม แอนด์ โคน  จำกัด" data-zh="">CREAM AND CONE  Company Limited</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/kings-an-elen-co-ltd.html" data-en-name="KINGS AN ELEN CO., LTD."><span class="bz-co__nm" data-en="KINGS AN ELEN CO., LTD." data-th="คิงส์ แอน อีเลน จำกัด" data-zh="">KINGS AN ELEN CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/sukhothai-noodles-by-khun-chan-co-ltd.html" data-en-name="SUKHOTHAI NOODLES BY KHUN CHAN CO., LTD."><span class="bz-co__nm" data-en="SUKHOTHAI NOODLES BY KHUN CHAN CO., LTD." data-th="ก๋วยเตี๋ยวสุโขทัย บาย คุณจันทร์ จำกัด" data-zh="">SUKHOTHAI NOODLES BY KHUN CHAN CO., LTD.</span><span class="bz-co__cap" data-cap="500000">500000</span></a><a class="bz-co" href="/dusit-thani-properties-reit-company-limited.html" data-en-name="DUSIT THANI PROPERTIES REIT COMPANY LIMITED"><span class="bz-co__nm" data-en="DUSIT THANI PROPERTIES REIT COMPANY LIMITED" data-th="ดุสิตธานี พร็อพเพอร์ตี้ส์ รีท จำกัด" data-zh="">DUSIT THANI PROPERTIES REIT COMPANY LIMITED</span><span class="bz-co__cap" data-cap="10000000">10000000</span></a><a class="bz-co" href="/narakdee24-co-ltd.html" data-en-name="NARAKDEE24 CO., LTD."><span class="bz-co__nm" data-en="NARAKDEE24 CO., LTD." data-th="น่ารักดี24 จำกัด" data-zh="">NARAKDEE24 CO., LTD.</span><span class="bz-co__cap" data-cap="2000000">2000000</span></a><a class="bz-co" href="/signature-pattaya-hotel-co-ltd.html" data-en-name="SIGNATURE PATTAYA HOTEL CO., LTD."><span class="bz-co__nm" data-en="SIGNATURE PATTAYA HOTEL CO., LTD." data-th="ซิกเนเจอร์ พัทยา โฮเทล จำกัด" data-zh="">SIGNATURE PATTAYA HOTEL CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/twisha-trade-and-hospitality-co-ltd.html" data-en-name="TWISHA TRADE AND HOSPITALITY CO., LTD."><span class="bz-co__nm" data-en="TWISHA TRADE AND HOSPITALITY CO., LTD." data-th="ทวิส์ช่า เทรด แอนด์ ฮอสปิตอลิตี้ จำกัด" data-zh="">TWISHA TRADE AND HOSPITALITY CO., LTD.</span><span class="bz-co__cap" data-cap="5000000">5000000</span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <span class="bz-row__ltr"><svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="9" r="2"></circle><path d="M12 11v10"></path><path d="M7.8 4.8a8 8 0 0 0 0 8.4"></path><path d="M16.2 4.8a8 8 0 0 1 0 8.4"></path><path d="M5.2 2.5a11.5 11.5 0 0 0 0 13"></path><path d="M18.8 2.5a11.5 11.5 0 0 1 0 13"></path></svg></span>
+            <a class="bz-row__nm" href="/industry-information-communication.html" data-en="Information &amp; Communication" data-th="ข้อมูลสารสนเทศและการสื่อสาร" data-zh="信息和通信技术">Information &amp; Communication</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="23,159 co." data-th="23,159 บริษัท" data-zh="23,159 家">23,159 co.</span>
+            <a class="bz-row__a" href="/industry-information-communication.html" data-en="View all →" data-th="ดูทั้งหมด →" data-zh="查看全部 →">View all →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/give-corporation-co-ltd.html" data-en-name="GIVE CORPORATION CO., LTD."><span class="bz-co__nm" data-en="GIVE CORPORATION CO., LTD." data-th="กิฟ คอร์ปอเรชั่น จำกัด" data-zh="">GIVE CORPORATION CO., LTD.</span><span class="bz-co__cap" data-cap="5000000">5000000</span></a><a class="bz-co" href="/kung-thai-media-company-limited.html" data-en-name="KUNG THAI MEDIA COMPANY LIMITED"><span class="bz-co__nm" data-en="KUNG THAI MEDIA COMPANY LIMITED" data-th="กุ้งไทย มีเดีย จำกัด" data-zh="">KUNG THAI MEDIA COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/chankajorn-csr-solution-co-ltd.html" data-en-name="CHANKAJORN CSR SOLUTION CO.,LTD."><span class="bz-co__nm" data-en="CHANKAJORN CSR SOLUTION CO.,LTD." data-th="จันทร์ขจร ซีเอสอาร์ โซลูชั่น จำกัด" data-zh="">CHANKAJORN CSR SOLUTION CO.,LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/g-smart-thailand-co-ltd.html" data-en-name="G SMART (THAILAND) CO., LTD."><span class="bz-co__nm" data-en="G SMART (THAILAND) CO., LTD." data-th="จี สมาร์ท (ไทยแลนด์) จำกัด" data-zh="">G SMART (THAILAND) CO., LTD.</span><span class="bz-co__cap" data-cap="3000000">3000000</span></a><a class="bz-co" href="/corenova-innovation-co-ltd.html" data-en-name="CORENOVA INNOVATION Co., Ltd."><span class="bz-co__nm" data-en="CORENOVA INNOVATION Co., Ltd." data-th="คอร์โนวา อินโนเวชั่น จำกัด" data-zh="">CORENOVA INNOVATION Co., Ltd.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/juvenile-co-ltd.html" data-en-name="JUVENILE CO., LTD."><span class="bz-co__nm" data-en="JUVENILE CO., LTD." data-th="จูเวไนล์ จำกัด" data-zh="">JUVENILE CO., LTD.</span><span class="bz-co__cap" data-cap="6000000">6000000</span></a><a class="bz-co" href="/triple-v-broadcast-company-limited.html" data-en-name="TRIPLE V BROADCAST COMPANY LIMITED"><span class="bz-co__nm" data-en="TRIPLE V BROADCAST COMPANY LIMITED" data-th="ทริปเปิล วี บรอดคาสท์ จำกัด" data-zh="">TRIPLE V BROADCAST COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000000">1000000000</span></a><a class="bz-co" href="/nos-service-co-ltd.html" data-en-name="NOS SERVICE CO., LTD."><span class="bz-co__nm" data-en="NOS SERVICE CO., LTD." data-th="นอส เซอร์วิส จำกัด" data-zh="">NOS SERVICE CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <span class="bz-row__ltr"><svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="M14.6 9.2a2.5 2 0 0 0-5 .4c0 2.6 5.2 1.2 5.2 3.8a2.5 2 0 0 1-5.2.4"></path><path d="M12 6.8v10.4"></path></svg></span>
+            <a class="bz-row__nm" href="/industry-finance-insurance.html" data-en="Financial &amp; Insurance Activities" data-th="กิจกรรมทางการเงินและประกันภัย" data-zh="金融和保险业">Financial &amp; Insurance Activities</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="18,457 co." data-th="18,457 บริษัท" data-zh="18,457 家">18,457 co.</span>
+            <a class="bz-row__a" href="/industry-finance-insurance.html" data-en="View all →" data-th="ดูทั้งหมด →" data-zh="查看全部 →">View all →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/guardian-asset-company-limited.html" data-en-name="GUARDIAN ASSET COMPANY LIMITED"><span class="bz-co__nm" data-en="GUARDIAN ASSET COMPANY LIMITED" data-th="การ์เดียน แอสเซท จำกัด" data-zh="">GUARDIAN ASSET COMPANY LIMITED</span><span class="bz-co__cap" data-cap="100000">100000</span></a><a class="bz-co" href="/304-industrial-park-2-co-ltd.html" data-en-name="304 INDUSTRIAL PARK 2 CO., LTD."><span class="bz-co__nm" data-en="304 INDUSTRIAL PARK 2 CO., LTD." data-th="304 อินดัสเตรียล ปาร์ค 2  จำกัด" data-zh="">304 INDUSTRIAL PARK 2 CO., LTD.</span><span class="bz-co__cap" data-cap="1320000000">1320000000</span></a><a class="bz-co" href="/kin-dee-holding-co-ltd.html" data-en-name="KIN DEE HOLDING CO., LTD."><span class="bz-co__nm" data-en="KIN DEE HOLDING CO., LTD." data-th="กินดี โฮลดิ้ง จำกัด" data-zh="">KIN DEE HOLDING CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/kikkew-co-ltd.html" data-en-name="KIKKEW CO., LTD."><span class="bz-co__nm" data-en="KIKKEW CO., LTD." data-th="กิ๊กกิ้ว จำกัด" data-zh="">KIKKEW CO., LTD.</span><span class="bz-co__cap" data-cap="300000">300000</span></a><a class="bz-co" href="/concrete-decor-thailand-company-limited.html" data-en-name="CONCRETE DECOR(THAILAND) COMPANY LIMITED"><span class="bz-co__nm" data-en="CONCRETE DECOR(THAILAND) COMPANY LIMITED" data-th="คอนกรีต เดคคอร์(ไทยแลนด์) จำกัด" data-zh="">CONCRETE DECOR(THAILAND) COMPANY LIMITED</span><span class="bz-co__cap" data-cap="4000000">4000000</span></a><a class="bz-co" href="/twelve-victory-47-company-limited.html" data-en-name="TWELVE VICTORY (47) COMPANY LIMITED"><span class="bz-co__nm" data-en="TWELVE VICTORY (47) COMPANY LIMITED" data-th="ทเวลฟ์ วิคทอรี่ (47) จำกัด" data-zh="">TWELVE VICTORY (47) COMPANY LIMITED</span><span class="bz-co__cap" data-cap="3000000">3000000</span></a><a class="bz-co" href="/tat-venture-co-ltd.html" data-en-name="TAT VENTURE CO., LTD."><span class="bz-co__nm" data-en="TAT VENTURE CO., LTD." data-th="ทีเอที เวนเจอร์ จำกัด" data-zh="">TAT VENTURE CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/new-winds-holding-co-ltd.html" data-en-name="NEW WINDS HOLDING CO., LTD."><span class="bz-co__nm" data-en="NEW WINDS HOLDING CO., LTD." data-th="นิว วิน โฮลดิ้ง จำกัด" data-zh="">NEW WINDS HOLDING CO., LTD.</span><span class="bz-co__cap" data-cap="2000000">2000000</span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <span class="bz-row__ltr"><svg viewBox="0 0 24 24" focusable="false"><path d="M4 21V8l8-4 8 4v13"></path><path d="M3.5 21h17"></path><path d="M9.5 21v-5h5v5"></path><path d="M9 9.5h2M13 9.5h2M9 13h2M13 13h2"></path></svg></span>
+            <a class="bz-row__nm" href="/industry-real-estate.html" data-en="Real Estate Activities" data-th="กิจกรรมอสังหาริมทรัพย์" data-zh="房地产业">Real Estate Activities</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="80,400 co." data-th="80,400 บริษัท" data-zh="80,400 家">80,400 co.</span>
+            <a class="bz-row__a" href="/industry-real-estate.html" data-en="View all →" data-th="ดูทั้งหมด →" data-zh="查看全部 →">View all →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/0105532024935.html" data-en-name="กำธรโฮลดิ้ง จำกัด"><span class="bz-co__nm" data-en="กำธรโฮลดิ้ง จำกัด" data-th="กำธรโฮลดิ้ง จำกัด" data-zh="">กำธรโฮลดิ้ง จำกัด</span><span class="bz-co__cap" data-cap="34185000">34185000</span></a><a class="bz-co" href="/j-s-p-office-center-company-limited.html" data-en-name="J.S.P. OFFICE CENTER COMPANY LIMITED"><span class="bz-co__nm" data-en="J.S.P. OFFICE CENTER COMPANY LIMITED" data-th="กู๊ด เมอร์ริท ออฟฟิต พาร์ค  จำกัด" data-zh="">J.S.P. OFFICE CENTER COMPANY LIMITED</span><span class="bz-co__cap" data-cap="2000000">2000000</span></a><a class="bz-co" href="/common-works-ltd.html" data-en-name="COMMON WORKS LTD."><span class="bz-co__nm" data-en="COMMON WORKS LTD." data-th="คอมมอน เวิร์กส จำกัด" data-zh="">COMMON WORKS LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/sarah-jone-real-estate-co-ltd.html" data-en-name="SARAH JONE REAL ESTATE Co., Ltd."><span class="bz-co__nm" data-en="SARAH JONE REAL ESTATE Co., Ltd." data-th="ซาราห์ โจน เรียล เอสเตท จำกัด" data-zh="">SARAH JONE REAL ESTATE Co., Ltd.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/gr-enterprises-company-limited.html" data-en-name="GR ENTERPRISES COMPANY LIMITED"><span class="bz-co__nm" data-en="GR ENTERPRISES COMPANY LIMITED" data-th="จีอาร์ เอ็นเตอร์ไพร์เซส จำกัด" data-zh="">GR ENTERPRISES COMPANY LIMITED</span><span class="bz-co__cap" data-cap="2000000">2000000</span></a><a class="bz-co" href="/0105524001972.html" data-en-name="จัตุรถา จำกัด"><span class="bz-co__nm" data-en="จัตุรถา จำกัด" data-th="จัตุรถา จำกัด" data-zh="">จัตุรถา จำกัด</span><span class="bz-co__cap" data-cap="30000000">30000000</span></a><a class="bz-co" href="/t-banna-villa-company-limited.html" data-en-name="T.BANNA VILLA COMPANY LIMITED"><span class="bz-co__nm" data-en="T.BANNA VILLA COMPANY LIMITED" data-th="ท. บ้านนาวิลล่า จำกัด" data-zh="">T.BANNA VILLA COMPANY LIMITED</span><span class="bz-co__cap" data-cap="200000000">200000000</span></a><a class="bz-co" href="/nuawaha-international-co-ltd.html" data-en-name="NUAWAHA INTERNATIONAL CO., LTD."><span class="bz-co__nm" data-en="NUAWAHA INTERNATIONAL CO., LTD." data-th="นัววาฮา อินเตอร์เนชั่นแนล จำกัด" data-zh="">NUAWAHA INTERNATIONAL CO., LTD.</span><span class="bz-co__cap" data-cap="5000000">5000000</span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <span class="bz-row__ltr"><svg viewBox="0 0 24 24" focusable="false"><path d="M9.5 3h5"></path><path d="M10.5 3v6l-5 9.2A1.5 1.5 0 0 0 6.8 20.5h10.4a1.5 1.5 0 0 0 1.3-2.3L13.5 9V3"></path><path d="M8 15h8"></path></svg></span>
+            <a class="bz-row__nm" href="/industry-professional-scientific-technical.html" data-en="Professional, Scientific &amp; Technical" data-th="กิจกรรมวิชาชีพ วิทยาศาสตร์ และเทคนิค" data-zh="专业、科学和技术活动">Professional, Scientific &amp; Technical</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="72,512 co." data-th="72,512 บริษัท" data-zh="72,512 家">72,512 co.</span>
+            <a class="bz-row__a" href="/industry-professional-scientific-technical.html" data-en="View all →" data-th="ดูทั้งหมด →" data-zh="查看全部 →">View all →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/kan-inspection-company-limited.html" data-en-name="KAN  INSPECTION  COMPANY LIMITED"><span class="bz-co__nm" data-en="KAN  INSPECTION  COMPANY LIMITED" data-th="กานต์  อินสเป็คชั่น จำกัด" data-zh="">KAN  INSPECTION  COMPANY LIMITED</span><span class="bz-co__cap" data-cap="3000000">3000000</span></a><a class="bz-co" href="/compact-law-and-business-co-ltd.html" data-en-name="COMPACT LAW AND BUSINESS CO., LTD."><span class="bz-co__nm" data-en="COMPACT LAW AND BUSINESS CO., LTD." data-th="คอมแพค ลอว์ แอนด์ บิสสิเนส จำกัด" data-zh="">COMPACT LAW AND BUSINESS CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/clinic-dr-oum-medicate-creature-co-ltd.html" data-en-name="CLINIC DR OUM MEDICATE CREATURE CO., LTD."><span class="bz-co__nm" data-en="CLINIC DR OUM MEDICATE CREATURE CO., LTD." data-th="คลินิกหมออุ๋มรักษาสัตว์ จำกัด" data-zh="">CLINIC DR OUM MEDICATE CREATURE CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/jariya-accounting-company-limited.html" data-en-name="JARIYA ACCOUNTING  COMPANY LIMITED"><span class="bz-co__nm" data-en="JARIYA ACCOUNTING  COMPANY LIMITED" data-th="จริยา การบัญชี จำกัด" data-zh="">JARIYA ACCOUNTING  COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/kanokrat-consultant-company-limited.html" data-en-name="KANOKRAT CONSULTANT COMPANY LIMITED"><span class="bz-co__nm" data-en="KANOKRAT CONSULTANT COMPANY LIMITED" data-th="กนกรัตน์ คอนเซาท์แทนท์ จำกัด" data-zh="">KANOKRAT CONSULTANT COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/simply-design-group-company-limited.html" data-en-name="SIMPLY DESIGN GROUP COMPANY LIMITED"><span class="bz-co__nm" data-en="SIMPLY DESIGN GROUP COMPANY LIMITED" data-th="ซิมพลี่ ดีซายน์ กรุ๊พ จำกัด" data-zh="">SIMPLY DESIGN GROUP COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/d-168-company-limited.html" data-en-name="D 168  COMPANY LIMITED"><span class="bz-co__nm" data-en="D 168  COMPANY LIMITED" data-th="ดี 168  จำกัด" data-zh="">D 168  COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/natchamedia-printing-company-limited.html" data-en-name="NATCHAMEDIA &amp; PRINTING COMPANY LIMITED"><span class="bz-co__nm" data-en="NATCHAMEDIA &amp; PRINTING COMPANY LIMITED" data-th="ณัชชามีเดีย แอนด์ ปริ้นท์ติ้ง จำกัด" data-zh="">NATCHAMEDIA &amp; PRINTING COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <span class="bz-row__ltr"><svg viewBox="0 0 24 24" focusable="false"><path d="M6 3h9l4 4v14H6z"></path><path d="M15 3v4h4"></path><path d="M9 13h6"></path><path d="M9 17h4"></path></svg></span>
+            <a class="bz-row__nm" href="/industry-administrative-support-service.html" data-en="Administrative &amp; Support Services" data-th="กิจกรรมบริหารและบริการสนับสนุน" data-zh="行政和支援服务">Administrative &amp; Support Services</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="46,113 co." data-th="46,113 บริษัท" data-zh="46,113 家">46,113 co.</span>
+            <a class="bz-row__a" href="/industry-administrative-support-service.html" data-en="View all →" data-th="ดูทั้งหมด →" data-zh="查看全部 →">View all →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/connexinsights-co-ltd.html" data-en-name="CONNEXINSIGHTS CO., LTD."><span class="bz-co__nm" data-en="CONNEXINSIGHTS CO., LTD." data-th="คอนเน็กซ์ อินไซท์ จำกัด" data-zh="">CONNEXINSIGHTS CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/asia-go-manpower-co-ltd.html" data-en-name="ASIA GO MANPOWER CO., LTD."><span class="bz-co__nm" data-en="ASIA GO MANPOWER CO., LTD." data-th="จัดหางาน เอเชียโก จำกัด" data-zh="">ASIA GO MANPOWER CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/c2i-supply-and-services-company-limited.html" data-en-name="C2I SUPPLY AND SERVICES COMPANY LIMITED"><span class="bz-co__nm" data-en="C2I SUPPLY AND SERVICES COMPANY LIMITED" data-th="ซีทูไอ ซัพพลาย แอนด์ เซอร์วิส จำกัด" data-zh="">C2I SUPPLY AND SERVICES COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/business-made-agile-co-ltd.html" data-en-name="BUSINESS MADE AGILE CO., LTD."><span class="bz-co__nm" data-en="BUSINESS MADE AGILE CO., LTD." data-th="บิสซิเนส เมด แอไจล์ จำกัด" data-zh="">BUSINESS MADE AGILE CO., LTD.</span><span class="bz-co__cap" data-cap="2000000">2000000</span></a><a class="bz-co" href="/noob-coffee-truck-and-franchise-co-ltd.html" data-en-name="NOOB COFFEE TRUCK AND FRANCHISE CO., LTD."><span class="bz-co__nm" data-en="NOOB COFFEE TRUCK AND FRANCHISE CO., LTD." data-th="นู้บ คอฟฟี่ ทรัค แอนด์ แฟรนไชส์ จำกัด" data-zh="">NOOB COFFEE TRUCK AND FRANCHISE CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/ting-family-company-limited.html" data-en-name="TING FAMILY COMPANY LIMITED"><span class="bz-co__nm" data-en="TING FAMILY COMPANY LIMITED" data-th="ติง แฟมิลี่ จำกัด" data-zh="">TING FAMILY COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/borders-grand-service-company-limited.html" data-en-name="BORDERS GRAND SERVICE COMPANY LIMITED"><span class="bz-co__nm" data-en="BORDERS GRAND SERVICE COMPANY LIMITED" data-th="บอร์เดอร์ แกรนด์ เซอร์วิส จำกัด" data-zh="">BORDERS GRAND SERVICE COMPANY LIMITED</span><span class="bz-co__cap" data-cap="2000000">2000000</span></a><a class="bz-co" href="/foreign-worker-employment-agency-s-a-international-supply-co-ltd.html" data-en-name="FOREIGN WORKER EMPLOYMENT AGENCY S.A. INTERNATIONAL SUPPLY CO., LTD."><span class="bz-co__nm" data-en="FOREIGN WORKER EMPLOYMENT AGENCY S.A. INTERNATIONAL SUPPLY CO., LTD." data-th="นำคนต่างด้าวมาทำงานในประเทศ เอส.เอ. อินเตอร์เนชันแนล ซัพพลาย จำกัด" data-zh="">FOREIGN WORKER EMPLOYMENT AGENCY S.A. INTERNATIONAL SUPPLY CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <span class="bz-row__ltr"><svg viewBox="0 0 24 24" focusable="false"><path d="M2 8.5 12 4l10 4.5L12 13z"></path><path d="M6 10.5V15c0 1.6 2.7 3 6 3s6-1.4 6-3v-4.5"></path><path d="M22 8.5V14"></path></svg></span>
+            <a class="bz-row__nm" href="/industry-education.html" data-en="Education" data-th="การศึกษา" data-zh="教育">Education</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="6,983 co." data-th="6,983 บริษัท" data-zh="6,983 家">6,983 co.</span>
+            <a class="bz-row__a" href="/industry-education.html" data-en="View all →" data-th="ดูทั้งหมด →" data-zh="查看全部 →">View all →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/three-a-vivace-co-ltd.html" data-en-name="&quot;THREE A VIVACE CO.,LTD.&quot;"><span class="bz-co__nm" data-en="&quot;THREE A VIVACE CO.,LTD.&quot;" data-th="ทรี เอ วิวาเช จำกัด" data-zh="">&quot;THREE A VIVACE CO.,LTD.&quot;</span><span class="bz-co__cap" data-cap="10000000">10000000</span></a><a class="bz-co" href="/chaphachi-co-ltd.html" data-en-name="CHAPHACHI CO., LTD."><span class="bz-co__nm" data-en="CHAPHACHI CO., LTD." data-th="ชภาชี จำกัด" data-zh="">CHAPHACHI CO., LTD.</span><span class="bz-co__cap" data-cap="2000000">2000000</span></a><a class="bz-co" href="/tesol-tree-company-limited.html" data-en-name="TESOL TREE COMPANY LIMITED"><span class="bz-co__nm" data-en="TESOL TREE COMPANY LIMITED" data-th="ทีซอลทรี จำกัด" data-zh="">TESOL TREE COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/design7-for-life-co-ltd.html" data-en-name="DESIGN7 FOR LIFE CO., LTD."><span class="bz-co__nm" data-en="DESIGN7 FOR LIFE CO., LTD." data-th="ดีไซน์7 ฟอร์ ไลฟ์ จำกัด" data-zh="">DESIGN7 FOR LIFE CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/duangboon-trading-2024-co-ltd.html" data-en-name="DUANGBOON TRADING 2024 CO., LTD."><span class="bz-co__nm" data-en="DUANGBOON TRADING 2024 CO., LTD." data-th="ดวงบุญ เทรดดิ้ง 2024 จำกัด" data-zh="">DUANGBOON TRADING 2024 CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/baan-tarn-high-level-wellness-company-limited.html" data-en-name="BAAN TARN HIGH-LEVEL WELLNESS COMPANY LIMITED"><span class="bz-co__nm" data-en="BAAN TARN HIGH-LEVEL WELLNESS COMPANY LIMITED" data-th="บ้านตาล ไฮ-เลเวล เวลเนส จำกัด" data-zh="">BAAN TARN HIGH-LEVEL WELLNESS COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/t-m-bay-company-limited.html" data-en-name="T.M. BAY COMPANY LIMITED"><span class="bz-co__nm" data-en="T.M. BAY COMPANY LIMITED" data-th="ที.เอ็ม. เบย์ จำกัด" data-zh="">T.M. BAY COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/prompt-mark-co-ltd.html" data-en-name="PROMPT MARK CO., LTD."><span class="bz-co__nm" data-en="PROMPT MARK CO., LTD." data-th="พร้อมมาก จำกัด" data-zh="">PROMPT MARK CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <span class="bz-row__ltr"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 20s-7-4.6-7-10.2A3.9 3.9 0 0 1 12 7a3.9 3.9 0 0 1 7 2.8C19 15.4 12 20 12 20Z"></path><path d="M12 9.2v3.6"></path><path d="M10.2 11h3.6"></path></svg></span>
+            <a class="bz-row__nm" href="/industry-health-social-work.html" data-en="Human Health &amp; Social Work" data-th="กิจกรรมด้านสุขภาพและงานสังคมสงเคราะห์" data-zh="卫生和社会工作">Human Health &amp; Social Work</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="10,577 co." data-th="10,577 บริษัท" data-zh="10,577 家">10,577 co.</span>
+            <a class="bz-row__a" href="/industry-health-social-work.html" data-en="View all →" data-th="ดูทั้งหมด →" data-zh="查看全部 →">View all →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/cloud-clinic-co-ltd.html" data-en-name="CLOUD CLINIC CO., LTD."><span class="bz-co__nm" data-en="CLOUD CLINIC CO., LTD." data-th="คลาวด์ คลินิก  จำกัด" data-zh="">CLOUD CLINIC CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/bangkok-health-wellness-co-ltd.html" data-en-name="BANGKOK HEALTH &amp; WELLNESS CO., LTD."><span class="bz-co__nm" data-en="BANGKOK HEALTH &amp; WELLNESS CO., LTD." data-th="กรุงเทพ เฮลท์ แอนด์ เวลเนส จำกัด" data-zh="">BANGKOK HEALTH &amp; WELLNESS CO., LTD.</span><span class="bz-co__cap" data-cap="5000000">5000000</span></a><a class="bz-co" href="/kharis-secret-co-ltd.html" data-en-name="KHARIS SECRET CO., LTD."><span class="bz-co__nm" data-en="KHARIS SECRET CO., LTD." data-th="คาริส ซีเครท จำกัด" data-zh="">KHARIS SECRET CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/qrs-medical-supply-co-ltd.html" data-en-name="QRS MEDICAL SUPPLY CO., LTD."><span class="bz-co__nm" data-en="QRS MEDICAL SUPPLY CO., LTD." data-th="คิวอาร์เอส เมดิคอล ซัพพลาย จำกัด" data-zh="">QRS MEDICAL SUPPLY CO., LTD.</span><span class="bz-co__cap" data-cap="100000">100000</span></a><a class="bz-co" href="/mindhome-physiotherapy-clinic-company-limited.html" data-en-name="MINDHOME PHYSIOTHERAPY CLINIC COMPANY LIMITED"><span class="bz-co__nm" data-en="MINDHOME PHYSIOTHERAPY CLINIC COMPANY LIMITED" data-th="คลินิกกายภาพบำบัดมายด์โฮม จำกัด" data-zh="">MINDHOME PHYSIOTHERAPY CLINIC COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/q-lab-medtech-company-limited.html" data-en-name="Q LAB MEDTECH COMPANY LIMITED"><span class="bz-co__nm" data-en="Q LAB MEDTECH COMPANY LIMITED" data-th="คิว แล็บ เมดเทค จำกัด" data-zh="">Q LAB MEDTECH COMPANY LIMITED</span><span class="bz-co__cap" data-cap="2000000">2000000</span></a><a class="bz-co" href="/doctorlab-company-limited.html" data-en-name="DOCTORLAB COMPANY LIMITED"><span class="bz-co__nm" data-en="DOCTORLAB COMPANY LIMITED" data-th="ด็อกเตอร์แลบ จำกัด" data-zh="">DOCTORLAB COMPANY LIMITED</span><span class="bz-co__cap" data-cap="10000000">10000000</span></a><a class="bz-co" href="/doctor-dew-solution-co-ltd.html" data-en-name="DOCTOR DEW SOLUTION CO., LTD."><span class="bz-co__nm" data-en="DOCTOR DEW SOLUTION CO., LTD." data-th="ด็อกเตอร์ดิวโซลูชั่น จำกัด" data-zh="">DOCTOR DEW SOLUTION CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <span class="bz-row__ltr"><svg viewBox="0 0 24 24" focusable="false"><path d="M9 18V5l10-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="16" cy="16" r="3"></circle></svg></span>
+            <a class="bz-row__nm" href="/industry-arts-entertainment-recreation.html" data-en="Arts, Entertainment &amp; Recreation" data-th="ศิลปะ ความบันเทิง และนันทนาการ" data-zh="文艺、娱乐和休闲">Arts, Entertainment &amp; Recreation</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="7,608 co." data-th="7,608 บริษัท" data-zh="7,608 家">7,608 co.</span>
+            <a class="bz-row__a" href="/industry-arts-entertainment-recreation.html" data-en="View all →" data-th="ดูทั้งหมด →" data-zh="查看全部 →">View all →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/kitjabanpa-company-limited.html" data-en-name="KITJABANPA COMPANY LIMITED"><span class="bz-co__nm" data-en="KITJABANPA COMPANY LIMITED" data-th="กิจจาบรรพ จำกัด" data-zh="">KITJABANPA COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/kid-tam-dee-creation-co-ltd.html" data-en-name="KID TAM DEE CREATION CO., LTD."><span class="bz-co__nm" data-en="KID TAM DEE CREATION CO., LTD." data-th="คิดทำดี ครีเอชั่น จำกัด" data-zh="">KID TAM DEE CREATION CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/kids-bloom-co-ltd.html" data-en-name="KIDS BLOOM CO., LTD."><span class="bz-co__nm" data-en="KIDS BLOOM CO., LTD." data-th="คิดส์บลูม จำกัด" data-zh="">KIDS BLOOM CO., LTD.</span><span class="bz-co__cap" data-cap="2000000">2000000</span></a><a class="bz-co" href="/gmm-tempo-company-limited.html" data-en-name="GMM TEMPO COMPANY LIMITED"><span class="bz-co__nm" data-en="GMM TEMPO COMPANY LIMITED" data-th="จีเอ็มเอ็ม เทมป์โป้ จำกัด" data-zh="">GMM TEMPO COMPANY LIMITED</span><span class="bz-co__cap" data-cap="140000025">140000025</span></a><a class="bz-co" href="/tvt-enter-co-ltd.html" data-en-name="TVT ENTER CO., LTD."><span class="bz-co__nm" data-en="TVT ENTER CO., LTD." data-th="ทีวีที เอ็นเตอร์ จำกัด" data-zh="">TVT ENTER CO., LTD.</span><span class="bz-co__cap" data-cap="2000000">2000000</span></a><a class="bz-co" href="/tmj-aesthetics-co-ltd.html" data-en-name="TMJ AESTHETICS CO., LTD."><span class="bz-co__nm" data-en="TMJ AESTHETICS CO., LTD." data-th="ที เอ็ม เจ เอสเธติกส์ จำกัด" data-zh="">TMJ AESTHETICS CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/safari-wildlife-park-company-limited.html" data-en-name="SAFARI WILDLIFE PARK COMPANY LIMITED"><span class="bz-co__nm" data-en="SAFARI WILDLIFE PARK COMPANY LIMITED" data-th="ซาฟารี ไวลด์ไลฟ์ ปาร์ค จำกัด" data-zh="">SAFARI WILDLIFE PARK COMPANY LIMITED</span><span class="bz-co__cap" data-cap="40000000">40000000</span></a><a class="bz-co" href="/bee-mobile-co-ltd.html" data-en-name="BEE MOBILE CO., LTD."><span class="bz-co__nm" data-en="BEE MOBILE CO., LTD." data-th="บี โมบาย จำกัด" data-zh="">BEE MOBILE CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <span class="bz-row__ltr"><svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="3.2"></circle><path d="M12 3.5v2.6M12 17.9v2.6M4.6 12H2M22 12h-2.6M6.3 6.3 4.7 4.7M19.3 19.3l-1.6-1.6M6.3 17.7l-1.6 1.6M19.3 4.7l-1.6 1.6"></path></svg></span>
+            <a class="bz-row__nm" href="/industry-other-service-activities.html" data-en="Other Service Activities" data-th="กิจกรรมการบริการอื่น ๆ" data-zh="其他服务业">Other Service Activities</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="9,697 co." data-th="9,697 บริษัท" data-zh="9,697 家">9,697 co.</span>
+            <a class="bz-row__a" href="/industry-other-service-activities.html" data-en="View all →" data-th="ดูทั้งหมด →" data-zh="查看全部 →">View all →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/cleopatra-nails-spa-co-ltd.html" data-en-name="CLEOPATRA NAILS &amp; SPA CO., LTD."><span class="bz-co__nm" data-en="CLEOPATRA NAILS &amp; SPA CO., LTD." data-th="ครีโอพัตรา เนลส์ แอนด์ สปา จำกัด" data-zh="">CLEOPATRA NAILS &amp; SPA CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/cut-and-curl-company-limited.html" data-en-name="CUT AND CURL  COMPANY LIMITED"><span class="bz-co__nm" data-en="CUT AND CURL  COMPANY LIMITED" data-th="คัท แอนด์ เคิร์ล จำกัด" data-zh="">CUT AND CURL  COMPANY LIMITED</span><span class="bz-co__cap" data-cap="20000000">20000000</span></a><a class="bz-co" href="/chatchawal1968-company-limited.html" data-en-name="CHATCHAWAL1968 Company Limited"><span class="bz-co__nm" data-en="CHATCHAWAL1968 Company Limited" data-th="ชัชวาลย์ 1968 จำกัด" data-zh="">CHATCHAWAL1968 Company Limited</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/sister-spring-company-limited.html" data-en-name="SISTER SPRING COMPANY LIMITED"><span class="bz-co__nm" data-en="SISTER SPRING COMPANY LIMITED" data-th="ซิสเตอร์ สปริง  จำกัด" data-zh="">SISTER SPRING COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/w-beauty-more-company-limited.html" data-en-name="W BEAUTY &amp; MORE COMPANY LIMITED"><span class="bz-co__nm" data-en="W BEAUTY &amp; MORE COMPANY LIMITED" data-th="ดับเบิ้ลยู บิวตี้ แอนด์ มอร์ จำกัด" data-zh="">W BEAUTY &amp; MORE COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/neeta-herbal-thailand-co-ltd.html" data-en-name="NEETA HERBAL (THAILAND) CO., LTD."><span class="bz-co__nm" data-en="NEETA HERBAL (THAILAND) CO., LTD." data-th="นีตา เฮอร์เบิล (ไทยแลนด์) จำกัด" data-zh="">NEETA HERBAL (THAILAND) CO., LTD.</span><span class="bz-co__cap" data-cap="4000000">4000000</span></a><a class="bz-co" href="/tipchaya-nail-and-hair-spa-co-ltd.html" data-en-name="TIPCHAYA NAIL AND HAIR SPA CO., LTD."><span class="bz-co__nm" data-en="TIPCHAYA NAIL AND HAIR SPA CO., LTD." data-th="ทิพย์ชญาน์ เนล แอนด์ แฮร์ สปา จำกัด" data-zh="">TIPCHAYA NAIL AND HAIR SPA CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/d-power-core-co-ltd.html" data-en-name="D POWER CORE CO., LTD."><span class="bz-co__nm" data-en="D POWER CORE CO., LTD." data-th="ดี เพาเวอร์ คอร์  จำกัด" data-zh="">D POWER CORE CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <span class="bz-row__ltr"><svg viewBox="0 0 24 24" focusable="false"><path d="M4 21V9l8-5 8 5v12"></path><path d="M3.5 21h17"></path><circle cx="12" cy="11" r="1.6"></circle><path d="M9 21v-3a3 3 0 0 1 6 0v3"></path></svg></span>
+            <a class="bz-row__nm" href="/industry-household-employment-activities.html" data-en="Activities of Households as Employers" data-th="กิจกรรมของครัวเรือนในฐานะนายจ้าง" data-zh="家庭雇主活动">Activities of Households as Employers</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="27 co." data-th="27 บริษัท" data-zh="27 家">27 co.</span>
+            <a class="bz-row__a" href="/industry-household-employment-activities.html" data-en="View all →" data-th="ดูทั้งหมด →" data-zh="查看全部 →">View all →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/chicouf-company-limited.html" data-en-name="CHICOUF COMPANY LIMITED"><span class="bz-co__nm" data-en="CHICOUF COMPANY LIMITED" data-th="ชิคคูฟ จำกัด" data-zh="">CHICOUF COMPANY LIMITED</span><span class="bz-co__cap" data-cap="2000000">2000000</span></a><a class="bz-co" href="/do-dee-english-company-limited.html" data-en-name="DO DEE ENGLISH COMPANY LIMITED"><span class="bz-co__nm" data-en="DO DEE ENGLISH COMPANY LIMITED" data-th="ดูดีอิงลิช จำกัด" data-zh="">DO DEE ENGLISH COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/foreign-worker-employment-agency-ramintranuanchan-company-limited.html" data-en-name="FOREIGN WORKER EMPLOYMENT AGENCY RAMINTRANUANCHAN COMPANY LIMITED"><span class="bz-co__nm" data-en="FOREIGN WORKER EMPLOYMENT AGENCY RAMINTRANUANCHAN COMPANY LIMITED" data-th="นำคนต่างด้าวมาทำงานในประเทศ รามอินทรานวลจันทร์ จำกัด" data-zh="">FOREIGN WORKER EMPLOYMENT AGENCY RAMINTRANUANCHAN COMPANY LIMITED</span><span class="bz-co__cap" data-cap="4000000">4000000</span></a><a class="bz-co" href="/jirasin-development-co-ltd.html" data-en-name="JIRASIN DEVELOPMENT CO., LTD."><span class="bz-co__nm" data-en="JIRASIN DEVELOPMENT CO., LTD." data-th="จิรสิน ดีเวลอปเม้นท์ จำกัด" data-zh="">JIRASIN DEVELOPMENT CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/thp-daughters-co-ltd.html" data-en-name="THP &amp; DAUGHTERS CO., LTD."><span class="bz-co__nm" data-en="THP &amp; DAUGHTERS CO., LTD." data-th="ทีเอชพี แอนด์ ดอเทอร์ส จำกัด" data-zh="">THP &amp; DAUGHTERS CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/thaweesukthitipat-company-limited.html" data-en-name="THAWEESUKTHITIPAT COMPANY LIMITED"><span class="bz-co__nm" data-en="THAWEESUKTHITIPAT COMPANY LIMITED" data-th="ทวีสุขฐิติภัทร์ จำกัด" data-zh="">THAWEESUKTHITIPAT COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/deesornsorndee-company-limited.html" data-en-name="DEESORNSORNDEE COMPANY LIMITED"><span class="bz-co__nm" data-en="DEESORNSORNDEE COMPANY LIMITED" data-th="ดีสอนสอนดี จำกัด" data-zh="">DEESORNSORNDEE COMPANY LIMITED</span><span class="bz-co__cap" data-cap="200000">200000</span></a><a class="bz-co" href="/tanaaroonwannakij-company-limited.html" data-en-name="TANAAROONWANNAKIJ COMPANY LIMITED"><span class="bz-co__nm" data-en="TANAAROONWANNAKIJ COMPANY LIMITED" data-th="ธนอรุณวรรณกิจ จำกัด" data-zh="">TANAAROONWANNAKIJ COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a></div>
+        </div>
+
+      </div><!-- /#bz-panel-ind -->
+
+      <!-- Panel: Province -->
+      <div class="bz-tabs__panel" id="bz-panel-prov" role="tabpanel" hidden>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <a class="bz-row__nm" href="/bangkok.html" data-en="Bangkok" data-th="กรุงเทพมหานคร" data-zh="曼谷">Bangkok</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="Bangkok · Central" data-th="กรุงเทพมหานคร · ภาคกลาง" data-zh="曼谷 · 中部">Bangkok · Central</span>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="299,183 co." data-th="299,183 บริษัท" data-zh="299,183 家">299,183 co.</span>
+            <a class="bz-row__a" href="/bangkok.html" data-en="View →" data-th="ดู →" data-zh="查看 →">View →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/scent-of-happiness-co-ltd.html" data-en-name="SCENT OF HAPPINESS CO., LTD."><span class="bz-co__nm" data-en="SCENT OF HAPPINESS CO., LTD." data-th="กลิ่นของความสุข จำกัด" data-zh="">SCENT OF HAPPINESS CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/gunkul-solar-farm-99-company-limited.html" data-en-name="GUNKUL SOLAR FARM 99 COMPANY LIMITED"><span class="bz-co__nm" data-en="GUNKUL SOLAR FARM 99 COMPANY LIMITED" data-th="กันกุล โซลาร์ ฟาร์ม 99 จำกัด" data-zh="">GUNKUL SOLAR FARM 99 COMPANY LIMITED</span><span class="bz-co__cap" data-cap="3000000">3000000</span></a><a class="bz-co" href="/just-in-time-company-limited.html" data-en-name="JUST IN TIME COMPANY LIMITED"><span class="bz-co__nm" data-en="JUST IN TIME COMPANY LIMITED" data-th="จัสท์ อิน ไทม์ จำกัด" data-zh="">JUST IN TIME COMPANY LIMITED</span><span class="bz-co__cap" data-cap="500000">500000</span></a><a class="bz-co" href="/tsp-wellness-center-co-ltd.html" data-en-name="TSP WELLNESS CENTER CO., LTD."><span class="bz-co__nm" data-en="TSP WELLNESS CENTER CO., LTD." data-th="ทีเอสพี เวลเนส เซ็นเตอร์ จำกัด" data-zh="">TSP WELLNESS CENTER CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/tomorrow-medical-services-company-limited.html" data-en-name="TOMORROW MEDICAL SERVICES COMPANY LIMITED"><span class="bz-co__nm" data-en="TOMORROW MEDICAL SERVICES COMPANY LIMITED" data-th="ทูมอโรว์ เมดิคอล เซอร์วิส จำกัด" data-zh="">TOMORROW MEDICAL SERVICES COMPANY LIMITED</span><span class="bz-co__cap" data-cap="100000">100000</span></a><a class="bz-co" href="/clk-solutions-co-ltd.html" data-en-name="CLK SOLUTIONS CO., LTD."><span class="bz-co__nm" data-en="CLK SOLUTIONS CO., LTD." data-th="ซีแอลเค โซลูชั่น จำกัด" data-zh="">CLK SOLUTIONS CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/super-siam-realty-co-ltd.html" data-en-name="SUPER SIAM REALTY CO., LTD."><span class="bz-co__nm" data-en="SUPER SIAM REALTY CO., LTD." data-th="ซูเปอร์ สยาม เรียลตี้ จำกัด" data-zh="">SUPER SIAM REALTY CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/tnk-automotive-tools-co-ltd.html" data-en-name="TNK AUTOMOTIVE TOOLS CO., LTD."><span class="bz-co__nm" data-en="TNK AUTOMOTIVE TOOLS CO., LTD." data-th="ทีเอ็นเค ออโตโมทีฟ ทูลส์ จำกัด" data-zh="">TNK AUTOMOTIVE TOOLS CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <a class="bz-row__nm" href="/chonburi.html" data-en="Chonburi" data-th="ชลบุรี" data-zh="春武里">Chonburi</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="Chonburi · Eastern" data-th="ชลบุรี · ภาคตะวันออก" data-zh="春武里 · 东部">Chonburi · Eastern</span>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="66,256 co." data-th="66,256 บริษัท" data-zh="66,256 家">66,256 co.</span>
+            <a class="bz-row__a" href="/chonburi.html" data-en="View →" data-th="ดู →" data-zh="查看 →">View →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/4342589-condominium-company-limited.html" data-en-name="4342589 CONDOMINIUM COMPANY LIMITED"><span class="bz-co__nm" data-en="4342589 CONDOMINIUM COMPANY LIMITED" data-th="4342589 คอนโดมิเนียม จำกัด" data-zh="">4342589 CONDOMINIUM COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1500000">1500000</span></a><a class="bz-co" href="/gewinn-engineering-company-limited.html" data-en-name="GEWINN ENGINEERING COMPANY LIMITED"><span class="bz-co__nm" data-en="GEWINN ENGINEERING COMPANY LIMITED" data-th="กีวินน์ เอ็นจิเนียริ่ง จำกัด" data-zh="">GEWINN ENGINEERING COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/galaxy-group-2023-co-ltd.html" data-en-name="GALAXY  GROUP 2023 CO., LTD."><span class="bz-co__nm" data-en="GALAXY  GROUP 2023 CO., LTD." data-th="กาแล็คซี่  กรุ๊ป 2023 จำกัด" data-zh="">GALAXY  GROUP 2023 CO., LTD.</span><span class="bz-co__cap" data-cap="2000000">2000000</span></a><a class="bz-co" href="/kimmy-kimmy-zhai-co-ltd.html" data-en-name="KIMMY KIMMY ZHAI CO., LTD."><span class="bz-co__nm" data-en="KIMMY KIMMY ZHAI CO., LTD." data-th="คิมมี่ คิมมี่ ไจ๋ จำกัด" data-zh="">KIMMY KIMMY ZHAI CO., LTD.</span><span class="bz-co__cap" data-cap="5000000">5000000</span></a><a class="bz-co" href="/gm-energy-company-limited.html" data-en-name="GM ENERGY COMPANY LIMITED"><span class="bz-co__nm" data-en="GM ENERGY COMPANY LIMITED" data-th="จีเอ็ม เอนเนอร์ยี่  จำกัด" data-zh="">GM ENERGY COMPANY LIMITED</span><span class="bz-co__cap" data-cap="103000000">103000000</span></a><a class="bz-co" href="/top-professional-and-development-co-ltd.html" data-en-name="TOP PROFESSIONAL AND DEVELOPMENT CO., LTD."><span class="bz-co__nm" data-en="TOP PROFESSIONAL AND DEVELOPMENT CO., LTD." data-th="ท๊อป โปรเฟสชั่นแนล แอนด์ ดีเวลลอปเมนต์ จำกัด" data-zh="">TOP PROFESSIONAL AND DEVELOPMENT CO., LTD.</span><span class="bz-co__cap" data-cap="47500000">47500000</span></a><a class="bz-co" href="/thipthada-bestlivings-company-limited.html" data-en-name="THIPTHADA BESTLIVINGS COMPANY LIMITED"><span class="bz-co__nm" data-en="THIPTHADA BESTLIVINGS COMPANY LIMITED" data-th="ทิพย์ธาดา เบสลิฟวิ่ง จำกัด" data-zh="">THIPTHADA BESTLIVINGS COMPANY LIMITED</span><span class="bz-co__cap" data-cap="5000000">5000000</span></a><a class="bz-co" href="/0205557010791.html" data-en-name="ดาลินเวสท์ จำกัด"><span class="bz-co__nm" data-en="ดาลินเวสท์ จำกัด" data-th="ดาลินเวสท์ จำกัด" data-zh="">ดาลินเวสท์ จำกัด</span><span class="bz-co__cap" data-cap=""></span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <a class="bz-row__nm" href="/rayong.html" data-en="Rayong" data-th="ระยอง" data-zh="罗勇">Rayong</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="Rayong · Eastern (EEC)" data-th="ระยอง · ภาคตะวันออก (EEC)" data-zh="罗勇 · 东部 (EEC)">Rayong · Eastern (EEC)</span>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="14,926 co." data-th="14,926 บริษัท" data-zh="14,926 家">14,926 co.</span>
+            <a class="bz-row__a" href="/rayong.html" data-en="View →" data-th="ดู →" data-zh="查看 →">View →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/cafe-chakan-co-ltd.html" data-en-name="CAFE CHAKAN CO., LTD."><span class="bz-co__nm" data-en="CAFE CHAKAN CO., LTD." data-th="คาเฟ่ ชากัญ จำกัด" data-zh="">CAFE CHAKAN CO., LTD.</span><span class="bz-co__cap" data-cap="5000000">5000000</span></a><a class="bz-co" href="/charas-consulting-co-ltd.html" data-en-name="CHARAS CONSULTING CO., LTD."><span class="bz-co__nm" data-en="CHARAS CONSULTING CO., LTD." data-th="จรัส คอนซัลติ้ง จำกัด" data-zh="">CHARAS CONSULTING CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/ja-ae-ice-co-ltd.html" data-en-name="JA-AE ICE CO., LTD."><span class="bz-co__nm" data-en="JA-AE ICE CO., LTD." data-th="จ๊ะ-เอ๋ น้ำแข็ง จำกัด" data-zh="">JA-AE ICE CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/schwinpasit-co-ltd.html" data-en-name="SCHWINPASIT CO., LTD."><span class="bz-co__nm" data-en="SCHWINPASIT CO., LTD." data-th="ชวินพสิษฐ์ จำกัด" data-zh="">SCHWINPASIT CO., LTD.</span><span class="bz-co__cap" data-cap="500000">500000</span></a><a class="bz-co" href="/0215539001841.html" data-en-name="ธนไพบูลย์ซาวด์ จำกัด"><span class="bz-co__nm" data-en="ธนไพบูลย์ซาวด์ จำกัด" data-th="ธนไพบูลย์ซาวด์ จำกัด" data-zh="">ธนไพบูลย์ซาวด์ จำกัด</span><span class="bz-co__cap" data-cap="26000000">26000000</span></a><a class="bz-co" href="/buddy-1964-co-ltd.html" data-en-name="BUDDY 1964 CO.,LTD."><span class="bz-co__nm" data-en="BUDDY 1964 CO.,LTD." data-th="บั๊ดดี้ 1964 จำกัด" data-zh="">BUDDY 1964 CO.,LTD.</span><span class="bz-co__cap" data-cap="4000000">4000000</span></a><a class="bz-co" href="/double-hand-hardware-co-ltd.html" data-en-name="DOUBLE HAND HARDWARE CO., LTD."><span class="bz-co__nm" data-en="DOUBLE HAND HARDWARE CO., LTD." data-th="ดับเบิ้ล แฮนด์ ฮาร์ดแวร์ จำกัด" data-zh="">DOUBLE HAND HARDWARE CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/t-j-f-permsub-co-ltd.html" data-en-name="T J F PERMSUB CO., LTD."><span class="bz-co__nm" data-en="T J F PERMSUB CO., LTD." data-th="ที เจ เอฟ เพิ่มทรัพย์ จำกัด" data-zh="">T J F PERMSUB CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <a class="bz-row__nm" href="/samut-prakan.html" data-en="Samut Prakan" data-th="สมุทรปราการ" data-zh="北榄坡">Samut Prakan</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="Samut Prakan · Central" data-th="สมุทรปราการ · ภาคกลาง" data-zh="北榄坡 · 中部">Samut Prakan · Central</span>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="45,115 co." data-th="45,115 บริษัท" data-zh="45,115 家">45,115 co.</span>
+            <a class="bz-row__a" href="/samut-prakan.html" data-en="View →" data-th="ดู →" data-zh="查看 →">View →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/khunthong-asset-company-limited.html" data-en-name="KHUNTHONG ASSET COMPANY LIMITED"><span class="bz-co__nm" data-en="KHUNTHONG ASSET COMPANY LIMITED" data-th="ขุนทอง แอซเซ็ท จำกัด" data-zh="">KHUNTHONG ASSET COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/canopus-lakeside-co-ltd.html" data-en-name="CANOPUS LAKESIDE CO., LTD."><span class="bz-co__nm" data-en="CANOPUS LAKESIDE CO., LTD." data-th="คาโนปัส เลคไซด์ จำกัด" data-zh="">CANOPUS LAKESIDE CO., LTD.</span><span class="bz-co__cap" data-cap="100000">100000</span></a><a class="bz-co" href="/king-789-solution-group-co-ltd.html" data-en-name="KING 789 SOLUTION GROUP CO., LTD."><span class="bz-co__nm" data-en="KING 789 SOLUTION GROUP CO., LTD." data-th="คิง 789 โซลูชั่น กรุ๊ป จำกัด" data-zh="">KING 789 SOLUTION GROUP CO., LTD.</span><span class="bz-co__cap" data-cap="500000">500000</span></a><a class="bz-co" href="/365-tk-service-co-ltd.html" data-en-name="365 TK SERVICE CO., LTD."><span class="bz-co__nm" data-en="365 TK SERVICE CO., LTD." data-th="365 ทีเค เซอร์วิส จำกัด" data-zh="">365 TK SERVICE CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/c-care-management-company-limited.html" data-en-name="C CARE MANAGEMENT COMPANY LIMITED"><span class="bz-co__nm" data-en="C CARE MANAGEMENT COMPANY LIMITED" data-th="ซี แคร์ แมนเนจเมนท์ จำกัด" data-zh="">C CARE MANAGEMENT COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/davis-interior-company-limited.html" data-en-name="DAVIS INTERIOR COMPANY LIMITED"><span class="bz-co__nm" data-en="DAVIS INTERIOR COMPANY LIMITED" data-th="ดวิษ อินทีเรีย จำกัด" data-zh="">DAVIS INTERIOR COMPANY LIMITED</span><span class="bz-co__cap" data-cap="5000000">5000000</span></a><a class="bz-co" href="/chanet-9-company-limited.html" data-en-name="CHANET&amp;9 COMPANY LIMITED"><span class="bz-co__nm" data-en="CHANET&amp;9 COMPANY LIMITED" data-th="ชาเนทแอนด์ไนน์ จำกัด" data-zh="">CHANET&amp;9 COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/sugarpro-foods-industry-thailand-co-ltd.html" data-en-name="SUGARPRO FOODS INDUSTRY (THAILAND) CO., LTD."><span class="bz-co__nm" data-en="SUGARPRO FOODS INDUSTRY (THAILAND) CO., LTD." data-th="ชูการ์โปร ฟู้ดส์ อินดัสทรี (ประเทศไทย) จำกัด" data-zh="">SUGARPRO FOODS INDUSTRY (THAILAND) CO., LTD.</span><span class="bz-co__cap" data-cap="20000000">20000000</span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <a class="bz-row__nm" href="/nonthaburi.html" data-en="Nonthaburi" data-th="นนทบุรี" data-zh="暖武里">Nonthaburi</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="Nonthaburi · Central" data-th="นนทบุรี · ภาคกลาง" data-zh="暖武里 · 中部">Nonthaburi · Central</span>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="46,903 co." data-th="46,903 บริษัท" data-zh="46,903 家">46,903 co.</span>
+            <a class="bz-row__a" href="/nonthaburi.html" data-en="View →" data-th="ดู →" data-zh="查看 →">View →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/88-occasions-co-ltd.html" data-en-name="88 OCCASIONS CO., LTD."><span class="bz-co__nm" data-en="88 OCCASIONS CO., LTD." data-th="88 อ๊อคเคชั่นส์ จำกัด" data-zh="">88 OCCASIONS CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/kim-and-mia-co-ltd.html" data-en-name="KIM AND MIA CO., LTD."><span class="bz-co__nm" data-en="KIM AND MIA CO., LTD." data-th="คิมแอนด์มีอา จำกัด" data-zh="">KIM AND MIA CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/chan-chao-chom-co-ltd.html" data-en-name="CHAN CHAO CHOM CO., LTD."><span class="bz-co__nm" data-en="CHAN CHAO CHOM CO., LTD." data-th="จันทน์เจ้าจอม จำกัด" data-zh="">CHAN CHAO CHOM CO., LTD.</span><span class="bz-co__cap" data-cap="3000000">3000000</span></a><a class="bz-co" href="/g-k-polymer-co-ltd.html" data-en-name="G.K. POLYMER Co., Ltd."><span class="bz-co__nm" data-en="G.K. POLYMER Co., Ltd." data-th="จี.เค. โพลิเมอร์ จำกัด" data-zh="">G.K. POLYMER Co., Ltd.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/c4p-company-limited.html" data-en-name="C4P COMPANY LIMITED"><span class="bz-co__nm" data-en="C4P COMPANY LIMITED" data-th="ซีโฟร์พี จำกัด" data-zh="">C4P COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/nont-market-company-limited.html" data-en-name="NONT MARKET COMPANY LIMITED"><span class="bz-co__nm" data-en="NONT MARKET COMPANY LIMITED" data-th="นนท์ มาร์เก็ตต์ จำกัด" data-zh="">NONT MARKET COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/design-for-u-plus-company-limited.html" data-en-name="DESIGN FOR U PLUS COMPANY LIMITED"><span class="bz-co__nm" data-en="DESIGN FOR U PLUS COMPANY LIMITED" data-th="ดีไซน์ ฟอร์ ยู พลัส จำกัด" data-zh="">DESIGN FOR U PLUS COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/0125560004447.html" data-en-name="บิ้กเบสท์ อินเตอร์เนชั่นแนล จำกัด"><span class="bz-co__nm" data-en="บิ้กเบสท์ อินเตอร์เนชั่นแนล จำกัด" data-th="บิ้กเบสท์ อินเตอร์เนชั่นแนล จำกัด" data-zh="">บิ้กเบสท์ อินเตอร์เนชั่นแนล จำกัด</span><span class="bz-co__cap" data-cap=""></span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <a class="bz-row__nm" href="/pathum-thani.html" data-en="Pathum Thani" data-th="ปทุมธานี" data-zh="北标">Pathum Thani</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="Pathum Thani · Central" data-th="ปทุมธานี · ภาคกลาง" data-zh="北标 · 中部">Pathum Thani · Central</span>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="39,057 co." data-th="39,057 บริษัท" data-zh="39,057 家">39,057 co.</span>
+            <a class="bz-row__a" href="/pathum-thani.html" data-en="View →" data-th="ดู →" data-zh="查看 →">View →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/kitti-plastic-packaging-co-ltd.html" data-en-name="KITTI PLASTIC PACKAGING CO., LTD."><span class="bz-co__nm" data-en="KITTI PLASTIC PACKAGING CO., LTD." data-th="กิตติพลาสติก แพ็คเกจจิ้ง  จำกัด" data-zh="">KITTI PLASTIC PACKAGING CO., LTD.</span><span class="bz-co__cap" data-cap="2000000">2000000</span></a><a class="bz-co" href="/greenfood-good-life-co-ltd.html" data-en-name="GREENFOOD&amp;GOOD LIFE CO., LTD."><span class="bz-co__nm" data-en="GREENFOOD&amp;GOOD LIFE CO., LTD." data-th="กรีนฟู้ดแอนด์กู๊ดไลฟ์ จำกัด" data-zh="">GREENFOOD&amp;GOOD LIFE CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/0135564008633.html" data-en-name="จีล็อตโต้ จำกัด"><span class="bz-co__nm" data-en="จีล็อตโต้ จำกัด" data-th="จีล็อตโต้ จำกัด" data-zh="">จีล็อตโต้ จำกัด</span><span class="bz-co__cap" data-cap=""></span></a><a class="bz-co" href="/earths-zone-co-ltd.html" data-en-name="EARTHS ZONE CO.,LTD."><span class="bz-co__nm" data-en="EARTHS ZONE CO.,LTD." data-th="ทาดิโอส จำกัด" data-zh="">EARTHS ZONE CO.,LTD.</span><span class="bz-co__cap" data-cap="10000000">10000000</span></a><a class="bz-co" href="/t-m-management-service-co-ltd.html" data-en-name="T M MANAGEMENT SERVICE CO.,LTD."><span class="bz-co__nm" data-en="T M MANAGEMENT SERVICE CO.,LTD." data-th="ที เอ็ม แมนเนจเม้นท์ เซอร์วิส จำกัด" data-zh="">T M MANAGEMENT SERVICE CO.,LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/citrus-aluminium-company-limited.html" data-en-name="CITRUS ALUMINIUM COMPANY LIMITED"><span class="bz-co__nm" data-en="CITRUS ALUMINIUM COMPANY LIMITED" data-th="ซีทรัส อลูมิเนียม จำกัด" data-zh="">CITRUS ALUMINIUM COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/tp-2555-company-limited.html" data-en-name="TP 2555 COMPANY LIMITED"><span class="bz-co__nm" data-en="TP 2555 COMPANY LIMITED" data-th="ทีพี 2555 จำกัด" data-zh="">TP 2555 COMPANY LIMITED</span><span class="bz-co__cap" data-cap="5000000">5000000</span></a><a class="bz-co" href="/dsystem-airduct-co-ltd.html" data-en-name="DSYSTEM  AIRDUCT CO., LTD."><span class="bz-co__nm" data-en="DSYSTEM  AIRDUCT CO., LTD." data-th="ดีซีสเทม  แอร์ดักท์ จำกัด" data-zh="">DSYSTEM  AIRDUCT CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <a class="bz-row__nm" href="/phra-nakhon-si-ayutthaya.html" data-en="Ayutthaya" data-th="พระนครศรีอยุธยา" data-zh="大城">Ayutthaya</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="Ayutthaya · Central" data-th="พระนครศรีอยุธยา · ภาคกลาง" data-zh="大城 · 中部">Ayutthaya · Central</span>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="7,752 co." data-th="7,752 บริษัท" data-zh="7,752 家">7,752 co.</span>
+            <a class="bz-row__a" href="/phra-nakhon-si-ayutthaya.html" data-en="View →" data-th="ดู →" data-zh="查看 →">View →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/jakkaphat-global-company-limited.html" data-en-name="JAKKAPHAT GLOBAL COMPANY LIMITED"><span class="bz-co__nm" data-en="JAKKAPHAT GLOBAL COMPANY LIMITED" data-th="จักรพรรดิ โกลบอล  จำกัด" data-zh="">JAKKAPHAT GLOBAL COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/krungthep-tungsten-carbides-company-limited.html" data-en-name="KRUNGTHEP  TUNGSTEN  CARBIDES COMPANY LIMITED"><span class="bz-co__nm" data-en="KRUNGTHEP  TUNGSTEN  CARBIDES COMPANY LIMITED" data-th="กรุงเทพ ทังสเตน คาร์ไบด์ จำกัด" data-zh="">KRUNGTHEP  TUNGSTEN  CARBIDES COMPANY LIMITED</span><span class="bz-co__cap" data-cap="2000000">2000000</span></a><a class="bz-co" href="/tatc-technology-co-ltd.html" data-en-name="TATC TECHNOLOGY CO., LTD."><span class="bz-co__nm" data-en="TATC TECHNOLOGY CO., LTD." data-th="ทีเอทีซี เทคโนโลยี จำกัด" data-zh="">TATC TECHNOLOGY CO., LTD.</span><span class="bz-co__cap" data-cap="6000000">6000000</span></a><a class="bz-co" href="/thn-corporation-thailand-company-limited.html" data-en-name="THN CORPORATION (THAILAND) COMPANY LIMITED"><span class="bz-co__nm" data-en="THN CORPORATION (THAILAND) COMPANY LIMITED" data-th="ที เอช เอ็น คอร์ปอเรชั่น (ประเทศไทย) จำกัด" data-zh="">THN CORPORATION (THAILAND) COMPANY LIMITED</span><span class="bz-co__cap" data-cap="2000000">2000000</span></a><a class="bz-co" href="/dkr-transport-company-limited.html" data-en-name="DKR TRANSPORT COMPANY LIMITED"><span class="bz-co__nm" data-en="DKR TRANSPORT COMPANY LIMITED" data-th="ดีเคอาร์ ทรานสปอร์ต จำกัด" data-zh="">DKR TRANSPORT COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/thammada-company-limited.html" data-en-name="THAMMADA COMPANY LIMITED"><span class="bz-co__nm" data-en="THAMMADA COMPANY LIMITED" data-th="ธรรมดา จำกัด" data-zh="">THAMMADA COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/tong-napas-transport-co-ltd.html" data-en-name="TONG NAPAS TRANSPORT CO., LTD."><span class="bz-co__nm" data-en="TONG NAPAS TRANSPORT CO., LTD." data-th="ทอง นภัส ทรานสปอร์ต จำกัด" data-zh="">TONG NAPAS TRANSPORT CO., LTD.</span><span class="bz-co__cap" data-cap="500000">500000</span></a><a class="bz-co" href="/taweekan-engineering-co-ltd.html" data-en-name="TAWEEKAN ENGINEERING CO., LTD."><span class="bz-co__nm" data-en="TAWEEKAN ENGINEERING CO., LTD." data-th="ทวีกัลป์ เอ็นจิเนียริ่ง จำกัด" data-zh="">TAWEEKAN ENGINEERING CO., LTD.</span><span class="bz-co__cap" data-cap="5000000">5000000</span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <a class="bz-row__nm" href="/chiang-mai.html" data-en="Chiang Mai" data-th="เชียงใหม่" data-zh="清迈">Chiang Mai</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="Chiang Mai · Northern" data-th="เชียงใหม่ · ภาคเหนือ" data-zh="清迈 · 北部">Chiang Mai · Northern</span>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="23,681 co." data-th="23,681 บริษัท" data-zh="23,681 家">23,681 co.</span>
+            <a class="bz-row__a" href="/chiang-mai.html" data-en="View →" data-th="ดู →" data-zh="查看 →">View →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/g-six-petals-house-company-limited.html" data-en-name="G SIX PETALS HOUSE COMPANY LIMITED"><span class="bz-co__nm" data-en="G SIX PETALS HOUSE COMPANY LIMITED" data-th="จี ซิกซ์ เพทเทิลส์ เฮาส์ จำกัด" data-zh="">G SIX PETALS HOUSE COMPANY LIMITED</span><span class="bz-co__cap" data-cap="3000000">3000000</span></a><a class="bz-co" href="/chatree-aluminium-company-limited.html" data-en-name="CHATREE ALUMINIUM COMPANY LIMITED"><span class="bz-co__nm" data-en="CHATREE ALUMINIUM COMPANY LIMITED" data-th="ชาตรี อลูมิเนียม จำกัด" data-zh="">CHATREE ALUMINIUM COMPANY LIMITED</span><span class="bz-co__cap" data-cap="3000000">3000000</span></a><a class="bz-co" href="/chaimongkhon-construction-company-limited.html" data-en-name="CHAIMONGKHON CONSTRUCTION COMPANY LIMITED"><span class="bz-co__nm" data-en="CHAIMONGKHON CONSTRUCTION COMPANY LIMITED" data-th="ชัยมงคล คอนทรัคชั่น จำกัด" data-zh="">CHAIMONGKHON CONSTRUCTION COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/tt-con-company-limited.html" data-en-name="TT CON COMPANY LIMITED"><span class="bz-co__nm" data-en="TT CON COMPANY LIMITED" data-th="ทีทีคอน จำกัด" data-zh="">TT CON COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/foreign-worker-employment-agency-stress-free-cafe-company-limited.html" data-en-name="FOREIGN WORKER EMPLOYMENT AGENCY STRESS FREE CAFE COMPANY LIMITED"><span class="bz-co__nm" data-en="FOREIGN WORKER EMPLOYMENT AGENCY STRESS FREE CAFE COMPANY LIMITED" data-th="นำคนต่างด้าวมาทำงานในประเทศ สเตรส ฟรี คาเฟ จำกัด" data-zh="">FOREIGN WORKER EMPLOYMENT AGENCY STRESS FREE CAFE COMPANY LIMITED</span><span class="bz-co__cap" data-cap="4000000">4000000</span></a><a class="bz-co" href="/silken-63-thailand-co-ltd.html" data-en-name="SILKEN 63 (THAILAND) CO., LTD."><span class="bz-co__nm" data-en="SILKEN 63 (THAILAND) CO., LTD." data-th="ซีลค์เค่น 63 (ประเทศไทย) จำกัด" data-zh="">SILKEN 63 (THAILAND) CO., LTD.</span><span class="bz-co__cap" data-cap="100000">100000</span></a><a class="bz-co" href="/da-guan-jia-thailand-co-ltd.html" data-en-name="DA GUAN JIA (THAILAND) CO., LTD."><span class="bz-co__nm" data-en="DA GUAN JIA (THAILAND) CO., LTD." data-th="ต้า ก่วน เจีย (ประเทศไทย) จำกัด" data-zh="">DA GUAN JIA (THAILAND) CO., LTD.</span><span class="bz-co__cap" data-cap="2000000">2000000</span></a><a class="bz-co" href="/2t-design-co-ltd.html" data-en-name="2T DESIGN CO., LTD."><span class="bz-co__nm" data-en="2T DESIGN CO., LTD." data-th="ทูทีดีไซน์ จำกัด" data-zh="">2T DESIGN CO., LTD.</span><span class="bz-co__cap" data-cap="500000">500000</span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <a class="bz-row__nm" href="/nakhon-ratchasima.html" data-en="Nakhon Ratchasima" data-th="นครราชสีมา" data-zh="呵叻">Nakhon Ratchasima</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="Nakhon Ratchasima · Northeastern" data-th="นครราชสีมา · ภาคอีสาน" data-zh="呵叻 · 东北部">Nakhon Ratchasima · Northeastern</span>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="10,084 co." data-th="10,084 บริษัท" data-zh="10,084 家">10,084 co.</span>
+            <a class="bz-row__a" href="/nakhon-ratchasima.html" data-en="View →" data-th="ดู →" data-zh="查看 →">View →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/good-soft-gell-company-limited.html" data-en-name="GOOD SOFT GELL COMPANY LIMITED"><span class="bz-co__nm" data-en="GOOD SOFT GELL COMPANY LIMITED" data-th="กู๊ด ซอฟเจล จำกัด" data-zh="">GOOD SOFT GELL COMPANY LIMITED</span><span class="bz-co__cap" data-cap="20000000">20000000</span></a><a class="bz-co" href="/chimnok-furniture-company-limited.html" data-en-name="CHIMNOK FURNITURE COMPANY LIMITED"><span class="bz-co__nm" data-en="CHIMNOK FURNITURE COMPANY LIMITED" data-th="ฉิมนอก เฟอร์นิเจอร์ จำกัด" data-zh="">CHIMNOK FURNITURE COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/kanchanapat-cons-company-limited.html" data-en-name="KANCHANAPAT CONS COMPANY LIMITED"><span class="bz-co__nm" data-en="KANCHANAPAT CONS COMPANY LIMITED" data-th="กาญจนพัชร์ คอนส์ จำกัด" data-zh="">KANCHANAPAT CONS COMPANY LIMITED</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/chanittha-pharmacy-co-ltd.html" data-en-name="CHANITTHA PHARMACY CO., LTD."><span class="bz-co__nm" data-en="CHANITTHA PHARMACY CO., LTD." data-th="ชนิษฐา ฟาร์มาซี จำกัด" data-zh="">CHANITTHA PHARMACY CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/chadapornwear-co-ltd.html" data-en-name="CHADAPORNWEAR CO., LTD."><span class="bz-co__nm" data-en="CHADAPORNWEAR CO., LTD." data-th="ชฎาพรแวร์ จำกัด" data-zh="">CHADAPORNWEAR CO., LTD.</span><span class="bz-co__cap" data-cap="5000000">5000000</span></a><a class="bz-co" href="/0305566000468.html" data-en-name="ชิน โฮเต็ล กรุ๊ป จำกัด"><span class="bz-co__nm" data-en="ชิน โฮเต็ล กรุ๊ป จำกัด" data-th="ชิน โฮเต็ล กรุ๊ป จำกัด" data-zh="">ชิน โฮเต็ล กรุ๊ป จำกัด</span><span class="bz-co__cap" data-cap=""></span></a><a class="bz-co" href="/dfarm-eco-connection-co-ltd.html" data-en-name="DFARM ECO CONNECTION CO., LTD."><span class="bz-co__nm" data-en="DFARM ECO CONNECTION CO., LTD." data-th="ดีฟาร์ม อีโค่ คอนเนคชั่น จำกัด" data-zh="">DFARM ECO CONNECTION CO., LTD.</span><span class="bz-co__cap" data-cap="5000000">5000000</span></a><a class="bz-co" href="/chaikitti-transport-company-limited.html" data-en-name="CHAIKITTI TRANSPORT COMPANY LIMITED"><span class="bz-co__nm" data-en="CHAIKITTI TRANSPORT COMPANY LIMITED" data-th="ชัยกิตติ ทรานสปอร์ต จำกัด" data-zh="">CHAIKITTI TRANSPORT COMPANY LIMITED</span><span class="bz-co__cap" data-cap="5000000">5000000</span></a></div>
+        </div>
+
+        <div class="bz-row">
+          <div class="bz-row__h">
+            <a class="bz-row__nm" href="/phuket.html" data-en="Phuket" data-th="ภูเก็ต" data-zh="普吉">Phuket</a>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="Phuket · Southern" data-th="ภูเก็ต · ภาคใต้" data-zh="普吉 · 南部">Phuket · Southern</span>
+            <span class="bz-row__sep">·</span><span class="bz-row__cnt" data-en="28,375 co." data-th="28,375 บริษัท" data-zh="28,375 家">28,375 co.</span>
+            <a class="bz-row__a" href="/phuket.html" data-en="View →" data-th="ดู →" data-zh="查看 →">View →</a>
+          </div>
+          <div class="bz-cos"><a class="bz-co" href="/college-height-estates-company-limited.html" data-en-name="COLLEGE HEIGHT ESTATES COMPANY LIMITED"><span class="bz-co__nm" data-en="COLLEGE HEIGHT ESTATES COMPANY LIMITED" data-th="คอลเลจ ไฮท์ เอสเตทส์ จำกัด" data-zh="">COLLEGE HEIGHT ESTATES COMPANY LIMITED</span><span class="bz-co__cap" data-cap="10000000">10000000</span></a><a class="bz-co" href="/culture-studio-co-ltd.html" data-en-name="CULTURE STUDIO CO., LTD."><span class="bz-co__nm" data-en="CULTURE STUDIO CO., LTD." data-th="คัลเจอร์ สตูดิโอ จำกัด" data-zh="">CULTURE STUDIO CO., LTD.</span><span class="bz-co__cap" data-cap="500000">500000</span></a><a class="bz-co" href="/chang-rung-precast-co-ltd.html" data-en-name="CHANG RUNG PRECAST CO., LTD."><span class="bz-co__nm" data-en="CHANG RUNG PRECAST CO., LTD." data-th="ช่างรุ่ง พรีคาสท์ จำกัด" data-zh="">CHANG RUNG PRECAST CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/jasmine-88-co-ltd.html" data-en-name="JASMINE 88 CO., LTD."><span class="bz-co__nm" data-en="JASMINE 88 CO., LTD." data-th="จัสมิน 88 จำกัด" data-zh="">JASMINE 88 CO., LTD.</span><span class="bz-co__cap" data-cap="5000000">5000000</span></a><a class="bz-co" href="/cue-society-co-ltd.html" data-en-name="CUE SOCIETY CO., LTD."><span class="bz-co__nm" data-en="CUE SOCIETY CO., LTD." data-th="คิว โซไซตี จำกัด" data-zh="">CUE SOCIETY CO., LTD.</span><span class="bz-co__cap" data-cap="1000000">1000000</span></a><a class="bz-co" href="/sixteen-forty-four-cafe-co-ltd.html" data-en-name="SIXTEEN FORTY-FOUR CAFE CO., LTD."><span class="bz-co__nm" data-en="SIXTEEN FORTY-FOUR CAFE CO., LTD." data-th="ซิกทีน โฟร์ตี้-โฟร์ คาเฟ่ จำกัด" data-zh="">SIXTEEN FORTY-FOUR CAFE CO., LTD.</span><span class="bz-co__cap" data-cap="4000000">4000000</span></a><a class="bz-co" href="/saptawee-trading-co-ltd.html" data-en-name="SAPTAWEE TRADING CO., LTD."><span class="bz-co__nm" data-en="SAPTAWEE TRADING CO., LTD." data-th="ทรัพย์ทวี เทดดิ้ง จำกัด" data-zh="">SAPTAWEE TRADING CO., LTD.</span><span class="bz-co__cap" data-cap="3000000">3000000</span></a><a class="bz-co" href="/la-bella-roma-company-limited.html" data-en-name="LA  BELLA  ROMA COMPANY LIMITED"><span class="bz-co__nm" data-en="LA  BELLA  ROMA COMPANY LIMITED" data-th="ดีแอนด์ดี อินคอร์ปอเรชั่น  จำกัด" data-zh="">LA  BELLA  ROMA COMPANY LIMITED</span><span class="bz-co__cap" data-cap="2000000">2000000</span></a></div>
+        </div>
+
+      </div><!-- /#bz-panel-prov -->
+    </section>
+
+  </main>
+  <div class="market-footer__inner" style="padding-top:0;padding-bottom:44px;">
+    <section class="market-footer__subscribe" aria-labelledby="hp-subscribe-title">
+      <div class="market-footer__subscribe-copy">
+        <h2 id="hp-subscribe-title"><wc-t>Get Thai company updates</wc-t></h2>
+      </div>
+      <form id="footer-sub-form" class="market-footer__subscribe-form" novalidate>
+        <label class="screen-reader-text" for="footer-subscribe-email"><wc-t>Your email address</wc-t></label>
+        <input id="footer-subscribe-email" name="email" type="email" autocomplete="email" placeholder="{{ t "Your email address" }}" required />
+        <button type="submit">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M10.3 21.7a2.4 2.4 0 0 0 3.4 0" />
+            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 8-3 8h18s-3-1-3-8" />
+          </svg>
+          <span><wc-t>Subscribe</wc-t></span>
+        </button>
+        <div id="footer-sub-status" class="market-footer__subscribe-status" role="status" aria-live="polite"></div>
+      </form>
+    </section>
+  </div>
+
+  <wc-slot name="footer"></wc-slot>
+
+  <script>
+  (function () {
+    /* ── Tab switching ── */
+    var btns = document.querySelectorAll('.bz-tabs__btn');
+    btns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = this.getAttribute('aria-controls');
+        btns.forEach(function (b) { b.setAttribute('aria-selected', 'false'); });
+        this.setAttribute('aria-selected', 'true');
+        document.querySelectorAll('.bz-tabs__panel').forEach(function (p) {
+          if (p.id === target) { p.removeAttribute('hidden'); }
+          else { p.setAttribute('hidden', ''); }
+        });
+      });
+    });
+
+    /* ── Registered-capital: masked teaser ── */
+    (function () {
+      var CAP_LABEL = { zh: '注册资金', th: 'ทุนจดทะเบียน', en: 'Capital' };
+      function _nl(v) { v = String(v || '').toLowerCase(); if (v.indexOf('zh') === 0) return 'zh'; if (v.indexOf('th') === 0) return 'th'; return 'en'; }
+      var _lg = _nl(document.documentElement.lang);
+      if (_lg === 'en') _lg = _nl((window.location.pathname.split('/').filter(Boolean)[0] || ''));
+      if (_lg === 'en') _lg = _nl(new URLSearchParams(window.location.search).get('lang'));
+      var _label = CAP_LABEL[_lg] || CAP_LABEL.en;
+      document.querySelectorAll('.bz-co__cap[data-cap]').forEach(function (el) {
+        var raw = el.getAttribute('data-cap');
+        var n = Number(raw);
+        if (raw === '' || raw == null || !isFinite(n) || n === 0) { el.remove(); return; }
+        el.textContent = _label + ' ฿' + n.toLocaleString('en-US');
+      });
+    }());
+
+    /* ── 随机展示：每个列表从预取池中随机洗牌抽 8 个 ── */
+    document.querySelectorAll('.bz-cos').forEach(function (cos) {
+      var items = Array.prototype.slice.call(cos.querySelectorAll('.bz-co'));
+      if (items.length <= 8) return;
+      for (var i = items.length - 1; i > 0; i--) {
+        var j = (Math.random() * (i + 1)) | 0;
+        var t = items[i]; items[i] = items[j]; items[j] = t;
+      }
+      items.forEach(function (el, idx) { el.style.display = idx < 8 ? '' : 'none'; });
+      for (var k = 7; k >= 0; k--) { cos.insertBefore(items[k], cos.firstChild); }
+    });
+
+    /* ── "最近有更新"徽标:只标已展示的最多 8 个(重排后就是每个 .bz-cos 的前 8 个 .bz-co),
+       不能标全部预取池(部分列表预取了上百条,徽标接口有批量上限,标不展示的是浪费)。首页
+       卡片位小,用极简圆点(kind='dot'),不用带文字的完整标签。
+       theme.js 是 <script defer>,比这段内联脚本晚执行(defer 在解析完成后、DOMContentLoaded
+       前才跑)——这里此刻拿 window.__bizthaiApplyRecentlyUpdatedTo 必然还是 undefined,
+       必须等 DOMContentLoaded(此时 defer 脚本已跑完)才能拿到,不能直接调用。 */
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!window.__bizthaiApplyRecentlyUpdatedTo) return;
+      document.querySelectorAll('.bz-cos').forEach(function (cos) {
+        var visible = Array.prototype.slice.call(cos.querySelectorAll('.bz-co'), 0, 8);
+        visible.forEach(function (el) {
+          if (!el.querySelector('[data-updated-slot]')) {
+            var nm = el.querySelector('.bz-co__nm');
+            var slot = document.createElement('span');
+            slot.setAttribute('data-updated-slot', '');
+            if (nm && nm.parentNode) nm.parentNode.insertBefore(slot, nm.nextSibling);
+            else el.appendChild(slot);
+          }
+        });
+        window.__bizthaiApplyRecentlyUpdatedTo(visible, 'dot');
+      });
+    });
+
+    /* ── Language swap ── */
+    function normLang(v) { v = String(v || '').toLowerCase(); if (v.indexOf('zh') === 0) return 'zh'; if (v.indexOf('th') === 0) return 'th'; return 'en'; }
+    var lang = normLang(document.documentElement.lang);
+    if (lang === 'en') { var s = (window.location.pathname.split('/').filter(Boolean)[0] || ''); lang = normLang(s); }
+    if (lang === 'en') { lang = normLang(new URLSearchParams(window.location.search).get('lang')); }
+    if (lang === 'en') return;
+    var attr = lang === 'zh' ? 'data-zh' : 'data-th';
+    document.querySelectorAll('[data-en]').forEach(function (el) {
+      var v = el.getAttribute(attr) || el.getAttribute('data-en');
+      if (v) el.textContent = v;
+    });
+  }());
+
+  /* ── Subscribe form ── */
+  (function () {
+    var form = document.getElementById('footer-sub-form');
+    if (!form) return;
+    var statusEl = document.getElementById('footer-sub-status');
+    var btn = form.querySelector('button[type="submit"]');
+    function showStatus(msg, type) {
+      if (!statusEl) return;
+      statusEl.textContent = msg;
+      statusEl.className = 'market-footer__subscribe-status is-visible market-footer__subscribe-status--' + type;
+    }
+    function hideStatus() {
+      if (!statusEl) return;
+      statusEl.className = 'market-footer__subscribe-status';
+      statusEl.textContent = '';
+    }
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var emailInput = document.getElementById('footer-subscribe-email');
+      var email = emailInput ? emailInput.value.trim() : '';
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showStatus('Please enter a valid email address.', 'err'); return; }
+      hideStatus();
+      if (btn) btn.setAttribute('aria-busy', 'true');
+      fetch('/api/site/v1/newsletter/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ email: email })
+      })
+        .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+        .then(function (r) {
+          if (r.ok) { showStatus(r.data.message || 'Subscribed! Thank you.', 'ok'); form.reset(); }
+          else { showStatus(r.data.message || r.data.error || 'Something went wrong. Please try again.', 'err'); }
+        })
+        .catch(function () { showStatus('Network error. Please try again.', 'err'); })
+        .finally(function () { if (btn) btn.removeAttribute('aria-busy'); });
+    });
+  }());
+  </script>
+</div>
